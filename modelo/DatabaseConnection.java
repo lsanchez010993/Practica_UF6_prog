@@ -3,6 +3,7 @@ package modelo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/nba"; // Ajusta el puerto si es necesario y el nombre de la base de datos
@@ -16,6 +17,18 @@ public class DatabaseConnection {
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException("Error conectando a la base de datos", e);
+        }
+    }
+
+    public static void main(String[] args) {
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            // Aquí puedes ejecutar tus sentencias SQL
+            // Por ejemplo:
+            Statement statement = connection.createStatement();
+            // ResultSet resultSet = statement.executeQuery("SELECT * FROM tabla");
+            // ...procesar el resultado...
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
