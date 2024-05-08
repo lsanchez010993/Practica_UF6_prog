@@ -103,4 +103,30 @@ public class PlayerDAO {
             e.printStackTrace();
         }
     }
+
+    public List<Player> getPlayersByTeam(int id) {
+        List<Player> players = new ArrayList<>();
+        String sql = "SELECT * FROM jugadors WHERE equip_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Player player = new Player(
+                        rs.getInt("id"),
+                        rs.getString("nom"),
+                        rs.getString("cognom"),
+                        rs.getDate("data_naixement"),
+                        rs.getString("altura"),
+                        rs.getString("pes"),
+                        rs.getString("posicio"),
+                        rs.getInt("equip_id")
+                );
+                players.add(player);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return players;
+    }
 }
