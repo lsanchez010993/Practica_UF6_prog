@@ -1,9 +1,6 @@
 package modelo;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DatabaseConnection {
     private static final String URL = "jdbc:mysql://192.168.56.103:3306/nba"; // Ajusta el puerto si es necesario y el nombre de la base de datos
@@ -22,11 +19,14 @@ public class DatabaseConnection {
 
     public static void main(String[] args) {
         try (Connection connection = DatabaseConnection.getConnection()) {
-            // Aquí puedes ejecutar tus sentencias SQL
-            // Por ejemplo:
             Statement statement = connection.createStatement();
-            // ResultSet resultSet = statement.executeQuery("SELECT * FROM tabla");
-            // ...procesar el resultado...
+            ResultSet resultSet = statement.executeQuery("SELECT nom, cognom FROM jugadors"); // Consulta de ejemplo
+            while (resultSet.next()) {
+                String nom = resultSet.getString("nom");
+                String congnoms = resultSet.getString("cognom");
+                System.out.println("Jugador: " + nom + ", cognom: " + congnoms);
+            }
+            resultSet.close(); // Cerrar el ResultSet
         } catch (SQLException e) {
             e.printStackTrace();
         }
