@@ -41,6 +41,8 @@ El **TeamStats** se ocupa de las estadísticas específicas de los equipos,
 
 El **MatchStats** se ocupa de las estadísticas específicas de los partidos,
 
+Lo mismo pero con servicio, controlador, etc.
+
 
 ## Librerias necesarias
 - Tienes que descargarte y instalar la libreria de connector **Driver de MySQL**. La puedes encontrar en el siguiente enlace: https://dev.mysql.com/downloads/connector/j/
