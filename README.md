@@ -2,18 +2,18 @@
 
 ## Estructura de carpetas
 
-Hemos dividido la estructura de carpetas en 4 principales: controlador, dao, modelo, vista y servicio.
+Hemos dividido la estructura de carpetas en 4 principales: controlador, modelo.dao, modelo, vista y servicio.
 
-La de dao es parte del modal pero lo hemos puesto fuera para que sea más fácil de encontrar. Pero quiero dejar claro
+La de modelo.dao es parte del modal pero lo hemos puesto fuera para que sea más fácil de encontrar. Pero quiero dejar claro
 que al final es parte del modelo.
 
 En el **modelo** hemos puesto las estructuras de los datos simples. Cada clase y sus atributos se corresponde a una 
 tabla de la base de datos con sus columnas. 
 
-En el **dao** hemos puesto las estructuras de los datos que se van a guardar en la base de datos.
+En el **modelo.dao** hemos puesto las estructuras de los datos que se van a guardar en la base de datos.
 Es decir, las query sql que se van a ejecutar (consultas, inserciones, actualizaciones y eliminaciones).
 
-En el **controlador** es donde estará la lógica de negocio usando dao. 
+En el **controlador** es donde estará la lógica de negocio usando modelo.dao. 
 
 En la **vista** es donde se mostrará la información al usuario.
 

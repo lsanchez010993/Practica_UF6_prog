@@ -1,4 +1,4 @@
-package dao;
+package modelo.dao;
 
 import modelo.DatabaseConnection;
 import modelo.PlayerStats;

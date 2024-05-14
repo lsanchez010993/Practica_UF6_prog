@@ -1,6 +1,6 @@
 package controlador;
 
-import dao.PlayerStatsDAO;
+import modelo.dao.PlayerStatsDAO;
 import modelo.PlayerStats;
 
 import java.util.List;

@@ -1,16 +1,11 @@
-package dao;
+package modelo.dao;
 
 import modelo.DatabaseConnection;
-import modelo.Match;
 import modelo.Player;
-import modelo.Team;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TeamDAO {
 

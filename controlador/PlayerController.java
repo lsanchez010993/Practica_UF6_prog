@@ -1,6 +1,6 @@
 package controlador;
 
-import dao.PlayerDAO;
+import modelo.dao.PlayerDAO;
 import modelo.Player;
 
 import java.util.List;
