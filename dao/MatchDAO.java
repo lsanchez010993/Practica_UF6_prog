@@ -18,11 +18,11 @@ mostrant la informació amb una estructura semblant a aquestes:
      */
     public List<Match> getMatchesOfTeam(String teamName) {
         List<Match> matches = new ArrayList<>();
-        String sql = "SELECT * FROM partits WHERE id LIKE ?";
+        String sql = "SELECT * FROM partits WHERE equip_local = ? UNION SELECT * FROM partits WHERE equip_visitant = ?";
+
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, teamName);
-            pstmt.setString(2, teamName);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 Match match = new Match(
