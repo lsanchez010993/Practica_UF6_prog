@@ -5,15 +5,17 @@ public class Team {
     String nombre;
     String acronimo;
     String ciudad;
-    String estado;
-    int any_fundado;
+    String division;
+    boolean ganado;
+    boolean perdido;
 
-    public Team(int id, String nombre, String acronimo, String ciudad, String estado, int any_fundado) {
+
+    public Team(int id, String nombre, String acronimo, String ciudad, String division, int any_fundado) {
         this.id = id;
         this.nombre = nombre;
         this.acronimo = acronimo;
         this.ciudad = ciudad;
-        this.estado = estado;
+        this.division = division;
         this.any_fundado = any_fundado;
     }
 
@@ -33,8 +35,8 @@ public class Team {
         return ciudad;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getDivision() {
+        return division;
     }
 
     public int getAny_fundado() {

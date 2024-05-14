@@ -7,7 +7,8 @@ Hemos dividido la estructura de carpetas en 4 principales: controlador, dao, mod
 La de dao es parte del modal pero lo hemos puesto fuera para que sea más fácil de encontrar. Pero quiero dejar claro
 que al final es parte del modelo.
 
-En el **modelo** hemos puesto las estructuras de los datos simples.
+En el **modelo** hemos puesto las estructuras de los datos simples. Cada clase y sus atributos se corresponde a una 
+tabla de la base de datos con sus columnas. 
 
 En el **dao** hemos puesto las estructuras de los datos que se van a guardar en la base de datos.
 Es decir, las query sql que se van a ejecutar (consultas, inserciones, actualizaciones y eliminaciones).
@@ -27,6 +28,8 @@ El **Player** es para tratar todo el tema del CRUD.
 El **Team** es para tratar todo el tema del CRUD.
 
 El **Match** es para tratar todo el tema del CRUD.
+
+El **MatchStats** es para tratar todo el tema del CRUD.
 
 El **PlayerStats** se ocupa de las estadísticas específicas de los jugadores,
 como por ejemplo, los puntos, rebotes, asistencias, etc.

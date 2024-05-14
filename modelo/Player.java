@@ -39,5 +39,8 @@ public class Player {
     public String getPosicion() { return posicion; }
     public void setPosicion(String posicion) { this.posicion = posicion; }
     public int getIdEquipo() { return idEquipo; }
-    public void setIdEquipo(int idEquipo) { this.idEquipo = idEquipo; }
+    public void setIdEquipo(int idEquipo) {
+        this.idEquipo = idEquipo;
+    }
+
 }
