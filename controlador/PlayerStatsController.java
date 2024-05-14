@@ -1,7 +1,7 @@
 package controlador;
 
-import modelo.dao.PlayerStatsDAO;
 import modelo.PlayerStats;
+import modelo.dao.PlayerStatsDAO;
 
 import java.util.List;
 
@@ -17,20 +17,20 @@ public class PlayerStatsController {
     }
 
     public List<PlayerStats> getAllPlayerStats() {
-        return playerStatsDAO.getAllPlayerStats();
+        return playerStatsDAO.findAll();
     }
 
-    public void createPlayerStats(int jugadorId, int partitId, double minutsJugats, int punts, int tirsAnotats, int tirsTirats, int tirsTriplesAnotats, int tirsTriplesTirats, int tirsLliuresAnotats, int tirsLliuresTirats, int rebotsOfensius, int rebotsDefensius, int assistencies, int robades, int bloqueigs) {
+    public boolean createPlayerStats(int jugadorId, int partitId, double minutsJugats, int punts, int tirsAnotats, int tirsTirats, int tirsTriplesAnotats, int tirsTriplesTirats, int tirsLliuresAnotats, int tirsLliuresTirats, int rebotsOfensius, int rebotsDefensius, int assistencies, int robades, int bloqueigs) {
         PlayerStats stats = new PlayerStats(jugadorId, partitId, minutsJugats, punts, tirsAnotats, tirsTirats, tirsTriplesAnotats, tirsTriplesTirats, tirsLliuresAnotats, tirsLliuresTirats, rebotsOfensius, rebotsDefensius, assistencies, robades, bloqueigs);
-        playerStatsDAO.insertPlayerStats(stats);
+        return playerStatsDAO.insert(stats);
     }
 
-    public void updatePlayerStats(int jugadorId, int partitId, double minutsJugats, int punts, int tirsAnotats, int tirsTirats, int tirsTriplesAnotats, int tirsTriplesTirats, int tirsLliuresAnotats, int tirsLliuresTirats, int rebotsOfensius, int rebotsDefensius, int assistencies, int robades, int bloqueigs) {
+    public boolean updatePlayerStats(int jugadorId, int partitId, double minutsJugats, int punts, int tirsAnotats, int tirsTirats, int tirsTriplesAnotats, int tirsTriplesTirats, int tirsLliuresAnotats, int tirsLliuresTirats, int rebotsOfensius, int rebotsDefensius, int assistencies, int robades, int bloqueigs) {
         PlayerStats stats = new PlayerStats(jugadorId, partitId, minutsJugats, punts, tirsAnotats, tirsTirats, tirsTriplesAnotats, tirsTriplesTirats, tirsLliuresAnotats, tirsLliuresTirats, rebotsOfensius, rebotsDefensius, assistencies, robades, bloqueigs);
-        playerStatsDAO.updatePlayerStats(stats);
+        return playerStatsDAO.update(stats);
     }
 
-    public void deletePlayerStats(int jugadorId, int partitId) {
-        playerStatsDAO.deletePlayerStats(jugadorId, partitId);
+    public boolean deletePlayerStats(int jugadorId, int partitId) {
+        return playerStatsDAO.deletePlayerStats(jugadorId, partitId);
     }
 }

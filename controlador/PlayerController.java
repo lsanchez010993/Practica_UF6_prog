@@ -1,7 +1,7 @@
 package controlador;
 
-import modelo.dao.PlayerDAO;
 import modelo.Player;
+import modelo.dao.PlayerDAO;
 
 import java.util.List;
 
@@ -13,28 +13,28 @@ public class PlayerController {
     }
 
     public Player getPlayer(int jugadorId) {
-        return playerDAO.getPlayerById(jugadorId);
+        return playerDAO.findById(jugadorId);
     }
 
     public List<Player> getAllPlayers() {
-        return playerDAO.getAllPlayers();
+        return playerDAO.findAll();
     }
 
-    public void createPlayer(int jugadorId, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String posicio, int equipId) {
+    public boolean createPlayer(int jugadorId, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String posicio, int equipId) {
         Player player = new Player(jugadorId, nom, cognom, dataNaixement, alcada, pes, posicio, equipId);
-        playerDAO.insertPlayer(player);
+        return playerDAO.insert(player);
     }
 
-    public void updatePlayer(int jugadorId, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String posicio, int equipId) {
+    public boolean updatePlayer(int jugadorId, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String posicio, int equipId) {
         Player player = new Player(jugadorId, nom, cognom, dataNaixement, alcada, pes, posicio, equipId);
-        playerDAO.updatePlayer(player);
+        return playerDAO.update(player);
     }
 
-    public void deletePlayer(int jugadorId) {
-        playerDAO.deletePlayer(jugadorId);
+    public boolean deletePlayer(int jugadorId) {
+        return playerDAO.delete(jugadorId);
     }
 
     public List<Player> getPlayersByTeam(int equipId) {
-        return playerDAO.getPlayersByTeam(equipId);
+        return playerDAO.findByTeamId(equipId);
     }
 }
