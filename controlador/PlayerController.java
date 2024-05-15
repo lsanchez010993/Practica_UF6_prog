@@ -34,6 +34,10 @@ public class PlayerController {
         return playerDAO.delete(jugadorId);
     }
 
+    public List<Player> getPlayersByTeamName(String teamName) {
+        return playerDAO.findPlayersByTeamName(teamName);
+    }
+
     public List<Player> getPlayersByTeam(int equipId) {
         return playerDAO.findByTeamId(equipId);
     }
