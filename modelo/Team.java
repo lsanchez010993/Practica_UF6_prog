@@ -6,15 +6,20 @@ public class Team {
     String acronimo;
     String ciudad;
     String division;
+    int guanyades;
+    int perdudes;
 
 
 
-    public Team(int id, String nombre, String acronimo, String ciudad, String division, int any_fundado) {
+
+    public Team(int id, String nombre, String acronimo, String ciudad, String division, int guanyades, int perdudes) {
         this.id = id;
         this.nombre = nombre;
         this.acronimo = acronimo;
         this.ciudad = ciudad;
         this.division = division;
+        this.guanyades=guanyades;
+        this.perdudes=perdudes;
 
     }
 
@@ -38,7 +43,25 @@ public class Team {
         return division;
     }
 
+    public void setDivision(String division) {
+        this.division = division;
+    }
 
+    public void setGuanyades(int guanyades) {
+        this.guanyades = guanyades;
+    }
+
+    public void setPerdudes(int perdudes) {
+        this.perdudes = perdudes;
+    }
+
+    public int getGuanyades() {
+        return guanyades;
+    }
+
+    public int getPerdudes() {
+        return perdudes;
+    }
 
     public void setId(int id) {
         this.id = id;
