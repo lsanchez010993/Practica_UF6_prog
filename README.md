@@ -12,6 +12,7 @@ tabla de la base de datos con sus columnas.
 
 En el **modelo.dao** hemos puesto las estructuras de los datos que se van a guardar en la base de datos.
 Es decir, las query sql que se van a ejecutar (consultas, inserciones, actualizaciones y eliminaciones).
+Decidimos ponerlo en un package aparte para que sea más fácil de encontrar y de entender además de que es mucho más limpio y modular.
 
 En el **controlador** es donde estará la lógica de negocio usando modelo.dao. 
 
