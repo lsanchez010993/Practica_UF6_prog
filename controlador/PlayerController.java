@@ -1,7 +1,7 @@
 package controlador;
 
-import dao.PlayerDAO;
 import modelo.Player;
+import modelo.dao.PlayerDAO;
 
 import java.util.List;
 
@@ -12,25 +12,29 @@ public class PlayerController {
         this.playerDAO = new PlayerDAO();
     }
 
-    public Player getPlayer(int id) {
-        return playerDAO.getPlayerById(id);
+    public Player getPlayer(int jugadorId) {
+        return playerDAO.findById(jugadorId);
     }
 
     public List<Player> getAllPlayers() {
-        return playerDAO.getAllPlayers();
+        return playerDAO.findAll();
     }
 
-    public void createPlayer(int id, String nombre, String apellido, java.util.Date fechaNacimiento, String altura, String peso, String posicion, int idEquipo) {
-        Player player = new Player(id, nombre, apellido, fechaNacimiento, altura, peso, posicion, idEquipo);
-        playerDAO.insertPlayer(player);
+    public boolean createPlayer(int jugadorId, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String posicio, int equipId) {
+        Player player = new Player(jugadorId, nom, cognom, dataNaixement, alcada, pes, posicio, equipId);
+        return playerDAO.insert(player);
     }
 
-    public void updatePlayer(int id, String nombre, String apellido, java.util.Date fechaNacimiento, String altura, String peso, String posicion, int idEquipo) {
-        Player player = new Player(id, nombre, apellido, fechaNacimiento, altura, peso, posicion, idEquipo);
-        playerDAO.updatePlayer(player);
+    public boolean updatePlayer(int jugadorId, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String posicio, int equipId) {
+        Player player = new Player(jugadorId, nom, cognom, dataNaixement, alcada, pes, posicio, equipId);
+        return playerDAO.update(player);
     }
 
-    public void deletePlayer(int id) {
-        playerDAO.deletePlayer(id);
+    public boolean deletePlayer(int jugadorId) {
+        return playerDAO.delete(jugadorId);
+    }
+
+    public List<Player> getPlayersByTeam(int equipId) {
+        return playerDAO.findByTeamId(equipId);
     }
 }

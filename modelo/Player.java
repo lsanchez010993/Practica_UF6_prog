@@ -3,44 +3,89 @@ package modelo;
 import java.util.Date;
 
 public class Player {
-    private int id;
-    private String nombre;
-    private String apellido;
-    private Date fechaNacimiento;
-    private String altura;
-    private String peso;
-    private String posicion;
-    private int idEquipo;
+    private int jugadorId;
+    private String nom;
+    private String cognom;
+    private Date dataNaixement;
+    private String alcada; //Altura
+    private String pes;
+    private String posicio;
+    private int equipId;
 
-    public Player(int id, String nombre, String apellido, Date fechaNacimiento, String altura, String peso, String posicion, int idEquipo) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
-        this.altura = altura;
-        this.peso = peso;
-        this.posicion = posicion;
-        this.idEquipo = idEquipo;
+    // Constructor
+    public Player(int jugadorId, String nom, String cognom, Date dataNaixement, String alcada, String pes, String posicio, int equipId) {
+        this.jugadorId = jugadorId;
+        this.nom = nom;
+        this.cognom = cognom;
+        this.dataNaixement = dataNaixement;
+        this.alcada = alcada;
+        this.pes = pes;
+        this.posicio = posicio;
+        this.equipId = equipId;
     }
 
-    // Getters y setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-    public String getApellido() { return apellido; }
-    public void setApellido(String apellido) { this.apellido = apellido; }
-    public Date getFechaNacimiento() { return fechaNacimiento; }
-    public void setFechaNacimiento(Date fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
-    public String getAltura() { return altura; }
-    public void setAltura(String altura) { this.altura = altura; }
-    public String getPeso() { return peso; }
-    public void setPeso(String peso) { this.peso = peso; }
-    public String getPosicion() { return posicion; }
-    public void setPosicion(String posicion) { this.posicion = posicion; }
-    public int getIdEquipo() { return idEquipo; }
-    public void setIdEquipo(int idEquipo) {
-        this.idEquipo = idEquipo;
+    // Getters y Setters
+    public int getJugadorId() {
+        return jugadorId;
     }
 
+    public void setJugadorId(int jugadorId) {
+        this.jugadorId = jugadorId;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getCognom() {
+        return cognom;
+    }
+
+    public void setCognom(String cognom) {
+        this.cognom = cognom;
+    }
+
+    public Date getDataNaixement() {
+        return dataNaixement;
+    }
+
+    public void setDataNaixement(Date dataNaixement) {
+        this.dataNaixement = dataNaixement;
+    }
+
+    public String getAlcada() {
+        return alcada;
+    }
+
+    public void setAlcada(String alcada) {
+        this.alcada = alcada;
+    }
+
+    public String getPes() {
+        return pes;
+    }
+
+    public void setPes(String pes) {
+        this.pes = pes;
+    }
+
+    public String getPosicio() {
+        return posicio;
+    }
+
+    public void setPosicio(String posicio) {
+        this.posicio = posicio;
+    }
+
+    public int getEquipId() {
+        return equipId;
+    }
+
+    public void setEquipId(int equipId) {
+        this.equipId = equipId;
+    }
 }
