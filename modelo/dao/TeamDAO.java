@@ -1,11 +1,16 @@
 package modelo.dao;
 
 import modelo.DatabaseConnection;
+import modelo.Match;
 import modelo.Player;
+import modelo.Team;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeamDAO {
 
@@ -21,7 +26,7 @@ haurien de variar malgrat canviï d'equip.
     */
     //pandole el id por parametro hay que cambiar el equip_id con un update.
     public void updateTeamPlayer(Player player, int idEquipo) {
-        String sql = "UPDATE jugadors SET equip_id = "+idEquipo+" WHERE id = ?";
+        String sql = "UPDATE jugadors SET equip_id = ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, idEquipo); // Establecemos el nuevo ID de equipo
