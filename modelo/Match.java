@@ -8,7 +8,7 @@ public class Match {
     private Date data_partit;
     private String matx;
     private String resultat;
-//hola que haces
+
 
     public Match(int partit_id, int equip_id, Date data_partit, String matx, String resultat) {
         this.partit_id = partit_id;
