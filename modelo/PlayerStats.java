@@ -1,8 +1,8 @@
 package modelo;
 
 public class PlayerStats {
-    private int jugadorId;
-    private int partitId;
+    private int jugador_id;
+    private int partit_id;
     private double minutsJugats;
     private int punts;
     private int tirsAnotats;
@@ -18,9 +18,9 @@ public class PlayerStats {
     private int bloqueigs;
 
     // Constructor
-    public PlayerStats(int jugadorId, int partitId, double minutsJugats, int punts, int tirsAnotats, int tirsTirats, int tirsTriplesAnotats, int tirsTriplesTirats, int tirsLliuresAnotats, int tirsLliuresTirats, int rebotsOfensius, int rebotsDefensius, int assistencies, int robades, int bloqueigs) {
-        this.jugadorId = jugadorId;
-        this.partitId = partitId;
+    public PlayerStats(int jugador_id, int partit_id, double minutsJugats, int punts, int tirsAnotats, int tirsTirats, int tirsTriplesAnotats, int tirsTriplesTirats, int tirsLliuresAnotats, int tirsLliuresTirats, int rebotsOfensius, int rebotsDefensius, int assistencies, int robades, int bloqueigs) {
+        this.jugador_id = jugador_id;
+        this.partit_id = partit_id;
         this.minutsJugats = minutsJugats;
         this.punts = punts;
         this.tirsAnotats = tirsAnotats;
@@ -36,20 +36,20 @@ public class PlayerStats {
         this.bloqueigs = bloqueigs;
     }
 
-    public int getJugadorId() {
-        return jugadorId;
+    public int getJugador_id() {
+        return jugador_id;
     }
 
-    public void setJugadorId(int jugadorId) {
-        this.jugadorId = jugadorId;
+    public void setJugador_id(int jugador_id) {
+        this.jugador_id = jugador_id;
     }
 
-    public int getPartitId() {
-        return partitId;
+    public int getpartit_id() {
+        return partit_id;
     }
 
-    public void setPartitId(int partitId) {
-        this.partitId = partitId;
+    public void setpartit_id(int partit_id) {
+        this.partit_id = partit_id;
     }
 
     public double getMinutsJugats() {

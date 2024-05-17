@@ -10,11 +10,11 @@ import java.util.List;
 public class PlayerDAO implements GenericDAO<Player, Integer> {
 
     @Override
-    public Player findById(Integer jugadorId) {
+    public Player findById(Integer jugador_id) {
         String sql = "SELECT * FROM jugadors WHERE jugador_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, jugadorId);
+            pstmt.setInt(1, jugador_id);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 return new Player(
@@ -65,14 +65,14 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
         String sql = "INSERT INTO jugadors (jugador_id, nom, cognom, data_naixement, alcada, pes, posicio, equip_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, player.getJugador_Id());
+            pstmt.setInt(1, player.getJugador_id());
             pstmt.setString(2, player.getNom());
             pstmt.setString(3, player.getCognom());
             pstmt.setDate(4, new java.sql.Date(player.getDataNaixement().getTime()));
             pstmt.setString(5, player.getAlcada());
             pstmt.setString(6, player.getPes());
             pstmt.setString(7, player.getPosicio());
-            pstmt.setInt(8, player.getEquipId());
+            pstmt.setInt(8, player.getequip_id());
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -92,8 +92,8 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
             pstmt.setString(4, player.getAlcada());
             pstmt.setString(5, player.getPes());
             pstmt.setString(6, player.getPosicio());
-            pstmt.setInt(7, player.getEquipId());
-            pstmt.setInt(8, player.getJugador_Id());
+            pstmt.setInt(7, player.getequip_id());
+            pstmt.setInt(8, player.getJugador_id());
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -103,11 +103,11 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
     }
 
     @Override
-    public boolean delete(Integer jugadorId) {
+    public boolean delete(Integer jugador_id) {
         String sql = "DELETE FROM jugadors WHERE jugador_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, jugadorId);
+            pstmt.setInt(1, jugador_id);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -116,12 +116,12 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
         }
     }
 
-    public List<Player> findByTeamId(int equipId) {
+    public List<Player> findByTeamId(int equip_id) {
         List<Player> players = new ArrayList<>();
         String sql = "SELECT * FROM jugadors WHERE equip_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, equipId);
+            pstmt.setInt(1, equip_id);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 Player player = new Player(

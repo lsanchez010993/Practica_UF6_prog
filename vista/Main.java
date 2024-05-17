@@ -164,7 +164,7 @@ public class Main {
         System.out.println("Se encontraron varios jugadores con el mismo nombre:");
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            System.out.println((i + 1) + ". " + player.getNom() + " " + player.getCognom() + " (ID: " + player.getJugadorId() + ")");
+            System.out.println((i + 1) + ". " + player.getNom() + " " + player.getCognom() + " (ID: " + player.getJugador_id() + ")");
         }
 
         int opcion = -1;
@@ -192,7 +192,7 @@ public class Main {
     }
 
     private static void mostrarMediaJugador(Player player) {
-        double[] medias = playerStatsController.calcularMediasJugador(player.getJugadorId());
+        double[] medias = playerStatsController.calcularMediasJugador(player.getJugador_id());
 
         if (medias == null) {
             System.out.println("No se encontraron estadísticas para el jugador " + player.getNom() + " " + player.getCognom());

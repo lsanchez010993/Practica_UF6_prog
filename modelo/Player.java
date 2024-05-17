@@ -3,34 +3,34 @@ package modelo;
 import java.util.Date;
 
 public class Player {
-    private int jugador_Id;
+    private int jugador_id;
     private String nom;
     private String cognom;
     private Date dataNaixement;
     private String alcada; //Altura
     private String pes;
     private String posicio;
-    private int equipId;
+    private int equip_id;
 
     // Constructor
-    public Player(int jugador_Id, String nom, String cognom, Date dataNaixement, String alcada, String pes, String posicio, int equipId) {
-        this.jugador_Id = jugador_Id;
+    public Player(int jugador_id, String nom, String cognom, Date dataNaixement, String alcada, String pes, String posicio, int equip_id) {
+        this.jugador_id = jugador_id;
         this.nom = nom;
         this.cognom = cognom;
         this.dataNaixement = dataNaixement;
         this.alcada = alcada;
         this.pes = pes;
         this.posicio = posicio;
-        this.equipId = equipId;
+        this.equip_id = equip_id;
     }
 
     // Getters y Setters
-    public int getJugador_Id() {
-        return jugador_Id;
+    public int getJugador_id() {
+        return jugador_id;
     }
 
-    public void setJugador_Id(int jugador_Id) {
-        this.jugador_Id = jugador_Id;
+    public void setJugador_id(int jugador_id) {
+        this.jugador_id = jugador_id;
     }
 
     public String getNom() {
@@ -81,11 +81,11 @@ public class Player {
         this.posicio = posicio;
     }
 
-    public int getEquipId() {
-        return equipId;
+    public int getequip_id() {
+        return equip_id;
     }
 
-    public void setEquipId(int equipId) {
-        this.equipId = equipId;
+    public void setequip_id(int equip_id) {
+        this.equip_id = equip_id;
     }
 }
