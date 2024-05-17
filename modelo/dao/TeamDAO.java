@@ -1,7 +1,6 @@
 package modelo.dao;
 
 import modelo.DatabaseConnection;
-import modelo.Match;
 import modelo.Player;
 import modelo.Team;
 
@@ -26,7 +25,7 @@ haurien de variar malgrat canviï d'equip.
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, idEquipo); // Establecemos el nuevo ID de equipo
-            pstmt.setInt(2, player.getJugadorId()); // Filtro por el ID del jugador
+            pstmt.setInt(2, player.getJugador_Id()); // Filtro por el ID del jugador
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,11 +86,11 @@ haurien de variar malgrat canviï d'equip.
         String sql = "INSERT INTO equips (id, ciutat, nom, acronim, divisio, guanyades, perdudes) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, team.getId());
-            pstmt.setString(2, team.getCiudad());
-            pstmt.setString(3, team.getNombre());
-            pstmt.setString(4, team.getAcronimo());
-            pstmt.setString(5, team.getDivision());
+            pstmt.setInt(1, team.getEquip_id());
+            pstmt.setString(2, team.getCiutat());
+            pstmt.setString(3, team.getNom());
+            pstmt.setString(4, team.getAcronim());
+            pstmt.setString(5, team.getDivisio());
             pstmt.setInt(6, team.getGuanyades());
             pstmt.setInt(7, team.getPerdudes());
             int affectedRows = pstmt.executeUpdate();
@@ -107,14 +106,14 @@ haurien de variar malgrat canviï d'equip.
         String sql = "UPDATE equips SET id = ?, ciutat = ?, nom = ?, acronim = ?, divisio = ?, guanyades = ?, perdudes = ? WHERE equip_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, team.getId());
-            pstmt.setString(2, team.getCiudad());
-            pstmt.setString(3, team.getNombre());
-            pstmt.setString(4, team.getAcronimo());
-            pstmt.setString(5, team.getDivision());
+            pstmt.setInt(1, team.getEquip_id());
+            pstmt.setString(2, team.getCiutat());
+            pstmt.setString(3, team.getNom());
+            pstmt.setString(4, team.getAcronim());
+            pstmt.setString(5, team.getDivisio());
             pstmt.setInt(6, team.getGuanyades()); // Modifiqué setBoolean a setInt
             pstmt.setInt(7, team.getPerdudes());  // Modifiqué setBoolean a setInt
-            pstmt.setInt(8, team.getId()); // Ajusté el índice de los parámetros
+            pstmt.setInt(8, team.getEquip_id()); // Ajusté el índice de los parámetros
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {

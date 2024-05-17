@@ -65,7 +65,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
         String sql = "INSERT INTO jugadors (jugador_id, nom, cognom, data_naixement, alcada, pes, posicio, equip_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, player.getJugadorId());
+            pstmt.setInt(1, player.getJugador_Id());
             pstmt.setString(2, player.getNom());
             pstmt.setString(3, player.getCognom());
             pstmt.setDate(4, new java.sql.Date(player.getDataNaixement().getTime()));
@@ -93,7 +93,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
             pstmt.setString(5, player.getPes());
             pstmt.setString(6, player.getPosicio());
             pstmt.setInt(7, player.getEquipId());
-            pstmt.setInt(8, player.getJugadorId());
+            pstmt.setInt(8, player.getJugador_Id());
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {

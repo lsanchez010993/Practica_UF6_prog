@@ -3,6 +3,7 @@ package modelo.dao;
 
 import modelo.DatabaseConnection;
 import modelo.Match;
+import modelo.Player;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MatchDAO {
+public class MatchDAO implements GenericDAO<Match,Integer>{
     /*
     3.- Llistar tots els partits jugats per un equip amb el seu resultat.
     Demanarem el nom d’un equip en concret i posteriorment llistarem tots els partits i resultats que ha obtingut,
@@ -44,6 +45,51 @@ public class MatchDAO {
             e.printStackTrace();
         }
         return matches;
+    }
+
+    @Override
+    public Match findById(Integer partitId) {
+        String sql = "SELECT * FROM partits WHERE partit_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, partitId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new Match(
+                        rs.getInt("partit_id"),
+                        rs.getInt("equip_id"),
+                        rs.getInt("temporada_id"),
+                        rs.getDate("data_naixement"),
+                        rs.getString("alcada"),
+                        rs.getString("pes"),
+                        rs.getString("posicio"),
+                        rs.getInt("equip_id")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Match> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public boolean insert(Match entity) {
+        return false;
+    }
+
+    @Override
+    public boolean update(Match entity) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(Integer integer) {
+        return false;
     }
 }
 

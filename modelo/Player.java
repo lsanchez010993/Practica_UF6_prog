@@ -3,7 +3,7 @@ package modelo;
 import java.util.Date;
 
 public class Player {
-    private int jugadorId;
+    private int jugador_Id;
     private String nom;
     private String cognom;
     private Date dataNaixement;
@@ -13,8 +13,8 @@ public class Player {
     private int equipId;
 
     // Constructor
-    public Player(int jugadorId, String nom, String cognom, Date dataNaixement, String alcada, String pes, String posicio, int equipId) {
-        this.jugadorId = jugadorId;
+    public Player(int jugador_Id, String nom, String cognom, Date dataNaixement, String alcada, String pes, String posicio, int equipId) {
+        this.jugador_Id = jugador_Id;
         this.nom = nom;
         this.cognom = cognom;
         this.dataNaixement = dataNaixement;
@@ -25,12 +25,12 @@ public class Player {
     }
 
     // Getters y Setters
-    public int getJugadorId() {
-        return jugadorId;
+    public int getJugador_Id() {
+        return jugador_Id;
     }
 
-    public void setJugadorId(int jugadorId) {
-        this.jugadorId = jugadorId;
+    public void setJugador_Id(int jugador_Id) {
+        this.jugador_Id = jugador_Id;
     }
 
     public String getNom() {

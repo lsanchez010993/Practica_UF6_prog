@@ -1,50 +1,48 @@
 package modelo;
 
 public class Team {
-    int id;
-    String nombre;
-    String acronimo;
-    String ciudad;
-    String division;
+    int equip_id;
+    String nom;
+    String ciutat;
+    String acronim;
+    String divisio;
     int guanyades;
     int perdudes;
 
 
-
-
-    public Team(int id, String nombre, String acronimo, String ciudad, String division, int guanyades, int perdudes) {
-        this.id = id;
-        this.nombre = nombre;
-        this.acronimo = acronimo;
-        this.ciudad = ciudad;
-        this.division = division;
-        this.guanyades=guanyades;
-        this.perdudes=perdudes;
+    public Team(int equip_id, String nom, String acronim, String ciutat, String divisio, int guanyades, int perdudes) {
+        this.equip_id = equip_id;
+        this.nom = nom;
+        this.acronim = acronim;
+        this.ciutat = ciutat;
+        this.divisio = divisio;
+        this.guanyades = guanyades;
+        this.perdudes = perdudes;
 
     }
 
-    public int getId() {
-        return id;
+    public int getEquip_id() {
+        return equip_id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNom() {
+        return nom;
     }
 
-    public String getAcronimo() {
-        return acronimo;
+    public String getAcronim() {
+        return acronim;
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public String getCiutat() {
+        return ciutat;
     }
 
-    public String getDivision() {
-        return division;
+    public String getDivisio() {
+        return divisio;
     }
 
-    public void setDivision(String division) {
-        this.division = division;
+    public void setDivisio(String divisio) {
+        this.divisio = divisio;
     }
 
     public void setGuanyades(int guanyades) {
@@ -63,20 +61,20 @@ public class Team {
         return perdudes;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setEquip_id(int equip_id) {
+        this.equip_id = equip_id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public void setAcronimo(String acronimo) {
-        this.acronimo = acronimo;
+    public void setAcronim(String acronim) {
+        this.acronim = acronim;
     }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+    public void setCiutat(String ciutat) {
+        this.ciutat = ciutat;
     }
 
 
