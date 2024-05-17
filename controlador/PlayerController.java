@@ -20,13 +20,13 @@ public class PlayerController {
         return playerDAO.findAll();
     }
 
-    public boolean createPlayer(int jugador_id, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String posicio, int equipId) {
-        Player player = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, posicio, equipId);
+    public boolean createPlayer(int jugador_id, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String posicio, int equip_id) {
+        Player player = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, posicio, equip_id);
         return playerDAO.insert(player);
     }
 
-    public boolean updatePlayer(int jugador_id, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String posicio, int equipId) {
-        Player player = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, posicio, equipId);
+    public boolean updatePlayer(int jugador_id, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String posicio, int equip_id) {
+        Player player = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, posicio, equip_id);
         return playerDAO.update(player);
     }
 
@@ -38,8 +38,8 @@ public class PlayerController {
         return playerDAO.findPlayersByTeamName(teamName);
     }
 
-    public List<Player> getPlayersByTeam(int equipId) {
-        return playerDAO.findByTeamId(equipId);
+    public List<Player> getPlayersByTeam(int equip_id) {
+        return playerDAO.findByTeamId(equip_id);
     }
 
     public List<Player> getPlayersByName(String name) {

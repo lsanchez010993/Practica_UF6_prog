@@ -25,7 +25,7 @@ haurien de variar malgrat canviï d'equip.
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, idEquipo); // Establecemos el nuevo ID de equipo
-            pstmt.setInt(2, player.getJugador_Id()); // Filtro por el ID del jugador
+            pstmt.setInt(2, player.getJugador_id()); // Filtro por el ID del jugador
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
