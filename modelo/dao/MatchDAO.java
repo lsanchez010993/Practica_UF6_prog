@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MatchDAO implements GenericDAO<Match,Integer>{
+public class MatchDAO implements GenericDAO<Match, Integer> {
     /*
     3.- Llistar tots els partits jugats per un equip amb el seu resultat.
     Demanarem el nom d’un equip en concret i posteriorment llistarem tots els partits i resultats que ha obtingut,
@@ -91,18 +91,53 @@ public class MatchDAO implements GenericDAO<Match,Integer>{
     }
 
     @Override
-    public boolean insert(Match entity) {
-        return false;
+    public boolean insert(Match match) {
+        String sql = "INSERT INTO partits (partit_id, equip_id, data_partit, matx, resultat) VALUES (?, ?, ?, ?,?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, match.getPartit_id());
+            pstmt.setInt(2, match.getEquip_id());
+            pstmt.setDate(4, new java.sql.Date(match.getData_partit().getTime()));
+            pstmt.setString(5, match.getMatx());
+            pstmt.setString(6, match.getResultat());
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public boolean update(Match entity) {
-        return false;
+    public boolean update(Match match) {
+        String sql = "UPDATE partits SET equip_id = ?, data_partit = ?, matx = ?, resultat = ?, WHERE partit_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(2, match.getEquip_id());
+            pstmt.setDate(4, new java.sql.Date(match.getData_partit().getTime()));
+            pstmt.setString(5, match.getMatx());
+            pstmt.setString(6, match.getResultat());
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public boolean delete(Integer integer) {
-        return false;
+    public boolean delete(Integer equip_id) {
+        String sql = "DELETE FROM partits WHERE equip_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, equip_id);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
 
