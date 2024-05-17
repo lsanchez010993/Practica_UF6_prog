@@ -5,10 +5,7 @@ import modelo.DatabaseConnection;
 import modelo.Match;
 import modelo.Player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +29,7 @@ public class MatchDAO implements GenericDAO<Match,Integer>{
             while (rs.next()) {
                 Match match = new Match(
                         rs.getString("partit_id"),
-                        rs.getString("dataPartit"),
+                        rs.getString("data_Partit"),
                         rs.getString("matx"),
                         rs.getString("resultat"),
                         rs.getString("ciutat"),
@@ -58,12 +55,9 @@ public class MatchDAO implements GenericDAO<Match,Integer>{
                 return new Match(
                         rs.getInt("partit_id"),
                         rs.getInt("equip_id"),
-                        rs.getInt("temporada_id"),
-                        rs.getDate("data_naixement"),
-                        rs.getString("alcada"),
-                        rs.getString("pes"),
-                        rs.getString("posicio"),
-                        rs.getInt("equip_id")
+                        rs.getDate("data_partit"),
+                        rs.getString("matx"),
+                        rs.getString("resultat")
                 );
             }
         } catch (SQLException e) {
@@ -74,7 +68,26 @@ public class MatchDAO implements GenericDAO<Match,Integer>{
 
     @Override
     public List<Match> findAll() {
-        return List.of();
+        List<Match> matches = new ArrayList<>();
+        String sql = "SELECT * FROM partits";
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Match match = new Match(
+                        rs.getInt("partit_id"),
+                        rs.getInt("equip_id"),
+                        rs.getDate("data_partit"),
+                        rs.getString("matx"),
+                        rs.getString("resultat")
+
+                );
+                matches.add(match);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return matches;
     }
 
     @Override

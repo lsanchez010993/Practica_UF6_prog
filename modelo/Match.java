@@ -4,19 +4,22 @@ import java.util.Date;
 
 public class Match {
     private int partit_id;
-    private int equipId;
-    private Date dataPartit;
+    private int equip_id;
+    private Date data_partit;
     private String matx;
     private String resultat;
 
 
-    public Match(int partit_id, int equipId, Date dataPartit, String matx, String resultat) {
+    public Match(int partit_id, int equip_id, Date data_partit, String matx, String resultat) {
         this.partit_id = partit_id;
-        this.equipId = equipId;
-        this.dataPartit = dataPartit;
+        this.equip_id = equip_id;
+        this.data_partit = data_partit;
         this.matx = matx;
         this.resultat = resultat;
 
+    }
+
+    public Match(String partitId, String dataPartit, String matx, String resultat, String ciutat, String nomEquip) {
     }
 
 
@@ -26,13 +29,13 @@ public class Match {
         return partit_id;
     }
 
-    public int getEquipId() {
-        return equipId;
+    public int getEquip_id() {
+        return equip_id;
     }
 
 
-    public String getDataPartit() {
-        return dataPartit;
+    public Date getData_partit() {
+        return data_partit;
     }
 
     public String getMatx() {
