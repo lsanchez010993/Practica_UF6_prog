@@ -11,7 +11,6 @@ public class PlayerStatsDAO implements GenericDAO<PlayerStats, Integer> {
 
     @Override
     public PlayerStats findById(Integer id) {
-        // Este método no es aplicable directamente a PlayerStats porque necesita dos IDs (jugadorId y partitId).
         throw new UnsupportedOperationException("Método no soportado para PlayerStats");
     }
 
@@ -106,7 +105,6 @@ public class PlayerStatsDAO implements GenericDAO<PlayerStats, Integer> {
 
     @Override
     public boolean delete(Integer id) {
-        // Este método no es aplicable directamente a PlayerStats porque necesita dos IDs (jugadorId y partitId).
         throw new UnsupportedOperationException("Método no soportado para PlayerStats");
     }
 
@@ -154,5 +152,38 @@ public class PlayerStatsDAO implements GenericDAO<PlayerStats, Integer> {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<PlayerStats> getPlayerStatsByPlayerId(int jugadorId) {
+        List<PlayerStats> stats = new ArrayList<>();
+        String sql = "SELECT * FROM estadistiques_jugadors WHERE jugador_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, jugadorId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                PlayerStats stat = new PlayerStats(
+                        rs.getInt("jugador_id"),
+                        rs.getInt("partit_id"),
+                        rs.getDouble("minuts_jugats"),
+                        rs.getInt("punts"),
+                        rs.getInt("tirs_anotats"),
+                        rs.getInt("tirs_tirats"),
+                        rs.getInt("tirs_triples_anotats"),
+                        rs.getInt("tirs_triples_tirats"),
+                        rs.getInt("tirs_lliures_anotats"),
+                        rs.getInt("tirs_lliures_tirats"),
+                        rs.getInt("rebots_ofensius"),
+                        rs.getInt("rebots_defensius"),
+                        rs.getInt("assistencies"),
+                        rs.getInt("robades"),
+                        rs.getInt("bloqueigs")
+                );
+                stats.add(stat);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return stats;
     }
 }
