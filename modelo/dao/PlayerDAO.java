@@ -72,7 +72,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
             pstmt.setString(5, player.getAlcada());
             pstmt.setString(6, player.getPes());
             pstmt.setString(7, player.getPosicio());
-            pstmt.setInt(8, player.getequip_id());
+            pstmt.setInt(8, player.getEquip_id());
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -92,7 +92,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
             pstmt.setString(4, player.getAlcada());
             pstmt.setString(5, player.getPes());
             pstmt.setString(6, player.getPosicio());
-            pstmt.setInt(7, player.getequip_id());
+            pstmt.setInt(7, player.getEquip_id());
             pstmt.setInt(8, player.getJugador_id());
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;

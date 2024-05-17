@@ -7,12 +7,11 @@ public class Player {
     private String nom;
     private String cognom;
     private Date dataNaixement;
-    private String alcada; //Altura
+    private String alcada;
     private String pes;
     private String posicio;
     private int equip_id;
 
-    // Constructor
     public Player(int jugador_id, String nom, String cognom, Date dataNaixement, String alcada, String pes, String posicio, int equip_id) {
         this.jugador_id = jugador_id;
         this.nom = nom;
@@ -81,11 +80,11 @@ public class Player {
         this.posicio = posicio;
     }
 
-    public int getequip_id() {
+    public int getEquip_id() {
         return equip_id;
     }
 
-    public void setequip_id(int equip_id) {
+    public void setEquip_id(int equip_id) {
         this.equip_id = equip_id;
     }
 }
