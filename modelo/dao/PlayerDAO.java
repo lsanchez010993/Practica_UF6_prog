@@ -167,4 +167,31 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
         }
         return players;
     }
+
+    public List<Player> findPlayersByName(String name) {
+        List<Player> players = new ArrayList<>();
+        String sql = "SELECT * FROM jugadors WHERE LOWER(nom) LIKE ? OR LOWER(cognom) LIKE ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, "%" + name.toLowerCase() + "%");
+            pstmt.setString(2, "%" + name.toLowerCase() + "%");
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Player player = new Player(
+                        rs.getInt("jugador_id"),
+                        rs.getString("nom"),
+                        rs.getString("cognom"),
+                        rs.getDate("data_naixement"),
+                        rs.getString("alcada"),
+                        rs.getString("pes"),
+                        rs.getString("posicio"),
+                        rs.getInt("equip_id")
+                );
+                players.add(player);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return players;
+    }
 }

@@ -41,4 +41,8 @@ public class PlayerController {
     public List<Player> getPlayersByTeam(int equipId) {
         return playerDAO.findByTeamId(equipId);
     }
+
+    public List<Player> getPlayersByName(String name) {
+        return playerDAO.findPlayersByName(name);
+    }
 }
