@@ -146,4 +146,33 @@ haurien de variar malgrat canviï d'equip.
      */
 
     //9. Canviar nom franquícia d’un equip
+    public void updateTeamNameDAO(String nomActual, String nomNuevo) {
+        String sql = "UPDATE equips SET nom = ? WHERE nom = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nomNuevo); // Nuevo nombre del equipo
+            pstmt.setString(2, nomActual); // Nombre actual del equipo
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public List<String> getAllTeams() {
+        List<String> teamNames = new ArrayList<>();
+        String sql = "SELECT nom FROM equips";
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                String teamName = rs.getString("nom");
+                teamNames.add(teamName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return teamNames;
+    }
+
+
+
 }

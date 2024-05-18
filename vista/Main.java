@@ -2,6 +2,7 @@ package vista;
 
 import controlador.PlayerController;
 import controlador.PlayerStatsController;
+import controlador.TeamController;
 import modelo.Player;
 
 import java.util.InputMismatchException;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 
 public class Main {
     static Scanner scan = new Scanner(System.in);
+    static TeamController teamController = new TeamController();
     static PlayerController playerController = new PlayerController(); // Crear una instancia del controlador
     static PlayerStatsController playerStatsController = new PlayerStatsController(); // Crear una instancia del controlador de estadísticas
 
@@ -45,7 +47,7 @@ public class Main {
                         calcularMediaJugador();
                         break;
                     case 3:
-                        // Otra funcionalidad
+                        listarPartidoPorEquipo();
                         break;
                     case 4:
                         // Otra funcionalidad
@@ -63,7 +65,7 @@ public class Main {
                         // Otra funcionalidad
                         break;
                     case 9:
-                        // Otra funcionalidad
+                        actualizarNombreEquipo();
                         break;
                     case 0:
                         System.out.println("Saliendo de la aplicación...");
@@ -80,6 +82,9 @@ public class Main {
             }
         } while (opcion != 0);
     }
+
+
+
 
     private static void listarJugadoresDeUnEquipo() {
         String nombreEquipo;
@@ -226,4 +231,41 @@ public class Main {
         }
         return true;
     }
+
+    private static void listarPartidoPorEquipo() {
+
+    }
+    private static void actualizarNombreEquipo() {
+        String nombreEquipoActual;
+        String nombreEquipoNuevo;
+        boolean salir = false;
+        do {
+            System.out.print("Introduce el nombre del equipo (o escribe 'regresar' para volver al menú): ");
+            nombreEquipoActual = scan.nextLine();
+
+            if (nombreEquipoActual.equalsIgnoreCase("regresar")) {
+                return; // Volver al menú principal
+            }
+
+            // Validación del nombre del equipo
+            if (!isValidTeamName(nombreEquipoActual)) {
+                System.out.println("Nombre de equipo inválido. No debe contener números y no puede estar vacío. Inténtalo de nuevo.");
+                continue; // Repetir el bucle si el nombre del equipo es inválido
+            }
+            System.out.println("Introduce el nuevo nombre del equipo:");
+            nombreEquipoNuevo=scan.nextLine();
+            if (!nombreEquipoNuevo.isEmpty()) {
+
+                if (teamController.changeNameTeam(nombreEquipoActual, nombreEquipoNuevo)) {
+                    System.out.println("Nombre del equipo actualizado exitosamente.");
+                    salir = true;
+                } else {
+                    System.out.println("No se pudo encontrar un equipo con ese nombre. Inténtalo de nuevo.");
+                }
+            }
+
+        } while (!salir);
+
+    }
+
 }

@@ -4,8 +4,7 @@
 
 Hemos dividido la estructura de carpetas en 4 principales: controlador, modelo.dao, modelo, vista y servicio.
 
-La de modelo.dao es parte del modal pero lo hemos puesto fuera para que sea más fácil de encontrar. Pero quiero dejar claro
-que al final es parte del modelo.
+La de modelo.dao es parte del modal pero lo hemos puesto fuera para que sea más fácil de encontrar. Pero al final es parte del modelo.
 
 En el **modelo** hemos puesto las estructuras de los datos simples. Cada clase y sus atributos se corresponde a una 
 tabla de la base de datos con sus columnas. 
