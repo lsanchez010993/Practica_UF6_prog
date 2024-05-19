@@ -53,7 +53,7 @@ public class Main {
                         // Otra funcionalidad
                         break;
                     case 5:
-                        // Otra funcionalidad
+                        traspasarJugador_a_Equipo();
                         break;
                     case 6:
                         // Otra funcionalidad
@@ -82,8 +82,6 @@ public class Main {
             }
         } while (opcion != 0);
     }
-
-
 
 
     private static void listarJugadoresDeUnEquipo() {
@@ -232,9 +230,7 @@ public class Main {
         return true;
     }
 
-    private static void listarPartidoPorEquipo() {
 
-    }
     private static void actualizarNombreEquipo() {
         String nombreEquipoActual;
         String nombreEquipoNuevo;
@@ -253,7 +249,7 @@ public class Main {
                 continue; // Repetir el bucle si el nombre del equipo es inválido
             }
             System.out.println("Introduce el nuevo nombre del equipo:");
-            nombreEquipoNuevo=scan.nextLine();
+            nombreEquipoNuevo = scan.nextLine();
             if (!nombreEquipoNuevo.isEmpty()) {
 
                 if (teamController.changeNameTeam(nombreEquipoActual, nombreEquipoNuevo)) {
@@ -266,6 +262,69 @@ public class Main {
 
         } while (!salir);
 
+    }
+
+    private static void listarPartidoPorEquipo() {
+
+    }
+
+    /*
+ //5. Traspassar un judador a un altra equip. TODO: Simplemente cambiar el id del equipo
+Les seves dades personals aconseguides a la seva trajectòria no
+haurien de variar malgrat canviï d'equip.
+*/
+    private static void traspasarJugador_a_Equipo() {
+        String nombreJugador = "";
+        String nombreEquipo;
+        int equip_id;
+        boolean nombreJugadorCorrecto = false;
+        boolean salir = false;
+
+        do {
+            if (!nombreJugadorCorrecto) {
+                System.out.print("Introduce el nombre del jugador (o escribe 'regresar' para volver al menú): ");
+                nombreJugador = scan.nextLine();
+
+                if (nombreJugador.equalsIgnoreCase("regresar")) {
+                    return; // Volver al menú principal
+                }
+                // Comprobar si el nombre del jugador es válido:
+                if (isValidPlayerName(nombreJugador)) {
+                    // Comprobar si existe en la BD:
+                    if (playerController.existPlayerName(nombreJugador)) {
+                        nombreJugadorCorrecto = true;
+                    } else {
+                        System.out.println("El jugador introducido no existe.");
+                        continue; // Repetir el bucle si el nombre del jugador no existe
+                    }
+                } else {
+                    System.out.println("Nombre de jugador no válido. Inténtalo de nuevo.");
+                    continue; // Repetir el bucle si el nombre del jugador es inválido
+                }
+            }
+
+            System.out.print("Introduce el nombre del equipo al que quieres cambiar el jugador: (El equipo debe existir): ");
+            nombreEquipo = scan.nextLine();
+
+            if (!isValidTeamName(nombreEquipo)) {
+                System.out.println("El nombre del equipo no es válido. Inténtalo de nuevo.");
+                continue; // Repetir el bucle si el nombre del equipo es inválido
+            } else {
+                // Si es un nombre válido, comprueba si existe:
+                if (teamController.existTeamName(nombreEquipo)) {
+                    equip_id = teamController.getTeamId(nombreEquipo);
+                    if (playerController.changeNameTeamOfPlayer(nombreJugador, equip_id)) {
+                        System.out.println("El jugador ha sido traspasado exitosamente al equipo.");
+                        salir = true;
+                    } else {
+                        System.out.println("Se ha producido un error al traspasar el jugador.");
+                    }
+                } else {
+                    // Si no existe:
+                    System.out.println("El nombre del equipo no existe. Inténtalo de nuevo.");
+                }
+            }
+        } while (!salir);
     }
 
 }

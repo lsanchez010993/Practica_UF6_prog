@@ -194,4 +194,33 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
         }
         return players;
     }
+    public List<String> findPlayersNameString() {
+        List<String> playersName = new ArrayList<>();
+        String sql = "SELECT nom FROM jugadors";
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                String teamName = rs.getString("nom");
+                playersName.add(teamName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return playersName;
+    }
+    public boolean updateTeamPlayerForName(String playerName, int teamId) {
+        String sql = "UPDATE jugadors SET equip_id = ? WHERE nom = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, teamId);
+            pstmt.setString(2, playerName);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0; // Devuelve true si se actualizó al menos una fila
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

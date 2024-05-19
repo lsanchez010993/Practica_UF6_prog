@@ -1,7 +1,6 @@
 package modelo.dao;
 
 import modelo.DatabaseConnection;
-import modelo.Player;
 import modelo.Team;
 
 import java.sql.*;
@@ -20,12 +19,12 @@ Les seves dades personals aconseguides a la seva trajectòria no
 haurien de variar malgrat canviï d'equip.
     */
     //pasandole el id por parametro hay que cambiar el equip_id con un update.
-    public void updateTeamPlayer(Player player, int idEquipo) {
-        String sql = "UPDATE jugadors SET id = ? WHERE id = ?";
+    public void updateTeamPlayer(String namePlayer, int idEquipo) {
+        String sql = "UPDATE jugadors SET id = ? WHERE nom = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, idEquipo); // Establecemos el nuevo ID de equipo
-            pstmt.setInt(2, player.getJugador_id()); // Filtro por el ID del jugador
+            pstmt.setString(2, namePlayer); // Filtro por el nombre del jugador
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -172,6 +171,25 @@ haurien de variar malgrat canviï d'equip.
         }
         return teamNames;
     }
+    public int getTeamId(String nomEquip) {
+        String sql = "SELECT equip_id FROM equips WHERE nom = ?";
+        int equipId = -1; // Valor por defecto en caso de que no se encuentre el equipo
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nomEquip);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    equipId = rs.getInt("equip_id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return equipId;
+    }
+
 
 
 

@@ -1,6 +1,5 @@
 package controlador;
 
-import modelo.Player;
 import modelo.Team;
 import modelo.dao.TeamDAO;
 
@@ -20,14 +19,20 @@ public class TeamController {
         Team team = new Team(equip_id, nom, ciutat, acronim, divisio, guanyades, perdudes);
         return teamDAO.update(team);
     }
-
+    public boolean existTeamName (String nameTeam){
+        List<String> teamNames = teamDAO.getAllTeams();
+        if (teamNames.contains(nameTeam)) {
+            return true;
+        }
+        return false;
+    }
 
 
 
     public boolean changeNameTeam(String nameActual, String nameNuevo) {
         // listamos los equipos y comprobamos que el equipo exista:
         List<String> teamNames = teamDAO.getAllTeams();
-        if (teamNames.contains(nameActual)) {
+        if (existTeamName(nameActual)) {
             // Utilizamos la siguiente función para actualizar
             teamDAO.updateTeamNameDAO(nameActual, nameNuevo);
             return true; // Actualización exitosa
@@ -35,5 +40,9 @@ public class TeamController {
             return false; // El equipo no existe
         }
     }
+    public int getTeamId(String nomEquip){
+        return teamDAO.getTeamId(nomEquip);
+    }
+
 
 }

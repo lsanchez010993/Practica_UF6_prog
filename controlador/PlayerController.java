@@ -45,4 +45,25 @@ public class PlayerController {
     public List<Player> getPlayersByName(String name) {
         return playerDAO.findPlayersByName(name);
     }
-}
+    public boolean existPlayerName (String namePlayer){
+        List<String> playerNames = playerDAO.findPlayersNameString();
+        if (playerNames.contains(namePlayer)) {
+            return true;
+        }
+        return false;
+    }
+
+        public boolean changeNameTeamOfPlayer(String playerName, int teamId) {
+            // Listamos los nombres de los jugadores y comprobamos que el jugador existe
+            List<String> playerNames = playerDAO.findPlayersNameString();
+            if (playerNames.contains(playerName)) {
+                // Utilizamos la siguiente función para actualizar
+                return playerDAO.updateTeamPlayerForName(playerName, teamId);
+            } else {
+                return false; // El jugador no existe
+            }
+        }
+    }
+
+
+
