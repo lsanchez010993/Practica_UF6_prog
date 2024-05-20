@@ -24,15 +24,15 @@ public class Main {
         do {
             try {
                 System.out.println("\n--------MENU INICIAL--------");
-                System.out.println("1. Llistar tots els jugadors d'un equip.");
-                System.out.println("2. Calcular la mitjana de punts, rebots, asistències,... d'un jugador.");
+                System.out.println("1. Llistar tots els jugadors d'un equip.");//Hecho
+                System.out.println("2. Calcular la mitjana de punts, rebots, asistències,... d'un jugador.");//Hecho
                 System.out.println("3. Llistar tots els partirs jugats per un equip amb el seu resultat.");
                 System.out.println("4. Inserir un nou jugador a un equip.");
-                System.out.println("5. Traspassar un jugador a un altra equip.");
+                System.out.println("5. Traspassar un jugador a un altra equip.");//Hecho
                 System.out.println("6. Actualitzar les dades de jugadors o equips després d'un partit.");
                 System.out.println("7. Modificar les estadístiques d'un jugador.");
                 System.out.println("8. Retirar (Eliminar) un jugador.");
-                System.out.println("9. Canviar nom franquícia d'un equip.");
+                System.out.println("9. Canviar nom franquícia d'un equip."); //Hecho
                 System.out.println("0. Sortir de l'aplicació.");
                 System.out.print("\nElige qué quieres hacer: ");
 
@@ -269,7 +269,7 @@ public class Main {
     }
 
     /*
- //5. Traspassar un judador a un altra equip. TODO: Simplemente cambiar el id del equipo
+ //5. Traspassar un judador a un altra equip.
 Les seves dades personals aconseguides a la seva trajectòria no
 haurien de variar malgrat canviï d'equip.
 */
@@ -303,12 +303,14 @@ haurien de variar malgrat canviï d'equip.
                 }
             }
 
-            System.out.print("Introduce el nombre del equipo al que quieres cambiar el jugador: (El equipo debe existir): ");
+            System.out.print("Introduce el nombre del equipo al que quieres cambiar el jugador: (o escribe 'regresar' para volver al menú): ");
             nombreEquipo = scan.nextLine();
-
+            if (nombreJugador.equalsIgnoreCase("regresar")) {
+                return; // Volver al menú principal
+            }
             if (!isValidTeamName(nombreEquipo)) {
                 System.out.println("El nombre del equipo no es válido. Inténtalo de nuevo.");
-                continue; // Repetir el bucle si el nombre del equipo es inválido
+
             } else {
                 // Si es un nombre válido, comprueba si existe:
                 if (teamController.existTeamName(nombreEquipo)) {
