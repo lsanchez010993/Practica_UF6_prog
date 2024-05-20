@@ -26,12 +26,12 @@ public class Main {
                 System.out.println("\n--------MENU INICIAL--------");
                 System.out.println("1. Llistar tots els jugadors d'un equip.");//Hecho
                 System.out.println("2. Calcular la mitjana de punts, rebots, asistències,... d'un jugador.");//Hecho
-                System.out.println("3. Llistar tots els partirs jugats per un equip amb el seu resultat.");
-                System.out.println("4. Inserir un nou jugador a un equip.");
+                System.out.println("3. Llistar tots els partirs jugats per un equip amb el seu resultat."); //Falta
+                System.out.println("4. Inserir un nou jugador a un equip.");//Falta
                 System.out.println("5. Traspassar un jugador a un altra equip.");//Hecho
-                System.out.println("6. Actualitzar les dades de jugadors o equips després d'un partit.");
-                System.out.println("7. Modificar les estadístiques d'un jugador.");
-                System.out.println("8. Retirar (Eliminar) un jugador.");
+                System.out.println("6. Actualitzar les dades de jugadors o equips després d'un partit.");//Falta
+                System.out.println("7. Modificar les estadístiques d'un jugador.");//Falta
+                System.out.println("8. Retirar (Eliminar) un jugador.");//Falta
                 System.out.println("9. Canviar nom franquícia d'un equip."); //Hecho
                 System.out.println("0. Sortir de l'aplicació.");
                 System.out.print("\nElige qué quieres hacer: ");
