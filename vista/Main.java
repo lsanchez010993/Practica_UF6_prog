@@ -343,5 +343,6 @@ public class Main {
                 System.out.println("Entrada inválida. Por favor, introduce un número entero.");
             }
         } while (!salir);
+        a
     }
 }
