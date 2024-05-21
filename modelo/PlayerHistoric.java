@@ -2,25 +2,25 @@ package modelo;
 
 import java.util.Date;
 
-public class Player {
+public class PlayerHistoric {
     private int jugador_id;
     private String nom;
     private String cognom;
     private Date dataNaixement;
     private String alcada;
     private String pes;
-    private String dorsal; // Agregado campo dorsal
+    private String dorsal;
     private String posicio;
     private int equip_id;
 
-    public Player(int jugador_id, String nom, String cognom, Date dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
+    public PlayerHistoric(int jugador_id, String nom, String cognom, Date dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
         this.jugador_id = jugador_id;
         this.nom = nom;
         this.cognom = cognom;
         this.dataNaixement = dataNaixement;
         this.alcada = alcada;
         this.pes = pes;
-        this.dorsal = dorsal; // Inicialización del campo dorsal
+        this.dorsal = dorsal;
         this.posicio = posicio;
         this.equip_id = equip_id;
     }
@@ -74,11 +74,11 @@ public class Player {
         this.pes = pes;
     }
 
-    public String getDorsal() { // Getter para dorsal
+    public String getDorsal() {
         return dorsal;
     }
 
-    public void setDorsal(String dorsal) { // Setter para dorsal
+    public void setDorsal(String dorsal) {
         this.dorsal = dorsal;
     }
 

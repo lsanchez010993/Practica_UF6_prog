@@ -24,6 +24,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
                         rs.getDate("data_naixement"),
                         rs.getString("alcada"),
                         rs.getString("pes"),
+                        rs.getString("dorsal"), // Añadido campo dorsal
                         rs.getString("posicio"),
                         rs.getInt("equip_id")
                 );
@@ -49,6 +50,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
                         rs.getDate("data_naixement"),
                         rs.getString("alcada"),
                         rs.getString("pes"),
+                        rs.getString("dorsal"), // Añadido campo dorsal
                         rs.getString("posicio"),
                         rs.getInt("equip_id")
                 );
@@ -62,7 +64,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
 
     @Override
     public boolean insert(Player player) {
-        String sql = "INSERT INTO jugadors (jugador_id, nom, cognom, data_naixement, alcada, pes, posicio, equip_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO jugadors (jugador_id, nom, cognom, data_naixement, alcada, pes, dorsal, posicio, equip_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, player.getJugador_id());
@@ -71,8 +73,9 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
             pstmt.setDate(4, new java.sql.Date(player.getDataNaixement().getTime()));
             pstmt.setString(5, player.getAlcada());
             pstmt.setString(6, player.getPes());
-            pstmt.setString(7, player.getPosicio());
-            pstmt.setInt(8, player.getEquip_id());
+            pstmt.setString(7, player.getDorsal()); // Añadido campo dorsal
+            pstmt.setString(8, player.getPosicio());
+            pstmt.setInt(9, player.getEquip_id());
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -83,7 +86,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
 
     @Override
     public boolean update(Player player) {
-        String sql = "UPDATE jugadors SET nom = ?, cognom = ?, data_naixement = ?, alcada = ?, pes = ?, posicio = ?, equip_id = ? WHERE jugador_id = ?";
+        String sql = "UPDATE jugadors SET nom = ?, cognom = ?, data_naixement = ?, alcada = ?, pes = ?, dorsal = ?, posicio = ?, equip_id = ? WHERE jugador_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, player.getNom());
@@ -91,9 +94,10 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
             pstmt.setDate(3, new java.sql.Date(player.getDataNaixement().getTime()));
             pstmt.setString(4, player.getAlcada());
             pstmt.setString(5, player.getPes());
-            pstmt.setString(6, player.getPosicio());
-            pstmt.setInt(7, player.getEquip_id());
-            pstmt.setInt(8, player.getJugador_id());
+            pstmt.setString(6, player.getDorsal()); // Añadido campo dorsal
+            pstmt.setString(7, player.getPosicio());
+            pstmt.setInt(8, player.getEquip_id());
+            pstmt.setInt(9, player.getJugador_id());
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -131,6 +135,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
                         rs.getDate("data_naixement"),
                         rs.getString("alcada"),
                         rs.getString("pes"),
+                        rs.getString("dorsal"), // Añadido campo dorsal
                         rs.getString("posicio"),
                         rs.getInt("equip_id")
                 );
@@ -157,6 +162,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
                         rs.getDate("data_naixement"),
                         rs.getString("alcada"),
                         rs.getString("pes"),
+                        rs.getString("dorsal"), // Añadido campo dorsal
                         rs.getString("posicio"),
                         rs.getInt("equip_id")
                 );
@@ -184,6 +190,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
                         rs.getDate("data_naixement"),
                         rs.getString("alcada"),
                         rs.getString("pes"),
+                        rs.getString("dorsal"), // Añadido campo dorsal
                         rs.getString("posicio"),
                         rs.getInt("equip_id")
                 );
@@ -194,6 +201,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
         }
         return players;
     }
+
     public List<String> findPlayersNameString() {
         List<String> playersName = new ArrayList<>();
         String sql = "SELECT nom FROM jugadors";
@@ -209,6 +217,7 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
         }
         return playersName;
     }
+
     public boolean updateTeamPlayerForName(String playerName, int teamId) {
         String sql = "UPDATE jugadors SET equip_id = ? WHERE nom = ?";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -216,11 +225,10 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
             pstmt.setInt(1, teamId);
             pstmt.setString(2, playerName);
             int affectedRows = pstmt.executeUpdate();
-            return affectedRows > 0; // Devuelve true si se actualizó al menos una fila
+            return affectedRows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
-
 }

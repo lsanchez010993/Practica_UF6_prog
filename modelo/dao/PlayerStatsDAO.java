@@ -53,7 +53,7 @@ public class PlayerStatsDAO implements GenericDAO<PlayerStats, Integer> {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, stats.getJugador_id());
-            pstmt.setInt(2, stats.getpartit_id());
+            pstmt.setInt(2, stats.getPartit_id());
             pstmt.setDouble(3, stats.getMinutsJugats());
             pstmt.setInt(4, stats.getPunts());
             pstmt.setInt(5, stats.getTirsAnotats());
@@ -94,7 +94,7 @@ public class PlayerStatsDAO implements GenericDAO<PlayerStats, Integer> {
             pstmt.setInt(12, stats.getRobades());
             pstmt.setInt(13, stats.getBloqueigs());
             pstmt.setInt(14, stats.getJugador_id());
-            pstmt.setInt(15, stats.getpartit_id());
+            pstmt.setInt(15, stats.getPartit_id());
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {

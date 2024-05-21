@@ -31,7 +31,7 @@ public class Main {
                 System.out.println("5. Traspassar un jugador a un altra equip.");//Hecho
                 System.out.println("6. Actualitzar les dades de jugadors o equips després d'un partit.");//Falta
                 System.out.println("7. Modificar les estadístiques d'un jugador.");//Falta
-                System.out.println("8. Retirar (Eliminar) un jugador.");//Falta
+                System.out.println("8. Retirar (Eliminar) un jugador.");//Añadido
                 System.out.println("9. Canviar nom franquícia d'un equip."); //Hecho
                 System.out.println("0. Sortir de l'aplicació.");
                 System.out.print("\nElige qué quieres hacer: ");
@@ -62,7 +62,7 @@ public class Main {
                         // Otra funcionalidad
                         break;
                     case 8:
-                        // Otra funcionalidad
+                        retirarJugador();
                         break;
                     case 9:
                         actualizarNombreEquipo();
@@ -82,7 +82,6 @@ public class Main {
             }
         } while (opcion != 0);
     }
-
 
     private static void listarJugadoresDeUnEquipo() {
         String nombreEquipo;
@@ -230,7 +229,6 @@ public class Main {
         return true;
     }
 
-
     private static void actualizarNombreEquipo() {
         String nombreEquipoActual;
         String nombreEquipoNuevo;
@@ -251,7 +249,6 @@ public class Main {
             System.out.println("Introduce el nuevo nombre del equipo:");
             nombreEquipoNuevo = scan.nextLine();
             if (!nombreEquipoNuevo.isEmpty()) {
-
                 if (teamController.changeNameTeam(nombreEquipoActual, nombreEquipoNuevo)) {
                     System.out.println("Nombre del equipo actualizado exitosamente.");
                     salir = true;
@@ -259,20 +256,13 @@ public class Main {
                     System.out.println("No se pudo encontrar un equipo con ese nombre. Inténtalo de nuevo.");
                 }
             }
-
         } while (!salir);
-
     }
 
     private static void listarPartidoPorEquipo() {
-
+        // Implementar la funcionalidad aquí
     }
 
-    /*
- //5. Traspassar un judador a un altra equip.
-Les seves dades personals aconseguides a la seva trajectòria no
-haurien de variar malgrat canviï d'equip.
-*/
     private static void traspasarJugador_a_Equipo() {
         String nombreJugador = "";
         String nombreEquipo;
@@ -310,7 +300,6 @@ haurien de variar malgrat canviï d'equip.
             }
             if (!isValidTeamName(nombreEquipo)) {
                 System.out.println("El nombre del equipo no es válido. Inténtalo de nuevo.");
-
             } else {
                 // Si es un nombre válido, comprueba si existe:
                 if (teamController.existTeamName(nombreEquipo)) {
@@ -329,4 +318,30 @@ haurien de variar malgrat canviï d'equip.
         } while (!salir);
     }
 
+    private static void retirarJugador() {
+        int jugadorId;
+        boolean salir = false;
+
+        do {
+            try {
+                System.out.print("Introduce el ID del jugador a retirar (o escribe 'regresar' para volver al menú): ");
+                String input = scan.nextLine();
+
+                if (input.equalsIgnoreCase("regresar")) {
+                    return; // Volver al menú principal
+                }
+
+                jugadorId = Integer.parseInt(input);
+
+                if (playerController.retirarJugador(jugadorId)) {
+                    System.out.println("El jugador ha sido retirado exitosamente.");
+                    salir = true;
+                } else {
+                    System.out.println("Se ha producido un error al retirar el jugador. Asegúrate de que el ID es correcto.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, introduce un número entero.");
+            }
+        } while (!salir);
+    }
 }

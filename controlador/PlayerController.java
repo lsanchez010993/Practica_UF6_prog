@@ -1,15 +1,25 @@
 package controlador;
 
 import modelo.Player;
+import modelo.PlayerHistoric;
+import modelo.PlayerStats;
+import modelo.PlayerStatsHistoric;
 import modelo.dao.PlayerDAO;
+import modelo.dao.PlayerStatsDAO;
 
 import java.util.List;
 
 public class PlayerController {
     private PlayerDAO playerDAO;
+    private PlayerStatsDAO playerStatsDAO;
+    private PlayerHistoricController playerHistoricController;
+    private PlayerStatsHistoricController playerStatsHistoricController;
 
     public PlayerController() {
         this.playerDAO = new PlayerDAO();
+        this.playerStatsDAO = new PlayerStatsDAO();
+        this.playerHistoricController = new PlayerHistoricController();
+        this.playerStatsHistoricController = new PlayerStatsHistoricController();
     }
 
     public Player getPlayer(int jugador_id) {
@@ -20,13 +30,13 @@ public class PlayerController {
         return playerDAO.findAll();
     }
 
-    public boolean createPlayer(int jugador_id, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String posicio, int equip_id) {
-        Player player = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, posicio, equip_id);
+    public boolean createPlayer(int jugador_id, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
+        Player player = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, dorsal, posicio, equip_id);
         return playerDAO.insert(player);
     }
 
-    public boolean updatePlayer(int jugador_id, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String posicio, int equip_id) {
-        Player player = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, posicio, equip_id);
+    public boolean updatePlayer(int jugador_id, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
+        Player player = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, dorsal, posicio, equip_id);
         return playerDAO.update(player);
     }
 
@@ -45,25 +55,74 @@ public class PlayerController {
     public List<Player> getPlayersByName(String name) {
         return playerDAO.findPlayersByName(name);
     }
-    public boolean existPlayerName (String namePlayer){
+
+    public boolean existPlayerName(String namePlayer) {
         List<String> playerNames = playerDAO.findPlayersNameString();
-        if (playerNames.contains(namePlayer)) {
-            return true;
-        }
-        return false;
+        return playerNames.contains(namePlayer);
     }
 
-        public boolean changeNameTeamOfPlayer(String playerName, int teamId) {
-            // Listamos los nombres de los jugadores y comprobamos que el jugador existe
-            List<String> playerNames = playerDAO.findPlayersNameString();
-            if (playerNames.contains(playerName)) {
-                // Utilizamos la siguiente función para actualizar
-                return playerDAO.updateTeamPlayerForName(playerName, teamId);
-            } else {
-                return false; // El jugador no existe
+    public boolean changeNameTeamOfPlayer(String playerName, int teamId) {
+        List<String> playerNames = playerDAO.findPlayersNameString();
+        if (playerNames.contains(playerName)) {
+            return playerDAO.updateTeamPlayerForName(playerName, teamId);
+        } else {
+            return false;
+        }
+    }
+
+    public boolean retirarJugador(int jugador_id) {
+        Player player = playerDAO.findById(jugador_id);
+        if (player == null) {
+            return false;
+        }
+
+        PlayerHistoric playerHistoric = new PlayerHistoric(
+                player.getJugador_id(),
+                player.getNom(),
+                player.getCognom(),
+                player.getDataNaixement(),
+                player.getAlcada(),
+                player.getPes(),
+                player.getDorsal(),
+                player.getPosicio(),
+                player.getEquip_id()
+        );
+
+        if (!playerHistoricController.insertPlayerHistoric(playerHistoric)) {
+            return false;
+        }
+
+        List<PlayerStats> statsList = playerStatsDAO.getPlayerStatsByPlayerId(jugador_id);
+        for (PlayerStats stats : statsList) {
+            PlayerStatsHistoric playerStatsHistoric = new PlayerStatsHistoric(
+                    stats.getJugador_id(),
+                    stats.getPartit_id(),
+                    stats.getMinutsJugats(),
+                    stats.getPunts(),
+                    stats.getTirsAnotats(),
+                    stats.getTirsTirats(),
+                    stats.getTirsTriplesAnotats(),
+                    stats.getTirsTriplesTirats(),
+                    stats.getTirsLliuresAnotats(),
+                    stats.getTirsLliuresTirats(),
+                    stats.getRebotsOfensius(),
+                    stats.getRebotsDefensius(),
+                    stats.getAssistencies(),
+                    stats.getRobades(),
+                    stats.getBloqueigs()
+            );
+
+            if (!playerStatsHistoricController.insertPlayerStatsHistoric(playerStatsHistoric)) {
+                return false;
             }
         }
+
+        for (PlayerStats stats : statsList) {
+            if (!playerStatsDAO.deletePlayerStats(stats.getJugador_id(), stats.getPartit_id())) {
+                return false;
+            }
+        }
+
+        return playerDAO.delete(jugador_id);
     }
-
-
-
+}

@@ -1,6 +1,6 @@
 package modelo;
 
-public class PlayerStats {
+public class PlayerStatsHistoric {
     private int jugador_id;
     private int partit_id;
     private double minutsJugats;
@@ -17,8 +17,7 @@ public class PlayerStats {
     private int robades;
     private int bloqueigs;
 
-    // Constructor
-    public PlayerStats(int jugador_id, int partit_id, double minutsJugats, int punts, int tirsAnotats, int tirsTirats, int tirsTriplesAnotats, int tirsTriplesTirats, int tirsLliuresAnotats, int tirsLliuresTirats, int rebotsOfensius, int rebotsDefensius, int assistencies, int robades, int bloqueigs) {
+    public PlayerStatsHistoric(int jugador_id, int partit_id, double minutsJugats, int punts, int tirsAnotats, int tirsTirats, int tirsTriplesAnotats, int tirsTriplesTirats, int tirsLliuresAnotats, int tirsLliuresTirats, int rebotsOfensius, int rebotsDefensius, int assistencies, int robades, int bloqueigs) {
         this.jugador_id = jugador_id;
         this.partit_id = partit_id;
         this.minutsJugats = minutsJugats;
@@ -36,6 +35,7 @@ public class PlayerStats {
         this.bloqueigs = bloqueigs;
     }
 
+    // Getters y Setters
     public int getJugador_id() {
         return jugador_id;
     }
