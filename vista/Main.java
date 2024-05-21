@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.MatchController;
 import controlador.PlayerController;
 import controlador.PlayerStatsController;
 import controlador.TeamController;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 public class Main {
     static Scanner scan = new Scanner(System.in);
     static TeamController teamController = new TeamController();
+    static MatchController matchController = new MatchController();
     static PlayerController playerController = new PlayerController(); // Crear una instancia del controlador
     static PlayerStatsController playerStatsController = new PlayerStatsController(); // Crear una instancia del controlador de estadísticas
 
@@ -263,8 +265,27 @@ public class Main {
         } while (!salir);
 
     }
+/*
+3.- Llistar tots els partits jugats per un equip amb el seu resultat.
+Demanarem el nom d’un equip en concret i posteriorment llistarem tots els partits i resultats que ha obtingut,
+mostrant la informació amb una estructura semblant a aquestes:
 
+Los Angeles Lakers – Seattle Supersonics: 114 – 92
+
+Los Angeles Lakers: 114
+Seattle Supersonics: 92
+ */
     private static void listarPartidoPorEquipo() {
+        String nomEquip;
+        int equip_id;
+        System.out.println("Introduce el nombre del equipo: ");
+        nomEquip=scan.nextLine();
+        if (teamController.existTeamName(nomEquip)){
+            //Si existe debe listar sus partidos
+        }
+        equip_id = teamController.getTeamId(nomEquip);
+        matchController.getAllTMatchForTeam(equip_id);
+
 
     }
 
