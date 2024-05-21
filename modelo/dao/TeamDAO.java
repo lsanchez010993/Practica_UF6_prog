@@ -10,26 +10,7 @@ import java.util.List;
 public class TeamDAO implements GenericDAO<Team, Integer> {
 
 
-//  4. Inserir un nou jugador a un equip.
 
-
-    /*
-     //5. Traspassar un judador a un altra equip. TODO: Simplemente cambiar el id del equipo
-Les seves dades personals aconseguides a la seva trajectòria no
-haurien de variar malgrat canviï d'equip.
-    */
-    //pasandole el id por parametro hay que cambiar el equip_id con un update.
-    public void updateTeamPlayer(String namePlayer, int idEquipo) {
-        String sql = "UPDATE jugadors SET id = ? WHERE nom = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, idEquipo); // Establecemos el nuevo ID de equipo
-            pstmt.setString(2, namePlayer); // Filtro por el nombre del jugador
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public Team findById(Integer equip_id) {
