@@ -51,3 +51,7 @@ Lo mismo pero con servicio, controlador, etc.
 - Tienes que descargarte y instalar la libreria de connector **Driver de MySQL**. La puedes encontrar en el siguiente enlace: https://dev.mysql.com/downloads/file/?id=527658
                                                                                                           Por si peta el link:   https://1drv.ms/u/s!AiiOtLFISwSjhO5iczeYGqX5w7pIGA?e=E9Rtwj                                                 
 - También se necesita la libreria de **json-simple-1.1.1.jar** que se puede encontrar en el siguiente enlace: https://code.google.com/archive/p/json-simple/downloads
+
+## AVISO: IMPORTANTE
+El ejercicio número 8, de rerirar el jugador, cuando le des que sí tienes que tener en cuenta que tarda unos 5 minutos. 
+Toca tener paciencia.

@@ -427,10 +427,22 @@ public class Main {
     }
 
     private static void confirmarRetiroJugador(Player player) {
-        System.out.print("¿Estás seguro de que deseas retirar al jugador " + player.getNom() + " " + player.getCognom() + " (ID: " + player.getJugador_id() + ")? (sí/no): ");
-        String confirmacion = scan.nextLine();
+        String confirmacion;
+        boolean confirmacionValida;
 
-        if (confirmacion.equalsIgnoreCase("sí")) {
+        do {
+            System.out.print("¿Estás seguro de que deseas retirar al jugador " + player.getNom() + " " + player.getCognom() + " (ID: " + player.getJugador_id() + ")? (sí/no): ");
+            confirmacion = scan.nextLine().trim().toLowerCase();
+
+            confirmacionValida = isValidConfirmation(confirmacion);
+
+            if (!confirmacionValida) {
+                System.out.println("Entrada inválida. Por favor, introduce 'sí' o 'no'.");
+            }
+        } while (!confirmacionValida);
+
+        if (confirmacion.equals("sí") || confirmacion.equals("si")) {
+            System.out.println("El proceso de retiro del jugador puede tardar unos 5 minutos. Por favor, espera...");
             if (playerController.retirarJugador(player.getJugador_id())) {
                 System.out.println("El jugador ha sido retirado exitosamente.");
             } else {
@@ -439,5 +451,20 @@ public class Main {
         } else {
             System.out.println("Operación cancelada.");
         }
+    }
+
+    private static boolean isValidConfirmation(String confirmacion) {
+        if (confirmacion == null || confirmacion.isEmpty()) {
+            return false;
+        }
+        if (confirmacion.equals("sí") || confirmacion.equals("si") || confirmacion.equals("no")) {
+            return true;
+        }
+        for (char c : confirmacion.toCharArray()) {
+            if (Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return false;
     }
 }
