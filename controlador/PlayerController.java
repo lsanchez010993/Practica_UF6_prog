@@ -97,6 +97,8 @@ public class PlayerController {
             PlayerStatsHistoric playerStatsHistoric = new PlayerStatsHistoric(
                     stats.getJugador_id(),
                     stats.getPartit_id(),
+                    player.getNom(),
+                    player.getCognom(),
                     stats.getMinutsJugats(),
                     stats.getPunts(),
                     stats.getTirsAnotats(),
