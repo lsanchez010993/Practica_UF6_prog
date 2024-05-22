@@ -11,7 +11,7 @@ public class PlayerHistoricDAO implements GenericDAO<PlayerHistoric, Integer> {
 
     @Override
     public PlayerHistoric findById(Integer id) {
-        String sql = "SELECT * FROM jugadors_historic WHERE jugador_id = ?";
+        String sql = "SELECT * FROM hist_jugadors WHERE jugador_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
@@ -38,7 +38,7 @@ public class PlayerHistoricDAO implements GenericDAO<PlayerHistoric, Integer> {
     @Override
     public List<PlayerHistoric> findAll() {
         List<PlayerHistoric> players = new ArrayList<>();
-        String sql = "SELECT * FROM jugadors_historic";
+        String sql = "SELECT * FROM hist_jugadors";
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -64,7 +64,7 @@ public class PlayerHistoricDAO implements GenericDAO<PlayerHistoric, Integer> {
 
     @Override
     public boolean insert(PlayerHistoric player) {
-        String sql = "INSERT INTO jugadors_historic (jugador_id, nom, cognom, data_naixement, alcada, pes, dorsal, posicio, equip_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO hist_jugadors (jugador_id, nom, cognom, data_naixement, alcada, pes, dorsal, posicio, equip_id, fecha_baja) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, player.getJugador_id());
@@ -76,6 +76,7 @@ public class PlayerHistoricDAO implements GenericDAO<PlayerHistoric, Integer> {
             pstmt.setString(7, player.getDorsal());
             pstmt.setString(8, player.getPosicio());
             pstmt.setInt(9, player.getEquip_id());
+            pstmt.setDate(10, new java.sql.Date(System.currentTimeMillis())); // Agregamos la fecha de baja
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {

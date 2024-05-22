@@ -3,6 +3,8 @@ package modelo;
 public class PlayerStatsHistoric {
     private int jugador_id;
     private int partit_id;
+    private String nom;
+    private String cognom;
     private double minutsJugats;
     private int punts;
     private int tirsAnotats;
@@ -17,9 +19,11 @@ public class PlayerStatsHistoric {
     private int robades;
     private int bloqueigs;
 
-    public PlayerStatsHistoric(int jugador_id, int partit_id, double minutsJugats, int punts, int tirsAnotats, int tirsTirats, int tirsTriplesAnotats, int tirsTriplesTirats, int tirsLliuresAnotats, int tirsLliuresTirats, int rebotsOfensius, int rebotsDefensius, int assistencies, int robades, int bloqueigs) {
+    public PlayerStatsHistoric(int jugador_id, int partit_id, String nom, String cognom, double minutsJugats, int punts, int tirsAnotats, int tirsTirats, int tirsTriplesAnotats, int tirsTriplesTirats, int tirsLliuresAnotats, int tirsLliuresTirats, int rebotsOfensius, int rebotsDefensius, int assistencies, int robades, int bloqueigs) {
         this.jugador_id = jugador_id;
         this.partit_id = partit_id;
+        this.nom = nom;
+        this.cognom = cognom;
         this.minutsJugats = minutsJugats;
         this.punts = punts;
         this.tirsAnotats = tirsAnotats;
@@ -50,6 +54,22 @@ public class PlayerStatsHistoric {
 
     public void setPartit_id(int partit_id) {
         this.partit_id = partit_id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getCognom() {
+        return cognom;
+    }
+
+    public void setCognom(String cognom) {
+        this.cognom = cognom;
     }
 
     public double getMinutsJugats() {
