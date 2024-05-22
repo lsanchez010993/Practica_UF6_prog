@@ -52,6 +52,14 @@ Lo mismo pero con servicio, controlador, etc.
                                                                                                           Por si peta el link:   https://1drv.ms/u/s!AiiOtLFISwSjhO5iczeYGqX5w7pIGA?e=E9Rtwj                                                 
 - También se necesita la libreria de **json-simple-1.1.1.jar** que se puede encontrar en el siguiente enlace: https://code.google.com/archive/p/json-simple/downloads
 
+
+## ¿Por qué usamos el hashmap para el segundo ejercicio 2?
+
+Hemos usado el hashmap para el segundo ejercicio porque es una estructura de datos que nos permite almacenar datos de una manera más eficiente y rápida.
+Al realizar una única consulta para obtener todos los nombres de los equipos y almacenarlos en un Map, reducimos drásticamente el número de accesos a la base de datos. 
+Esto disminuye la carga en la base de datos y mejora el rendimiento general de la aplicación.
+Antes de usar el hashmap, tardaba 2 o más minutos en cargar los datos.
+
 ## AVISO: IMPORTANTE
-El ejercicio número 8, de rerirar el jugador, cuando le des que sí tienes que tener en cuenta que tarda unos 5 minutos. 
+El ejercicio número 8, de rerirar el jugador, cuando le des que sí tienes que tener en cuenta que tarda unos 5 minutos.
 Toca tener paciencia.
