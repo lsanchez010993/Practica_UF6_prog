@@ -176,10 +176,16 @@ public class Main {
 
     private static void elegirJugadorDeLista(List<Player> players) {
         System.out.println("Se encontraron varios jugadores con el mismo nombre:");
+
+        List<String> teamNames = new ArrayList<>();
+        for (Player player : players) {
+            String teamName = teamController.getTeamNameById(player.getEquip_id()); // Obtener el nombre del equipo
+            teamNames.add(teamName);
+        }
+
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            String teamName = teamController.getTeamNameById(player.getEquip_id()); // Obtener el nombre del equipo
-            System.out.println((i + 1) + ". " + player.getNom() + " " + player.getCognom() + " (Equipo: " + teamName + ")");
+            System.out.println((i + 1) + ". " + player.getNom() + " " + player.getCognom() + " (Equipo: " + teamNames.get(i) + ")");
         }
 
         int opcion = -1;
@@ -205,7 +211,6 @@ public class Main {
             }
         } while (opcion == -1);
     }
-
 
 
     private static void mostrarMediaJugador(Player player) {
