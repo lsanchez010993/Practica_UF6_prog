@@ -141,11 +141,16 @@ public class MatchDAO implements GenericDAO<Match, Integer> {
     }
     public List<Match> getAllTMatchForTeam(int equip_id) {
         List<Match> matches = new ArrayList<>();
-        String sql = "SELECT e.nom, COUNT(p.resultat) " +
-                "FROM partits p " +
-                "INNER JOIN equips e ON e.equip_id = p.equip_id " +
-                "WHERE e.equip_id = ? " +
-                "GROUP BY e.nom";
+        String sql = "SELECT " +
+                "  DISTINCT CONCAT(e1.nom, ' - ', e2.nom, ': ', e2.guanyades, ' - ', e2.perdudes) AS resultado " +
+                "FROM " +
+                "    partits p " +
+                "JOIN " +
+                "    equips e1 ON p.equip_id = e1.equip_id " +
+                "JOIN " +
+                "    equips e2 ON SUBSTRING(p.matx, LENGTH(p.matx) - 2, 3) = e2.acronim " +
+                "WHERE " +
+                "    e1.equip_id = ? ";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -154,13 +159,7 @@ public class MatchDAO implements GenericDAO<Match, Integer> {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    Match match = new Match(
-                            rs.getInt("partit_id"),
-                            rs.getInt("equip_id"),
-                            rs.getDate("data_partit"),
-                            rs.getString("matx"),
-                            rs.getString("resultat")
-                    );
+                    Match match = new Match(rs.getString("resultado"));
                     matches.add(match);
                 }
             }

@@ -1,15 +1,19 @@
 package vista;
 
+import controlador.MatchController;
 import controlador.PlayerController;
 import controlador.PlayerStatsController;
 import controlador.TeamController;
+import modelo.Match;
 import modelo.Player;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    static MatchController matchController = new MatchController();
     static Scanner scan = new Scanner(System.in);
     static TeamController teamController = new TeamController();
     static PlayerController playerController = new PlayerController(); // Crear una instancia del controlador
@@ -259,9 +263,50 @@ public class Main {
         } while (!salir);
     }
 
+    /*
+    3.- Llistar tots els partits jugats per un equip amb el seu resultat.
+    Demanarem el nom d’un equip en concret i posteriorment llistarem tots els partits i resultats que ha obtingut,
+    mostrant la informació amb una estructura semblant a aquestes:
+
+    Los Angeles Lakers – Seattle Supersonics: 114 – 92
+
+    Los Angeles Lakers: 114
+    Seattle Supersonics: 92
+     */
     private static void listarPartidoPorEquipo() {
-        // Implementar la funcionalidad aquí
+        String nomEquip;
+        int equip_id;
+        boolean salir = false;
+        List<Match> resultados;
+
+        do {
+            System.out.println("Introduce el nombre del equipo: ");
+            nomEquip = scan.nextLine();
+
+            if (isValidTeamName(nomEquip)) {
+                try {
+                    if (teamController.existTeamName(nomEquip)) {
+                        equip_id = teamController.getTeamId(nomEquip);
+                        resultados = matchController.getAllTMatchForTeam(equip_id);
+
+                        for (Match resultado : resultados) {
+                            System.out.println(resultado.getResultat());
+                        }
+
+                        salir = true;
+                    } else {
+                        System.out.println("No se ha encontrado el nombre del equipo.");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Ha ocurrido un error: " + e.getMessage());
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("Debes introducir un nombre de equipo válido.");
+            }
+        } while (!salir);
     }
+
 
     private static void traspasarJugador_a_Equipo() {
         String nombreJugador = "";

@@ -18,6 +18,9 @@ public class Match {
         this.resultat = resultat;
 
     }
+    public Match(String resultat) {
+        this.resultat = resultat;
+    }
 
     public Match(String partitId, String dataPartit, String matx, String resultat, String ciutat, String nomEquip) {
     }
