@@ -152,7 +152,15 @@ public class Main {
                 continue; // Repetir el bucle si el nombre del jugador es inválido
             }
 
-            jugadores = playerController.getPlayersByName(nombreJugador);
+            String[] nombrePartes = nombreJugador.split(" ");
+            if (nombrePartes.length == 1) {
+                jugadores = playerController.getPlayersByName(nombreJugador);
+            } else if (nombrePartes.length == 2) {
+                jugadores = playerController.getPlayersByFullName(nombrePartes[0], nombrePartes[1]);
+            } else {
+                System.out.println("Por favor, introduce solo el nombre o el nombre y el apellido del jugador.");
+                continue;
+            }
 
             if (jugadores.isEmpty()) {
                 System.out.println("No se encontraron jugadores con el nombre " + nombreJugador + ". Inténtalo de nuevo.");
@@ -170,7 +178,8 @@ public class Main {
         System.out.println("Se encontraron varios jugadores con el mismo nombre:");
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            System.out.println((i + 1) + ". " + player.getNom() + " " + player.getCognom() + " (ID: " + player.getJugador_id() + ")");
+            String teamName = teamController.getTeamNameById(player.getEquip_id()); // Obtener el nombre del equipo
+            System.out.println((i + 1) + ". " + player.getNom() + " " + player.getCognom() + " (Equipo: " + teamName + ")");
         }
 
         int opcion = -1;
@@ -196,6 +205,8 @@ public class Main {
             }
         } while (opcion == -1);
     }
+
+
 
     private static void mostrarMediaJugador(Player player) {
         double[] medias = playerStatsController.calcularMediasJugador(player.getJugador_id());

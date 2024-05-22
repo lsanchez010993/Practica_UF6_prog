@@ -127,4 +127,8 @@ public class PlayerController {
 
         return playerDAO.delete(jugador_id);
     }
+    public List<Player> getPlayersByFullName(String nombre, String apellido) {
+        return playerDAO.findPlayersByFullName(nombre, apellido);
+    }
+
 }

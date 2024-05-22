@@ -44,5 +44,8 @@ public class TeamController {
         return teamDAO.getTeamId(nomEquip);
     }
 
+    public String getTeamNameById(int equip_id) {
+        return teamDAO.getTeamNameById(equip_id);
+    }
 
 }

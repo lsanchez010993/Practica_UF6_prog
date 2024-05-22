@@ -171,6 +171,22 @@ public class TeamDAO implements GenericDAO<Team, Integer> {
         return equipId;
     }
 
+    public String getTeamNameById(int equip_id) {
+        String teamName = "";
+        String sql = "SELECT nom FROM equips WHERE equip_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, equip_id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                teamName = rs.getString("nom");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return teamName;
+    }
+
 
 
 
