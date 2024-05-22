@@ -7,10 +7,7 @@ import controlador.TeamController;
 import modelo.Match;
 import modelo.Player;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     static MatchController matchController = new MatchController();
@@ -177,15 +174,12 @@ public class Main {
     private static void elegirJugadorDeLista(List<Player> players) {
         System.out.println("Se encontraron varios jugadores con el mismo nombre:");
 
-        List<String> teamNames = new ArrayList<>();
-        for (Player player : players) {
-            String teamName = teamController.getTeamNameById(player.getEquip_id()); // Obtener el nombre del equipo
-            teamNames.add(teamName);
-        }
+        Map<Integer, String> teamNames = teamController.getAllTeamNames(); // Cargar todos los nombres de equipos en un Map
 
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            System.out.println((i + 1) + ". " + player.getNom() + " " + player.getCognom() + " (Equipo: " + teamNames.get(i) + ")");
+            String teamName = teamNames.getOrDefault(player.getEquip_id(), "Desconocido"); // Obtener el nombre del equipo
+            System.out.println((i + 1) + ". " + player.getNom() + " " + player.getCognom() + " (Equipo: " + teamName + ")");
         }
 
         int opcion = -1;

@@ -5,7 +5,9 @@ import modelo.Team;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TeamDAO implements GenericDAO<Team, Integer> {
 
@@ -186,6 +188,22 @@ public class TeamDAO implements GenericDAO<Team, Integer> {
         }
         return teamName;
     }
+
+    public Map<Integer, String> getAllTeamNames() {
+        Map<Integer, String> teamNames = new HashMap<>();
+        String sql = "SELECT equip_id, nom FROM equips";
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                teamNames.put(rs.getInt("equip_id"), rs.getString("nom"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return teamNames;
+    }
+
 
 
 

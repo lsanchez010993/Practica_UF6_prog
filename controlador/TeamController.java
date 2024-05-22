@@ -4,6 +4,7 @@ import modelo.Team;
 import modelo.dao.TeamDAO;
 
 import java.util.List;
+import java.util.Map;
 
 public class TeamController {
     private TeamDAO teamDAO;
@@ -47,5 +48,10 @@ public class TeamController {
     public String getTeamNameById(int equip_id) {
         return teamDAO.getTeamNameById(equip_id);
     }
+    public Map<Integer, String> getAllTeamNames() {
+        return teamDAO.getAllTeamNames();
+    }
+
+
 
 }
