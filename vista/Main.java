@@ -1,6 +1,8 @@
 package vista;
 
 import controlador.*;
+import modelo.DataGenerator;
+import modelo.DataInserter;
 import modelo.Match;
 import modelo.Player;
 
@@ -26,15 +28,17 @@ public class Main {
         do {
             try {
                 System.out.println("\n--------MENU INICIAL--------");
-                System.out.println("1. Llistar tots els jugadors d'un equip.");//Hecho
-                System.out.println("2. Calcular la mitjana de punts, rebots, asistències,... d'un jugador.");//Hecho
-                System.out.println("3. Llistar tots els partirs jugats per un equip amb el seu resultat."); //Hecho
-                System.out.println("4. Inserir un nou jugador a un equip.");//Pendiente de revisar
-                System.out.println("5. Traspassar un jugador a un altra equip.");//Hecho
-                System.out.println("6. Actualitzar les dades de jugadors o equips després d'un partit.");//Falta
-                System.out.println("7. Modificar les estadístiques d'un jugador.");//Falta
-                System.out.println("8. Retirar (Eliminar) un jugador.");//Hecho
-                System.out.println("9. Canviar nom franquícia d'un equip."); //Hecho
+                System.out.println("1. Llistar tots els jugadors d'un equip.");
+                System.out.println("2. Calcular la mitjana de punts, rebots, asistències,... d'un jugador.");
+                System.out.println("3. Llistar tots els partirs jugats per un equip amb el seu resultat.");
+                System.out.println("4. Inserir un nou jugador a un equip.");
+                System.out.println("5. Traspassar un jugador a un altra equip.");
+                System.out.println("6. Actualitzar les dades de jugadors o equips després d'un partit.");
+                System.out.println("7. Modificar les estadístiques d'un jugador.");
+                System.out.println("8. Retirar (Eliminar) un jugador.");
+                System.out.println("9. Canviar nom franquícia d'un equip.");
+                System.out.println("10. Generar datos aleatorios.");
+                System.out.println("11. Insertar datos generados.");
                 System.out.println("0. Sortir de l'aplicació.");
                 System.out.print("\nElige qué quieres hacer: ");
 
@@ -69,11 +73,17 @@ public class Main {
                     case 9:
                         actualizarNombreEquipo();
                         break;
+                    case 10:
+                        DataGenerator.generarDatosAleatorios();
+                        break;
+                    case 11:
+                        DataInserter.insertarDatos();
+                        break;
                     case 0:
                         System.out.println("Saliendo de la aplicación...");
                         break;
                     default:
-                        System.out.println("¡ATENCIÓN! Debe ser un valor entre 0 y 9.");
+                        System.out.println("¡ATENCIÓN! Debe ser un valor entre 0 y 11.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Entrada inválida. Por favor, introduce un número entero.");

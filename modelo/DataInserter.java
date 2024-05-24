@@ -5,11 +5,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DataInserter {
 
-    public static void main(String[] args) {
+    public static void insertarDatos() {
         String directory = "modelo/ArchivosGenerados/";
         insertarDatos(
                 directory + "equipos.txt",
@@ -21,13 +22,45 @@ public class DataInserter {
 
     public static void insertarDatos(String equiposFile, String jugadoresFile, String estadisticasFile, String partidosFile) {
         try (Connection conn = DatabaseConnection.getConnection()) {
-            insertarEquipos(conn, equiposFile);
-            insertarJugadores(conn, jugadoresFile);
-            insertarEstadisticas(conn, estadisticasFile);
-            insertarPartidos(conn, partidosFile);
+            if (!datosExistentes(conn, "equips")) {
+                insertarEquipos(conn, equiposFile);
+            } else {
+                System.out.println("Los datos de los equipos ya están insertados.");
+            }
+
+            if (!datosExistentes(conn, "jugadors")) {
+                insertarJugadores(conn, jugadoresFile);
+            } else {
+                System.out.println("Los datos de los jugadores ya están insertados.");
+            }
+
+            if (!datosExistentes(conn, "estadistiques_jugadors")) {
+                insertarEstadisticas(conn, estadisticasFile);
+            } else {
+                System.out.println("Los datos de las estadísticas de los jugadores ya están insertados.");
+            }
+
+            if (!datosExistentes(conn, "partits")) {
+                insertarPartidos(conn, partidosFile);
+            } else {
+                System.out.println("Los datos de los partidos ya están insertados.");
+            }
+
+            System.out.println("Datos insertados correctamente.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean datosExistentes(Connection conn, String tableName) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM " + tableName;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        }
+        return false;
     }
 
     private static void insertarEquipos(Connection conn, String equiposFile) throws SQLException {
