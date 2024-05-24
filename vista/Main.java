@@ -27,8 +27,8 @@ public class Main {
                 System.out.println("\n--------MENU INICIAL--------");
                 System.out.println("1. Llistar tots els jugadors d'un equip.");//Hecho
                 System.out.println("2. Calcular la mitjana de punts, rebots, asistències,... d'un jugador.");//Hecho
-                System.out.println("3. Llistar tots els partirs jugats per un equip amb el seu resultat."); //Falta
-                System.out.println("4. Inserir un nou jugador a un equip.");//Falta
+                System.out.println("3. Llistar tots els partirs jugats per un equip amb el seu resultat."); //Hecho
+                System.out.println("4. Inserir un nou jugador a un equip.");//Pendiente de revisar
                 System.out.println("5. Traspassar un jugador a un altra equip.");//Hecho
                 System.out.println("6. Actualitzar les dades de jugadors o equips després d'un partit.");//Falta
                 System.out.println("7. Modificar les estadístiques d'un jugador.");//Falta
@@ -117,9 +117,6 @@ public class Main {
 
                         try {
 
-                            int jugador_id = scan.nextInt();
-
-
                             System.out.print("Introduce el nombre del jugador: ");
                             String nom = scan.nextLine();
 
@@ -141,8 +138,9 @@ public class Main {
 
                             System.out.print("Introduce la posición del jugador (por ejemplo, delantero, defensa, portero): ");
                             String posicio = scan.nextLine();
+                            System.out.println("Añadiendo jugador... Espere");
                             //El campo jugador_id es autoincremental
-                            jugador_id = playerController.getAllPlayers().size()+1;
+                            int jugador_id = playerController.getAllPlayers().size()+1;
                             playerController.createPlayer(jugador_id, nom, cognom, dataNaixement, alcada, pes, dorsal, posicio, id_equip);
 
                             Player jugador = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, dorsal, posicio, id_equip);
