@@ -61,13 +61,10 @@ public class PlayerController {
         return playerNames.contains(namePlayer);
     }
 
-    public boolean changeNameTeamOfPlayer(String playerName, int teamId) {
-        List<String> playerNames = playerDAO.findPlayersNameString();
-        if (playerNames.contains(playerName)) {
-            return playerDAO.updateTeamPlayerForName(playerName, teamId);
-        } else {
-            return false;
-        }
+    public boolean changeNameTeamOfPlayer(int jugador_id, int teamId) {
+
+        return playerDAO.updateTeamPlayerForName(jugador_id, teamId);
+
     }
 
     public boolean retirarJugador(int jugador_id) {

@@ -247,12 +247,13 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
         return playersName;
     }
 
-    public boolean updateTeamPlayerForName(String playerName, int teamId) {
-        String sql = "UPDATE jugadors SET equip_id = ? WHERE nom = ?";
+
+    public boolean updateTeamPlayerForName(int jugador_id, int teamId) {
+        String sql = "UPDATE jugadors SET equip_id = ? WHERE jugador_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, teamId);
-            pstmt.setString(2, playerName);
+            pstmt.setInt(2, jugador_id);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -260,4 +261,5 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
             return false;
         }
     }
+
 }

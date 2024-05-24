@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Main {
-    static String nombreJugadorStatico="";
+    static String nombreJugadorStatico = "";
     static MatchController matchController = new MatchController();
     static Scanner scan = new Scanner(System.in);
     static TeamController teamController = new TeamController();
@@ -59,7 +59,7 @@ public class Main {
                         afegirJugador_a_Equip();
                         break;
                     case 5:
-                        traspasarJugador_a_Equipo(false);
+                        traspasarJugador_a_Equipo();
                         break;
                     case 6:
                         // Otra funcionalidad
@@ -94,112 +94,93 @@ public class Main {
             }
         } while (opcion != 0);
     }
-    public static void afegirJugador_a_Equip() {
+
+    public static void insertarNuevoJugador(int id_equip) {
+        System.out.println("Completa los siguientes datos para insertar al nuevo jugador:");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            System.out.print("Introduce el nombre del jugador: ");
+            String nom = scan.nextLine();
+
+            System.out.print("Introduce el apellido del jugador: ");
+            String cognom = scan.nextLine();
+
+            System.out.print("Introduce la fecha de nacimiento del jugador (YYYY-MM-DD): ");
+            String dataNaixementStr = scan.nextLine();
+            Date dataNaixement = dateFormat.parse(dataNaixementStr);
+
+            System.out.print("Introduce la altura del jugador (por ejemplo, 1.80m o 180cm): ");
+            String alcada = scan.nextLine();
+
+            System.out.print("Introduce el peso del jugador (por ejemplo, 75kg): ");
+            String pes = scan.nextLine();
+
+            System.out.print("Introduce el número dorsal del jugador: ");
+            String dorsal = scan.nextLine();
+
+            System.out.print("Introduce la posición del jugador (por ejemplo, delantero, defensa, portero): ");
+            String posicio = scan.nextLine();
+            //El campo jugador_id es autoincremental
+            int numJugadores = playerController.getAllPlayers().size();
+            int jugador_id = numJugadores + 4;
+            System.out.println("Id del nuevo jugador creado: " + jugador_id);
+            System.out.println("Añadiendo jugador... Espere");
+            playerController.createPlayer(
+                    jugador_id,
+                    nom,
+                    cognom,
+                    dataNaixement,
+                    alcada,
+                    pes,
+                    dorsal,
+                    posicio,
+                    id_equip
+            );
+            System.out.println("Jugador añadido a la base de datos exitosamente:");
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        } finally {
+            scan.close();
+        }
+    }
+
+    private static void afegirJugador_a_Equip() {
         String nombreJugador;
         String nombreEquipo;
-        String opcion;
         int id_equip;
+        int opcion;
+        System.out.println("""
+                Selecciona que quieres hacer:
+                1. Crear nuevo jugador.
+                2. Cambiar de equipo a un jugador existente.
+                """);
 
-        System.out.println("Introduce el nombre del jugador:");
-        nombreJugador = scan.nextLine();
-        if (Validaciones.isValidPlayerName(nombreJugador)) {
-            if (playerController.existPlayerName(nombreJugador)) {
-                System.out.println("Existe un jugador llamado " + nombreJugador + " ¿Quieres cambiarlo de equipo? (si/no)");
-                opcion = scan.nextLine().toLowerCase();
-                switch (opcion) {
-                    case "si":
-                        System.out.println("Has seleccionado cambiar al jugador de equipo.");
-                        traspasarJugador_a_Equipo(true);
-                        break;
-                    case "no":
-
-                        break;
-                }
-            } else {
-
-                //si el jugador no existe
-                System.out.println("¿A qué equipo quieres añadir el nuevo jugador?");
+        opcion = scan.nextInt();
+        scan.nextLine();
+        switch (opcion) {
+            case 1:
+                System.out.println("Has seleccionado añadir un nuevo jugador a la base de datos. " +
+                        "\n ¿A qué equipo quieres añadirlo?");
                 nombreEquipo = scan.nextLine();
                 if (Validaciones.isValidTeamName(nombreEquipo)) {
                     if (teamController.existTeamName(nombreEquipo)) {
                         id_equip = teamController.getTeamId(nombreEquipo);
-                        System.out.println("Completa los siguientes datos para insertar al nuevo jugador:");
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-                        try {
-
-//                            System.out.print("Introduce el nombre del jugador: ");
-//                            String nom = scan.nextLine();
-//
-//                            System.out.print("Introduce el apellido del jugador: ");
-//                            String cognom = scan.nextLine();
-//
-//                            System.out.print("Introduce la fecha de nacimiento del jugador (YYYY-MM-DD): ");
-//                            String dataNaixementStr = scan.nextLine();
-//                            Date dataNaixement = dateFormat.parse(dataNaixementStr);
-//
-//                            System.out.print("Introduce la altura del jugador (por ejemplo, 1.80m o 180cm): ");
-//                            String alcada = scan.nextLine();
-//
-//                            System.out.print("Introduce el peso del jugador (por ejemplo, 75kg): ");
-//                            String pes = scan.nextLine();
-//
-//                            System.out.print("Introduce el número dorsal del jugador: ");
-//                            String dorsal = scan.nextLine();
-//
-//                            System.out.print("Introduce la posición del jugador (por ejemplo, delantero, defensa, portero): ");
-//                            String posicio = scan.nextLine();
-                            System.out.println("Añadiendo jugador... Espere");
-                            //El campo jugador_id es autoincremental
-                            int jugador_id = playerController.getAllPlayers().size()+1;
-                            System.out.println(jugador_id);
-                            playerController.createPlayer(
-                                    jugador_id,
-                                    "Juan",
-                                    "González",
-                                    new Date(1995, 6, 15), // Fecha de nacimiento
-                                    "1.85", // Altura
-                                    "80.5", // Peso
-                                    "10", // Dorsal
-                                    "Guard", // Posición
-                                    id_equip
-                            );
-
-
-
-//                            playerController.createPlayer(jugador_id, nom, cognom, dataNaixement, alcada, pes, dorsal, posicio, id_equip);
-//
-//                            Player jugador = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, dorsal, posicio, id_equip);
-//
-//                            // Aquí puedes hacer algo con el objeto jugador, como imprimir sus datos o guardarlo en una base de datos
-//
-//                            System.out.println("Jugador creado exitosamente:");
-//                            System.out.println("ID: " + jugador.getJugador_id());
-//                            System.out.println("Nombre: " + jugador.getNom());
-//                            System.out.println("Apellido: " + jugador.getCognom());
-//                            System.out.println("Fecha de Nacimiento: " + dateFormat.format(jugador.getDataNaixement()));
-//                            System.out.println("Altura: " + jugador.getAlcada());
-//                            System.out.println("Peso: " + jugador.getPes());
-//                            System.out.println("Dorsal: " + jugador.getDorsal());
-//                            System.out.println("Posición: " + jugador.getPosicio());
-//                            System.out.println("ID del Equipo: " + jugador.getEquip_id());
-//
-
-
-                        } finally {
-                            scan.close();
-                        }
+                        insertarNuevoJugador(id_equip);
 
                     }
                 }
-            }
+                break;
+            case 2:
+                System.out.println("Has seleccionado cambiar de equipo a un jugador existente");
+                System.out.println("Introduce el nombre del jugador:");
+                nombreJugador = scan.nextLine();
+                Validaciones.verificarJugador(nombreJugador, 4);
+                break;
         }
 
+    }
 
-    }
-    private static void trsferirNombre(String nombre){
-        nombreJugadorStatico=nombre;
-    }
     private static void listarJugadoresDeUnEquipo() {
         String nombreEquipo;
         List<Player> jugadores = null;
@@ -283,8 +264,59 @@ public class Main {
         if (jugadores.size() == 1) {
             mostrarMediaJugador(jugadores.get(0));
         } else {
-            elegirJugadorDeLista(jugadores);
+            Validaciones.elegirJugadorDeLista(jugadores,2);
         }
+    }
+
+    public static void traspasarJugador_a_Equipo() {
+        String nombreJugador;
+        boolean salir = false;
+        do {
+
+            System.out.print("Introduce el nombre del jugador (o escribe 'regresar' para volver al menú): ");
+            nombreJugador = scan.nextLine();
+
+
+            if (!Validaciones.verificarJugador(nombreJugador, 5)) {
+                System.out.println("El jugador introducido no existe. Vuelve a probar");
+            } else salir = true;
+
+
+        } while (!salir);
+
+    }
+
+
+    public static void traspasarJugador_a_Equipo(Player player) {
+
+        String nombreEquipo;
+        boolean salir = false;
+
+        System.out.print("Introduce el nombre del equipo al que quieres cambiar el jugador: (o escribe 'regresar' para volver al menú): ");
+        nombreEquipo = scan.nextLine();
+        do {
+            if (nombreEquipo.equalsIgnoreCase("regresar")) {
+                return; // Volver al menú principal
+            }
+            if (!Validaciones.isValidTeamName(nombreEquipo)) {
+                System.out.println("El nombre del equipo no es válido. Inténtalo de nuevo.");
+            } else {
+                // Si es un nombre válido, comprueba si existe:
+                if (teamController.existTeamName(nombreEquipo)) {
+                    int equip_id = teamController.getTeamId(nombreEquipo);
+                    if (playerController.changeNameTeamOfPlayer(player.getJugador_id(), equip_id)) {
+                        System.out.println("El jugador ha sido traspasado exitosamente al equipo.");
+                        salir = true;
+                    } else {
+                        System.out.println("Se ha producido un error al traspasar el jugador.");
+                    }
+                } else {
+                    // Si no existe:
+                    System.out.println("El nombre del equipo no existe. Inténtalo de nuevo.");
+                }
+            }
+        }
+        while (!salir);
     }
 
     private static void elegirJugadorDeLista(List<Player> players) {
@@ -323,7 +355,7 @@ public class Main {
     }
 
 
-    private static void mostrarMediaJugador(Player player) {
+    public static void mostrarMediaJugador(Player player) {
         double[] medias = playerStatsController.calcularMediasJugador(player.getJugador_id());
 
         if (medias == null) {
@@ -434,63 +466,63 @@ public class Main {
     }
 
 
-    private static void traspasarJugador_a_Equipo( boolean nombreJugadorCorrecto) {
-        String nombreJugador = "";
-        String nombreEquipo;
-        int equip_id;
-
-        boolean salir = false;
-
-        do {
-            if (!nombreJugadorCorrecto) {
-                System.out.print("Introduce el nombre del jugador (o escribe 'regresar' para volver al menú): ");
-                nombreJugador = scan.nextLine();
-
-                if (nombreJugador.equalsIgnoreCase("regresar")) {
-                    return; // Volver al menú principal
-                }
-                // Comprobar si el nombre del jugador es válido:
-                if (isValidPlayerName(nombreJugador)) {
-                    // Comprobar si existe en la BD:
-                    if (playerController.existPlayerName(nombreJugador)) {
-                        nombreJugadorCorrecto = true;
-                    } else {
-                        System.out.println("El jugador introducido no existe.");
-                        continue; // Repetir el bucle si el nombre del jugador no existe
-                    }
-                } else {
-                    System.out.println("Nombre de jugador no válido. Inténtalo de nuevo.");
-                    continue; // Repetir el bucle si el nombre del jugador es inválido
-                }
-            }
-            if (nombreJugadorStatico!=null){
-                nombreJugador= nombreJugadorStatico;
-            }
-
-            System.out.print("Introduce el nombre del equipo al que quieres cambiar el jugador: (o escribe 'regresar' para volver al menú): ");
-            nombreEquipo = scan.nextLine();
-            if (nombreJugador.equalsIgnoreCase("regresar")) {
-                return; // Volver al menú principal
-            }
-            if (!isValidTeamName(nombreEquipo)) {
-                System.out.println("El nombre del equipo no es válido. Inténtalo de nuevo.");
-            } else {
-                // Si es un nombre válido, comprueba si existe:
-                if (teamController.existTeamName(nombreEquipo)) {
-                    equip_id = teamController.getTeamId(nombreEquipo);
-                    if (playerController.changeNameTeamOfPlayer(nombreJugador, equip_id)) {
-                        System.out.println("El jugador ha sido traspasado exitosamente al equipo.");
-                        salir = true;
-                    } else {
-                        System.out.println("Se ha producido un error al traspasar el jugador.");
-                    }
-                } else {
-                    // Si no existe:
-                    System.out.println("El nombre del equipo no existe. Inténtalo de nuevo.");
-                }
-            }
-        } while (!salir);
-    }
+//    private static void traspasarJugador_a_Equipo( boolean nombreJugadorCorrecto) {
+//        String nombreJugador = "";
+//        String nombreEquipo;
+//        int equip_id;
+//
+//        boolean salir = false;
+//
+//        do {
+//            if (!nombreJugadorCorrecto) {
+//                System.out.print("Introduce el nombre del jugador (o escribe 'regresar' para volver al menú): ");
+//                nombreJugador = scan.nextLine();
+//
+//                if (nombreJugador.equalsIgnoreCase("regresar")) {
+//                    return; // Volver al menú principal
+//                }
+//                // Comprobar si el nombre del jugador es válido:
+//                if (isValidPlayerName(nombreJugador)) {
+//                    // Comprobar si existe en la BD:
+//                    if (playerController.existPlayerName(nombreJugador)) {
+//                        nombreJugadorCorrecto = true;
+//                    } else {
+//                        System.out.println("El jugador introducido no existe.");
+//                        continue; // Repetir el bucle si el nombre del jugador no existe
+//                    }
+//                } else {
+//                    System.out.println("Nombre de jugador no válido. Inténtalo de nuevo.");
+//                    continue; // Repetir el bucle si el nombre del jugador es inválido
+//                }
+//            }
+//            if (nombreJugadorStatico!=null){
+//                nombreJugador= nombreJugadorStatico;
+//            }
+//
+//            System.out.print("Introduce el nombre del equipo al que quieres cambiar el jugador: (o escribe 'regresar' para volver al menú): ");
+//            nombreEquipo = scan.nextLine();
+//            if (nombreJugador.equalsIgnoreCase("regresar")) {
+//                return; // Volver al menú principal
+//            }
+//            if (!isValidTeamName(nombreEquipo)) {
+//                System.out.println("El nombre del equipo no es válido. Inténtalo de nuevo.");
+//            } else {
+//                // Si es un nombre válido, comprueba si existe:
+//                if (teamController.existTeamName(nombreEquipo)) {
+//                    equip_id = teamController.getTeamId(nombreEquipo);
+//                    if (playerController.changeNameTeamOfPlayer(nombreJugador, equip_id)) {
+//                        System.out.println("El jugador ha sido traspasado exitosamente al equipo.");
+//                        salir = true;
+//                    } else {
+//                        System.out.println("Se ha producido un error al traspasar el jugador.");
+//                    }
+//                } else {
+//                    // Si no existe:
+//                    System.out.println("El nombre del equipo no existe. Inténtalo de nuevo.");
+//                }
+//            }
+//        } while (!salir);
+//    }
 
     private static void retirarJugador() {
         String nombreJugador;
