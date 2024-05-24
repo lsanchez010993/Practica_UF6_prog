@@ -276,10 +276,12 @@ public class Main {
             System.out.print("Introduce el nombre del jugador (o escribe 'regresar' para volver al menú): ");
             nombreJugador = scan.nextLine();
 
-
-            if (!Validaciones.verificarJugador(nombreJugador, 5)) {
-                System.out.println("El jugador introducido no existe. Vuelve a probar");
-            } else salir = true;
+            if (nombreJugador.equalsIgnoreCase("regresar")) {
+                return; // Volver al menú principal
+            }
+            if (Validaciones.verificarJugador(nombreJugador, 5)) {
+               salir=true;
+            }
 
 
         } while (!salir);
