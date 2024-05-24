@@ -57,54 +57,65 @@ donarem l’opció d’executar el punt Traspassar un judador a un altra equip.
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
                         try {
-                            System.out.print("Introduce el ID del jugador: ");
-                            int jugador_id = scan.nextInt();
-                            scan.nextLine();
 
-                            System.out.print("Introduce el nombre del jugador: ");
-                            String nom = scan.nextLine();
-
-                            System.out.print("Introduce el apellido del jugador: ");
-                            String cognom = scan.nextLine();
-
-                            System.out.print("Introduce la fecha de nacimiento del jugador (YYYY-MM-DD): ");
-                            String dataNaixementStr = scan.nextLine();
-                            Date dataNaixement = dateFormat.parse(dataNaixementStr);
-
-                            System.out.print("Introduce la altura del jugador (por ejemplo, 1.80m o 180cm): ");
-                            String alcada = scan.nextLine();
-
-                            System.out.print("Introduce el peso del jugador (por ejemplo, 75kg): ");
-                            String pes = scan.nextLine();
-
-                            System.out.print("Introduce el número dorsal del jugador: ");
-                            String dorsal = scan.nextLine();
-
-                            System.out.print("Introduce la posición del jugador (por ejemplo, delantero, defensa, portero): ");
-                            String posicio = scan.nextLine();
+//                            System.out.print("Introduce el nombre del jugador: ");
+//                            String nom = scan.nextLine();
+//
+//                            System.out.print("Introduce el apellido del jugador: ");
+//                            String cognom = scan.nextLine();
+//
+//                            System.out.print("Introduce la fecha de nacimiento del jugador (YYYY-MM-DD): ");
+//                            String dataNaixementStr = scan.nextLine();
+//                            Date dataNaixement = dateFormat.parse(dataNaixementStr);
+//
+//                            System.out.print("Introduce la altura del jugador (por ejemplo, 1.80m o 180cm): ");
+//                            String alcada = scan.nextLine();
+//
+//                            System.out.print("Introduce el peso del jugador (por ejemplo, 75kg): ");
+//                            String pes = scan.nextLine();
+//
+//                            System.out.print("Introduce el número dorsal del jugador: ");
+//                            String dorsal = scan.nextLine();
+//
+//                            System.out.print("Introduce la posición del jugador (por ejemplo, delantero, defensa, portero): ");
+//                            String posicio = scan.nextLine();
+                            System.out.println("Añadiendo jugador... Espere");
                             //El campo jugador_id es autoincremental
-                            jugador_id = playerController.getAllPlayers().size()+1;
-                            playerController.createPlayer(jugador_id, nom, cognom, dataNaixement, alcada, pes, dorsal, posicio, id_equip);
-
-                            Player jugador = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, dorsal, posicio, id_equip);
-
-                            // Aquí puedes hacer algo con el objeto jugador, como imprimir sus datos o guardarlo en una base de datos
-
-                            System.out.println("Jugador creado exitosamente:");
-                            System.out.println("ID: " + jugador.getJugador_id());
-                            System.out.println("Nombre: " + jugador.getNom());
-                            System.out.println("Apellido: " + jugador.getCognom());
-                            System.out.println("Fecha de Nacimiento: " + dateFormat.format(jugador.getDataNaixement()));
-                            System.out.println("Altura: " + jugador.getAlcada());
-                            System.out.println("Peso: " + jugador.getPes());
-                            System.out.println("Dorsal: " + jugador.getDorsal());
-                            System.out.println("Posición: " + jugador.getPosicio());
-                            System.out.println("ID del Equipo: " + jugador.getEquip_id());
+                            int jugador_id = playerController.getAllPlayers().size()+1;
+                            System.out.println(jugador_id);
+                            playerController.createPlayer(
+                                    jugador_id,
+                                    "Juan",
+                                    "González",
+                                    new Date(1995, 6, 15), // Fecha de nacimiento
+                                    "1.85", // Altura
+                                    "80.5", // Peso
+                                    "10", // Dorsal
+                                    "Guard", // Posición
+                                    id_equip
+                            );
 
 
 
-                        } catch (ParseException e) {
-                            System.out.println("Error al parsear la fecha de nacimiento. Asegúrate de usar el formato YYYY-MM-DD.");
+//                            playerController.createPlayer(jugador_id, nom, cognom, dataNaixement, alcada, pes, dorsal, posicio, id_equip);
+//
+//                            Player jugador = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, dorsal, posicio, id_equip);
+//
+//                            // Aquí puedes hacer algo con el objeto jugador, como imprimir sus datos o guardarlo en una base de datos
+//
+//                            System.out.println("Jugador creado exitosamente:");
+//                            System.out.println("ID: " + jugador.getJugador_id());
+//                            System.out.println("Nombre: " + jugador.getNom());
+//                            System.out.println("Apellido: " + jugador.getCognom());
+//                            System.out.println("Fecha de Nacimiento: " + dateFormat.format(jugador.getDataNaixement()));
+//                            System.out.println("Altura: " + jugador.getAlcada());
+//                            System.out.println("Peso: " + jugador.getPes());
+//                            System.out.println("Dorsal: " + jugador.getDorsal());
+//                            System.out.println("Posición: " + jugador.getPosicio());
+//                            System.out.println("ID del Equipo: " + jugador.getEquip_id());
+//
+
+
                         } finally {
                             scan.close();
                         }
