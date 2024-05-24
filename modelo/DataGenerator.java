@@ -9,9 +9,9 @@ public class DataGenerator {
 
     private static final String[] NOMBRES = {"John", "Mike", "James", "Oscar", "Chris", "David", "Paul", "Mark", "Daniel", "Robert"};
     private static final String[] APELLIDOS = {"Smith", "Johnson", "Brown", "Williams", "Jones", "Garcia", "Martinez", "Davis", "Rodriguez", "Martinez"};
-    private static final String[] CIUDADES = {"New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose"};
-    private static final String[] EQUIPOS = {"Lakers", "Bulls", "Warriors", "Celtics", "Nets", "Heat", "Spurs", "Rockets", "Clippers", "Jazz"};
-    private static final String[] DIVISIONES = {"East", "West"};
+    private static final String[] CIUDADES = {"Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose", "San Francisco"};
+    private static final String[] EQUIPOS = {"Lakers", "Bulls", "Rockets", "Suns", "76ers", "Spurs", "Clippers", "Mavericks", "Warriors", "Knicks"};
+    private static final String[] DIVISIONES = {"Pacific", "Central", "Southwest", "Southeast", "Northwest", "Atlantic"};
     private static final String[] POSICIONES = {"Base", "Escolta", "Alero", "Ala-pivot", "Pivot"};
     private static final Random RANDOM = new Random();
 
