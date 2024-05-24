@@ -43,6 +43,12 @@ Tenemos dos formas:
 1. Usando la base de datos que ya te hemos propuesto dentro de la carpeta `database`.
 2. Generando datos aleatorios usando **DataGenerator** y luego insertándolos en la base de datos con **DataInserter**.
 
+El **DataGenerator** genera:
+- 30 equipos (reales)
+- 300 jugadores (aleatorios)
+- 900 estadísticas de jugadores (aleatorios)
+- 150 partidos (aleatorios)
+- 
 ## AVISO: IMPORTANTE
 
 El ejercicio número 8, de retirar el jugador, cuando le des que sí tienes que tener en cuenta que tarda unos 5 minutos. Toca tener paciencia.
