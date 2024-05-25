@@ -95,56 +95,60 @@ public class Main {
     }
 
     public static void insertarNuevoJugador(int id_equip) {
-        System.out.println("Completa los siguientes datos para insertar al nuevo jugador:");
+        try {
+            System.out.println("Completa los siguientes datos para insertar al nuevo jugador:");
 
-        System.out.print("Introduce el nombre del jugador: ");
-        String nom = scan.nextLine();
+            System.out.print("Introduce el nombre del jugador: ");
+            String nom = scan.nextLine();
 
-        System.out.print("Introduce el apellido del jugador: ");
-        String cognom = scan.nextLine();
+            System.out.print("Introduce el apellido del jugador: ");
+            String cognom = scan.nextLine();
 
-        System.out.print("Introduce la fecha de nacimiento del jugador (YYYY-MM-DD): ");
-        String dataNaixement = scan.nextLine();
+            System.out.print("Introduce la fecha de nacimiento del jugador (YYYY-MM-DD): ");
+            String dataNaixement = scan.nextLine();
 
-        System.out.print("Introduce la altura del jugador (por ejemplo, 1.80): ");
-        String alcada = scan.nextLine();
+            System.out.print("Introduce la altura del jugador (por ejemplo, 1.80): ");
+            String alcada = scan.nextLine();
 
-        System.out.print("Introduce el peso del jugador: ");
-        String pes = scan.nextLine();
+            System.out.print("Introduce el peso del jugador: ");
+            String pes = scan.nextLine();
 
-        System.out.print("Introduce el número dorsal del jugador: ");
-        String dorsal = scan.nextLine();
+            System.out.print("Introduce el número dorsal del jugador: ");
+            String dorsal = scan.nextLine();
 
-        System.out.print("Indica la posición del jugador:");
+            System.out.print("Indica la posición del jugador:");
 
-        String posicio= Validaciones.elegirPosicion(scan);
-        System.out.println("Todos los datos han sido introducidos correctamente.");
-        System.out.println("Obteniendo nueva id. Por favor, espera..");
+            String posicio = Validaciones.elegirPosicion(scan);
+            System.out.println("Obteniendo nueva id. Por favor, espera...");
 
+            // El campo jugador_id es autoincremental
+            int jugador_id = playerController.getIdMax() + 1;
+            System.out.println("Id del nuevo jugador: " + jugador_id);
+            System.out.println("Verificando los datos introducidos. Por favor, espera...");
 
-//        El campo jugador_id es autoincremental
+            Player player = playerController.createPlayer(
+                    true,
+                    jugador_id,
+                    nom,
+                    cognom,
+                    dataNaixement,
+                    alcada,
+                    pes,
+                    dorsal,
+                    posicio,
+                    id_equip
+            );
+            playerController.insertPlayer(player);
 
-        int jugador_id = playerController.getIdMax() + 1;
-
-
-        System.out.println("Id del nuevo jugador: " + jugador_id);
-        System.out.println("Añadiendo jugador a la base de datos... Espere");
-        Player player= playerController.createPlayer(
-                jugador_id,
-                nom,
-                cognom,
-                dataNaixement,
-                alcada,
-                pes,
-                dorsal,
-                posicio,
-                id_equip
-        );
-        playerController.insertPlayer(player);
-
-        System.out.println("Jugador añadido a la base de datos exitosamente:");
-
+            System.out.println("Jugador añadido a la base de datos exitosamente:");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error inesperado: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
+
 
     private static void afegirJugador_a_Equip() throws ParseException {
         String nombreJugador;
@@ -242,7 +246,7 @@ public class Main {
             }
 
             // Validación del nombre del jugador
-            if (!isValidPlayerName(nombreJugador)) {
+            if (!Validaciones.isValidPlayerName(nombreJugador)) {
                 System.out.println("Nombre de jugador inválido. No debe contener números y no puede estar vacío. Inténtalo de nuevo.");
                 continue; // Repetir el bucle si el nombre del jugador es inválido
             }
@@ -290,72 +294,41 @@ public class Main {
     }
 
 
-    public static void traspasarJugador_a_Equipo(Player player) {
 
-        String nombreEquipo;
-        boolean salir = false;
-
-        System.out.print("Introduce el nombre del equipo al que quieres cambiar el jugador: (o escribe 'regresar' para volver al menú): ");
-        nombreEquipo = scan.nextLine();
-        do {
-            if (nombreEquipo.equalsIgnoreCase("regresar")) {
-                return; // Volver al menú principal
-            }
-            if (!Validaciones.isValidTeamName(nombreEquipo)) {
-                System.out.println("El nombre del equipo no es válido. Inténtalo de nuevo.");
-            } else {
-                // Si es un nombre válido, comprueba si existe:
-                if (teamController.existTeamName(nombreEquipo)) {
-                    int equip_id = teamController.getTeamId(nombreEquipo);
-                    if (playerController.changeNameTeamOfPlayer(player.getJugador_id(), equip_id)) {
-                        System.out.println("El jugador ha sido traspasado exitosamente al equipo.");
-                        salir = true;
-                    } else {
-                        System.out.println("Se ha producido un error al traspasar el jugador.");
-                    }
-                } else {
-                    // Si no existe:
-                    System.out.println("El nombre del equipo no existe. Inténtalo de nuevo.");
-                }
-            }
-        }
-        while (!salir);
-    }
-
-    private static void elegirJugadorDeLista(List<Player> players) {
-        System.out.println("Se encontraron varios jugadores con el mismo nombre:");
-
-        Map<Integer, String> teamNames = teamController.getAllTeamNames(); // Cargar todos los nombres de equipos en un Map
-
-        for (int i = 0; i < players.size(); i++) {
-            Player player = players.get(i);
-            String teamName = teamNames.getOrDefault(player.getEquip_id(), "Desconocido"); // Obtener el nombre del equipo
-            System.out.println((i + 1) + ". " + player.getNom() + " " + player.getCognom() + " (Equipo: " + teamName + ")");
-        }
-
-        int opcion = -1;
-        do {
-            try {
-                System.out.print("Elige el número del jugador (o escribe 'regresar' para volver al menú): ");
-                String input = scan.nextLine();
-
-                if (input.equalsIgnoreCase("regresar")) {
-                    return; // Volver al menú principal
-                }
-
-                opcion = Integer.parseInt(input);
-
-                if (opcion < 1 || opcion > players.size()) {
-                    System.out.println("Opción inválida. Debe ser un número entre 1 y " + players.size());
-                    opcion = -1; // Restablecer opción para mantener el bucle
-                } else {
-                    mostrarMediaJugador(players.get(opcion - 1));
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida. Por favor, introduce un número entero.");
-            }
-        } while (opcion == -1);
-    }
+//    private static void elegirJugadorDeLista(List<Player> players) {
+//        System.out.println("Se encontraron varios jugadores con el mismo nombre:");
+//
+//        Map<Integer, String> teamNames = teamController.getAllTeamNames(); // Cargar todos los nombres de equipos en un Map
+//
+//        for (int i = 0; i < players.size(); i++) {
+//            Player player = players.get(i);
+//            String teamName = teamNames.getOrDefault(player.getEquip_id(), "Desconocido"); // Obtener el nombre del equipo
+//            System.out.println((i + 1) + ". " + player.getNom() + " " + player.getCognom() + " (Equipo: " + teamName + ")");
+//        }
+//
+//        int opcion = -1;
+//        do {
+//            try {
+//                System.out.print("Elige el número del jugador (o escribe 'regresar' para volver al menú): ");
+//                String input = scan.nextLine();
+//
+//                if (input.equalsIgnoreCase("regresar")) {
+//                    return; // Volver al menú principal
+//                }
+//
+//                opcion = Integer.parseInt(input);
+//
+//                if (opcion < 1 || opcion > players.size()) {
+//                    System.out.println("Opción inválida. Debe ser un número entre 1 y " + players.size());
+//                    opcion = -1; // Restablecer opción para mantener el bucle
+//                } else {
+//                    mostrarMediaJugador(players.get(opcion - 1));
+//                }
+//            } catch (NumberFormatException e) {
+//                System.out.println("Entrada inválida. Por favor, introduce un número entero.");
+//            }
+//        } while (opcion == -1);
+//    }
 
 
     public static void mostrarMediaJugador(Player player) {
@@ -382,17 +355,17 @@ public class Main {
         System.out.println("Bloqueos: " + String.format("%.2f", medias[12]));
     }
 
-    private static boolean isValidPlayerName(String playerName) {
-        if (playerName == null || playerName.trim().isEmpty()) {
-            return false;
-        }
-        for (char c : playerName.toCharArray()) {
-            if (Character.isDigit(c)) {
-                return false;
-            }
-        }
-        return true;
-    }
+//    private static boolean isValidPlayerName(String playerName) {
+//        if (playerName == null || playerName.trim().isEmpty()) {
+//            return false;
+//        }
+//        for (char c : playerName.toCharArray()) {
+//            if (Character.isDigit(c)) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
     private static void actualizarNombreEquipo() {
         String nombreEquipoActual;
@@ -540,7 +513,7 @@ public class Main {
             }
 
             // Validación del nombre del jugador
-            if (!isValidPlayerName(nombreJugador)) {
+            if (!Validaciones.isValidPlayerName(nombreJugador)) {
                 System.out.println("Nombre de jugador inválido. No debe contener números y no puede estar vacío. Inténtalo de nuevo.");
                 continue; // Repetir el bucle si el nombre del jugador es inválido
             }

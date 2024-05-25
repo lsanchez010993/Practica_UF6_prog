@@ -33,12 +33,12 @@ public class PlayerController {
         return playerDAO.findAll();
     }
 
-    public Player createPlayer(int jugador_id, String nom, String cognom, String dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
+    public Player createPlayer(boolean insertarJugador,int jugador_id, String nom, String cognom, String dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
         Date fechaNacimiento = parseDate(dataNaixement);
         if (fechaNacimiento == null) {
             throw new IllegalArgumentException("Invalid dataNaixement format");
         }
-        return new Player(jugador_id, nom, cognom, fechaNacimiento, alcada, pes, dorsal, posicio, equip_id);
+        return new Player(insertarJugador,jugador_id, nom, cognom, fechaNacimiento, alcada, pes, dorsal, posicio, equip_id);
     }
     public boolean insertPlayer(Player player){
         return playerDAO.insert(player);
