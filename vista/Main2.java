@@ -18,7 +18,7 @@ public class Main2 {
 
 
     public static void main(String[] args) {
-       afegirJugador_a_Equip();
+//       afegirJugador_a_Equip();
         traspasarJugador_a_Equipo();
     }
 
@@ -28,73 +28,73 @@ Demanarem el nom del jugador i l’equip on el volen inserir, si el jugador ja e
 donarem l’opció d’executar el punt Traspassar un judador a un altra equip.
      */
 
-    public static void afegirJugador_a_Equip() {
-        String nombreJugador;
-        String nombreEquipo;
-        int id_equip;
-
-
-        System.out.println("Introduce el nombre del jugador:");
-        nombreJugador = scan.nextLine();
-        if (!Validaciones.verificarJugador(nombreJugador, 4)) {
-            System.out.println("Vas a añadir un nuevo jugador a la base de datos. ¿A qué equipo quieres añadirlo?");
-
-            nombreEquipo = scan.nextLine();
-            if (Validaciones.isValidTeamName(nombreEquipo)) {
-                if (teamController.existTeamName(nombreEquipo)) {
-                    id_equip = teamController.getTeamId(nombreEquipo);
-                    System.out.println("Completa los siguientes datos para insertar al nuevo jugador:");
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    try {
-                        System.out.print("Introduce el nombre del jugador: ");
-                        String nom = scan.nextLine();
-
-                        System.out.print("Introduce el apellido del jugador: ");
-                        String cognom = scan.nextLine();
-
-                        System.out.print("Introduce la fecha de nacimiento del jugador (YYYY-MM-DD): ");
-                        String dataNaixementStr = scan.nextLine();
-                        Date dataNaixement = dateFormat.parse(dataNaixementStr);
-
-                        System.out.print("Introduce la altura del jugador (por ejemplo, 1.80m o 180cm): ");
-                        String alcada = scan.nextLine();
-
-                        System.out.print("Introduce el peso del jugador (por ejemplo, 75kg): ");
-                        String pes = scan.nextLine();
-
-                        System.out.print("Introduce el número dorsal del jugador: ");
-                        String dorsal = scan.nextLine();
-
-                        System.out.print("Introduce la posición del jugador (por ejemplo, delantero, defensa, portero): ");
-                        String posicio = scan.nextLine();
-                        //El campo jugador_id es autoincremental
-                        int numJugadores = playerController.getAllPlayers().size();
-                        int jugador_id = numJugadores + 4;
-                        System.out.println("Id del nuevo jugador creado: " + jugador_id);
-                        System.out.println("Añadiendo jugador... Espere");
-                        playerController.createPlayer(
-                                jugador_id,
-                                nom,
-                                cognom,
-                                dataNaixement,
-                                alcada,
-                                pes,
-                                dorsal,
-                                posicio,
-                                id_equip
-                        );
-                        System.out.println("Jugador añadido a la base de datos exitosamente:");
-
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    } finally {
-                        scan.close();
-                    }
-
-                }
-            }
-        }
-    }
+//    public static void afegirJugador_a_Equip() {
+//        String nombreJugador;
+//        String nombreEquipo;
+//        int id_equip;
+//
+//
+//        System.out.println("Introduce el nombre del jugador:");
+//        nombreJugador = scan.nextLine();
+//        if (!Validaciones.verificarJugador(nombreJugador, 4)) {
+//            System.out.println("Vas a añadir un nuevo jugador a la base de datos. ¿A qué equipo quieres añadirlo?");
+//
+//            nombreEquipo = scan.nextLine();
+//            if (Validaciones.isValidTeamName(nombreEquipo)) {
+//                if (teamController.existTeamName(nombreEquipo)) {
+//                    id_equip = teamController.getTeamId(nombreEquipo);
+//                    System.out.println("Completa los siguientes datos para insertar al nuevo jugador:");
+//                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//                    try {
+//                        System.out.print("Introduce el nombre del jugador: ");
+//                        String nom = scan.nextLine();
+//
+//                        System.out.print("Introduce el apellido del jugador: ");
+//                        String cognom = scan.nextLine();
+//
+//                        System.out.print("Introduce la fecha de nacimiento del jugador (YYYY-MM-DD): ");
+//                        String dataNaixementStr = scan.nextLine();
+//                        Date dataNaixement = dateFormat.parse(dataNaixementStr);
+//
+//                        System.out.print("Introduce la altura del jugador (por ejemplo, 1.80m o 180cm): ");
+//                        String alcada = scan.nextLine();
+//
+//                        System.out.print("Introduce el peso del jugador (por ejemplo, 75kg): ");
+//                        String pes = scan.nextLine();
+//
+//                        System.out.print("Introduce el número dorsal del jugador: ");
+//                        String dorsal = scan.nextLine();
+//
+//                        System.out.print("Introduce la posición del jugador (por ejemplo, delantero, defensa, portero): ");
+//                        String posicio = scan.nextLine();
+//                        //El campo jugador_id es autoincremental
+//                        int numJugadores = playerController.getAllPlayers().size();
+//                        int jugador_id = numJugadores + 4;
+//                        System.out.println("Id del nuevo jugador creado: " + jugador_id);
+//                        System.out.println("Añadiendo jugador... Espere");
+//                        playerController.createPlayer(
+//                                jugador_id,
+//                                nom,
+//                                cognom,
+//                                dataNaixement,
+//                                alcada,
+//                                pes,
+//                                dorsal,
+//                                posicio,
+//                                id_equip
+//                        );
+//                        System.out.println("Jugador añadido a la base de datos exitosamente:");
+//
+//                    } catch (ParseException e) {
+//                        throw new RuntimeException(e);
+//                    } finally {
+//                        scan.close();
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
 
 
     public static void traspasarJugador_a_Equipo() {

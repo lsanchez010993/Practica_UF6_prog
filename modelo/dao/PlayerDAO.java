@@ -247,6 +247,29 @@ public class PlayerDAO implements GenericDAO<Player, Integer> {
         return playersName;
     }
 
+    public int getIdMax() {
+        int id_max = 0; // Inicializamos el valor máximo del ID
+
+        // Consulta SQL para obtener el máximo jugador_id
+        String sql = "SELECT MAX(jugador_id) FROM jugadors";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet resultSet = pstmt.executeQuery()) {
+
+            // Si la consulta devuelve un resultado
+            if (resultSet.next()) {
+                id_max = resultSet.getInt(1); // Obtenemos el máximo jugador_id
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id_max;
+
+
+}
 
     public boolean updateTeamPlayerForName(int jugador_id, int teamId) {
         String sql = "UPDATE jugadors SET equip_id = ? WHERE jugador_id = ?";

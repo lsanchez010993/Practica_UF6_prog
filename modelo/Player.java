@@ -1,5 +1,10 @@
 package modelo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 public class Player {
@@ -18,7 +23,7 @@ public class Player {
             throw new IllegalArgumentException("Invalid jugador_id");
         }
         if (!isValidNom(nom)) {
-            throw new IllegalArgumentException("Invalid nom");
+            throw new IllegalArgumentException("Nom invalid");
         }
         if (!isValidCognom(cognom)) {
             throw new IllegalArgumentException("Invalid cognom");
@@ -65,9 +70,11 @@ public class Player {
     }
 
     private boolean isValidDataNaixement(Date dataNaixement) {
-        Date currentDate = new Date();
-        return dataNaixement != null && dataNaixement.before(currentDate);
+        return dataNaixement != null && dataNaixement.before(new Date());
     }
+
+
+
 
     private boolean isValidAlcada(String alcada) {
         try {
@@ -90,14 +97,14 @@ public class Player {
     private boolean isValidDorsal(String dorsal) {
         try {
             int d = Integer.parseInt(dorsal);
-            return d > 0 && d < 100; // Assuming valid dorsal numbers are between 1 and 99
+            return d > 0 && d < 100;
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
     private boolean isValidPosicio(String posicio) {
-        String[] validPositions = {"Porter", "Defensa", "Migcampista", "Davanter"};
+        String[] validPositions = {"Guard", "Forward", "Center","Forward-Guard","Center-Forward", "Forward-Center", "Guard-Forward"};
         for (String pos : validPositions) {
             if (pos.equalsIgnoreCase(posicio)) {
                 return true;

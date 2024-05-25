@@ -96,55 +96,57 @@ public class Main {
 
     public static void insertarNuevoJugador(int id_equip) {
         System.out.println("Completa los siguientes datos para insertar al nuevo jugador:");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            System.out.print("Introduce el nombre del jugador: ");
-            String nom = scan.nextLine();
 
-            System.out.print("Introduce el apellido del jugador: ");
-            String cognom = scan.nextLine();
+        System.out.print("Introduce el nombre del jugador: ");
+        String nom = scan.nextLine();
 
-            System.out.print("Introduce la fecha de nacimiento del jugador (YYYY-MM-DD): ");
-            String dataNaixementStr = scan.nextLine();
-            Date dataNaixement = dateFormat.parse(dataNaixementStr);
+        System.out.print("Introduce el apellido del jugador: ");
+        String cognom = scan.nextLine();
 
-            System.out.print("Introduce la altura del jugador (por ejemplo, 1.80m o 180cm): ");
-            String alcada = scan.nextLine();
+        System.out.print("Introduce la fecha de nacimiento del jugador (YYYY-MM-DD): ");
+        String dataNaixement = scan.nextLine();
 
-            System.out.print("Introduce el peso del jugador (por ejemplo, 75kg): ");
-            String pes = scan.nextLine();
+        System.out.print("Introduce la altura del jugador (por ejemplo, 1.80m o 180cm): ");
+        String alcada = scan.nextLine();
 
-            System.out.print("Introduce el número dorsal del jugador: ");
-            String dorsal = scan.nextLine();
+        System.out.print("Introduce el peso del jugador (por ejemplo, 75kg): ");
+        String pes = scan.nextLine();
 
-            System.out.print("Introduce la posición del jugador (por ejemplo, delantero, defensa, portero): ");
-            String posicio = scan.nextLine();
-            //El campo jugador_id es autoincremental
-            int numJugadores = playerController.getAllPlayers().size();
-            int jugador_id = numJugadores + 4;
-            System.out.println("Id del nuevo jugador: " + jugador_id);
-            System.out.println("Añadiendo jugador a la base de datos... Espere");
-            playerController.createPlayer(
-                    jugador_id,
-                    nom,
-                    cognom,
-                    dataNaixement,
-                    alcada,
-                    pes,
-                    dorsal,
-                    posicio,
-                    id_equip
-            );
-            System.out.println("Jugador añadido a la base de datos exitosamente:");
+        System.out.print("Introduce el número dorsal del jugador: ");
+        String dorsal = scan.nextLine();
 
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        } finally {
-            scan.close();
-        }
+        System.out.print("Indica la posición del jugador: (Guard, Forward, Center,Forward-Guard,Center-Forward, Forward-Center, Guard-Forward");
+
+        String posicio= Validaciones.elegirPosicion(scan);
+        System.out.println("Todos los datos han sido introducidos correctamente.");
+        System.out.println("Obteniendo nueva id. Por favor, espera..");
+
+
+//        El campo jugador_id es autoincremental
+
+        int jugador_id = playerController.getIdMax() + 1;
+
+
+        System.out.println("Id del nuevo jugador: " + jugador_id);
+        System.out.println("Añadiendo jugador a la base de datos... Espere");
+        Player player= playerController.createPlayer(
+                jugador_id,
+                nom,
+                cognom,
+                dataNaixement,
+                alcada,
+                pes,
+                dorsal,
+                posicio,
+                id_equip
+        );
+        playerController.insertPlayer(player);
+
+        System.out.println("Jugador añadido a la base de datos exitosamente:");
+
     }
 
-    private static void afegirJugador_a_Equip() {
+    private static void afegirJugador_a_Equip() throws ParseException {
         String nombreJugador;
         String nombreEquipo;
         int id_equip;
@@ -263,7 +265,7 @@ public class Main {
         if (jugadores.size() == 1) {
             mostrarMediaJugador(jugadores.get(0));
         } else {
-            Validaciones.elegirJugadorDeLista(jugadores,2);
+            Validaciones.elegirJugadorDeLista(jugadores, 2);
         }
     }
 
@@ -279,7 +281,7 @@ public class Main {
                 return; // Volver al menú principal
             }
             if (Validaciones.verificarJugador(nombreJugador, 5)) {
-               salir=true;
+                salir = true;
             }
 
 

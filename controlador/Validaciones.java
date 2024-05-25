@@ -6,6 +6,7 @@ import vista.Main2;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import static vista.Main2.scan;
 
@@ -64,6 +65,60 @@ public class Validaciones {
 
 
         return existe;
+    }
+    public static String elegirPosicion(Scanner scan) {
+        String posicio;
+        System.out.println("""
+            1. Guard.
+            2. Forward
+            3. Center
+            4. Forward-Guard
+            5. Center-Forward
+            6. Forward-Center
+            7. Guard-Forward
+            """);
+
+        while (true) {
+            try {
+                int opcio = Integer.parseInt(scan.nextLine());
+
+                switch (opcio) {
+                    case 1:
+                        posicio = "Guard";
+                        break;
+                    case 2:
+                        posicio = "Forward";
+                        break;
+                    case 3:
+                        posicio = "Center";
+                        break;
+                    case 4:
+                        posicio = "Forward-Guard";
+                        break;
+                    case 5:
+                        posicio = "Center-Forward";
+                        break;
+                    case 6:
+                        posicio = "Forward-Center";
+                        break;
+                    case 7:
+                        posicio = "Guard-Forward";
+                        break;
+                    default:
+                        System.out.println("Opción no válida. Se asignará la posición por defecto.");
+                        posicio = "Guard";
+                        break;
+                }
+
+
+                break;
+
+            } catch (NumberFormatException e) {
+                System.out.println("Por favor, ingresa un número válido.");
+            }
+        }
+
+        return posicio;
     }
 
     public static void elegirJugadorDeLista(List<Player> players, int ejercicio) {
