@@ -106,16 +106,16 @@ public class Main {
         System.out.print("Introduce la fecha de nacimiento del jugador (YYYY-MM-DD): ");
         String dataNaixement = scan.nextLine();
 
-        System.out.print("Introduce la altura del jugador (por ejemplo, 1.80m o 180cm): ");
+        System.out.print("Introduce la altura del jugador (por ejemplo, 1.80): ");
         String alcada = scan.nextLine();
 
-        System.out.print("Introduce el peso del jugador (por ejemplo, 75kg): ");
+        System.out.print("Introduce el peso del jugador: ");
         String pes = scan.nextLine();
 
         System.out.print("Introduce el número dorsal del jugador: ");
         String dorsal = scan.nextLine();
 
-        System.out.print("Indica la posición del jugador: (Guard, Forward, Center,Forward-Guard,Center-Forward, Forward-Center, Guard-Forward");
+        System.out.print("Indica la posición del jugador:");
 
         String posicio= Validaciones.elegirPosicion(scan);
         System.out.println("Todos los datos han sido introducidos correctamente.");
