@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Main {
-    static String nombreJugadorStatico = "";
     static MatchController matchController = new MatchController();
     static Scanner scan = new Scanner(System.in);
     static TeamController teamController = new TeamController();
@@ -123,8 +122,8 @@ public class Main {
             //El campo jugador_id es autoincremental
             int numJugadores = playerController.getAllPlayers().size();
             int jugador_id = numJugadores + 4;
-            System.out.println("Id del nuevo jugador creado: " + jugador_id);
-            System.out.println("Añadiendo jugador... Espere");
+            System.out.println("Id del nuevo jugador: " + jugador_id);
+            System.out.println("Añadiendo jugador a la base de datos... Espere");
             playerController.createPlayer(
                     jugador_id,
                     nom,
