@@ -33,19 +33,17 @@ public class PlayerController {
         return playerDAO.findAll();
     }
 
-//    public boolean insertPlayer(Player player){
-//        return playerDAO.insert(player);
+//    public Player createPlayer(boolean insertarJugador,int jugador_id, String nom, String cognom, String dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
+//        Date fechaNacimiento = parseDate(dataNaixement);
+//        if (fechaNacimiento == null) {
+//            throw new IllegalArgumentException("Invalid dataNaixement format");
+//        }
+//        return new Player(insertarJugador,jugador_id, nom, cognom, fechaNacimiento, alcada, pes, dorsal, posicio, equip_id);
 //    }
-    public boolean insertPlayer(boolean insertarJugador, int jugador_id, String nom, String cognom, String dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id){
+    public boolean insertPlayer(boolean insertarJugador,int jugador_id, String nom, String cognom, String dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id){
         Date fechaNacimiento = parseDate(dataNaixement);
 
-        return playerDAO.insert(new Player(true,jugador_id, nom, cognom, fechaNacimiento, alcada, pes, dorsal, posicio, equip_id));
-    }
-
-    public Player createPlayer(boolean insertarJugador,int jugador_id, String nom, String cognom, String dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
-        Date fechaNacimiento = parseDate(dataNaixement);
-
-        return new Player(insertarJugador,jugador_id, nom, cognom, fechaNacimiento, alcada, pes, dorsal, posicio, equip_id);
+        return playerDAO.insert(new Player(insertarJugador,jugador_id, nom, cognom, fechaNacimiento, alcada, pes, dorsal, posicio, equip_id));
     }
     private Date parseDate(String dataNaixement) {
         SimpleDateFormat[] formatters = {
@@ -62,7 +60,6 @@ public class PlayerController {
         }
         return null; // Si no se pudo analizar, devolver null
     }
-
 
     public boolean updatePlayer(int jugador_id, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
         Player player = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, dorsal, posicio, equip_id);

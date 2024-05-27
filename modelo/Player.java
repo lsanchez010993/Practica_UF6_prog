@@ -114,8 +114,17 @@ public class Player {
     }
 
     private boolean isValidPosicio(String posicio) {
-        String[] validPositions = {"Porter", "Defensa", "Migcampista", "Davanter"};
-        for (String pos : validPositions) {
+        String[]  posiciones = {
+                "Guard",
+                "Forward",
+                "Center",
+                "Forward-Guard",
+                "Center-Forward",
+                "Forward-Center",
+                "Guard-Forward"
+        };
+        ;
+        for (String pos : posiciones) {
             if (pos.equalsIgnoreCase(posicio)) {
                 return true;
             }
