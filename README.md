@@ -49,6 +49,13 @@ El **DataGenerator** genera:
 - 900 estadísticas de jugadores (aleatorios)
 - 150 partidos (aleatorios)
 - 
-## AVISO: IMPORTANTE
+## Insertar nuevo jugador a la BD
+En la clase Player hemos tenido que hacer uso de dos constructores:
+1. El primero para leer los datos ya introducidos en la base de datos y mostrarlos.
+2. El segundos para validar los datos antes de insertarlos en la base de datos.
 
+
+
+## AVISO: IMPORTANTE
+En el ejercicio 4, para evitar realizar lecturas innecesarias a la base de datos y con ello el impacto sobre el rendimiento, hemos decidido que sea el usuario el que decida que hacer: Añadir un jugador nuevo a un equipo existente o cambiar de equipo a un jugador existente. 
 El ejercicio número 8, de retirar el jugador, cuando le des que sí tienes que tener en cuenta que tarda unos 5 minutos. Toca tener paciencia.

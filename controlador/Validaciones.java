@@ -150,12 +150,10 @@ public class Validaciones {
                         case 2:
                             Main.mostrarMediaJugador(players.get(opcion - 1));
                             break;
-                        case 4:
-                            Main2.traspasarJugador_a_Equipo(players.get(opcion - 1));
+                        case 4, 5:
+                            Main.traspasarJugador_a_Equipo(players.get(opcion - 1));
                             break;
-                        case 5:
-                            //ejercicio5
-                            Main2.traspasarJugador_a_Equipo(players.get(opcion - 1));
+
                     }
 
                 }

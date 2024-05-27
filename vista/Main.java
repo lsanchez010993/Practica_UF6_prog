@@ -126,7 +126,7 @@ public class Main {
             System.out.println("Id del nuevo jugador: " + jugador_id);
             System.out.println("Verificando los datos introducidos. Por favor, espera...");
 
-            Player player = playerController.createPlayer(
+            if (playerController.insertPlayer(
                     true,
                     jugador_id,
                     nom,
@@ -137,10 +137,9 @@ public class Main {
                     dorsal,
                     posicio,
                     id_equip
-            );
-            playerController.insertPlayer(player);
+            )) System.out.println("Jugador añadido a la base de datos exitosamente:");
 
-            System.out.println("Jugador añadido a la base de datos exitosamente:");
+
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
@@ -292,7 +291,37 @@ public class Main {
         } while (!salir);
 
     }
+    public static void traspasarJugador_a_Equipo(Player player) {
 
+        String nombreEquipo;
+        boolean salir = false;
+
+        System.out.print("Introduce el nombre del equipo al que quieres cambiar el jugador: (o escribe 'regresar' para volver al menú): ");
+        nombreEquipo = scan.nextLine();
+        do {
+            if (nombreEquipo.equalsIgnoreCase("regresar")) {
+                return; // Volver al menú principal
+            }
+            if (!Validaciones.isValidTeamName(nombreEquipo)) {
+                System.out.println("El nombre del equipo no es válido. Inténtalo de nuevo.");
+            } else {
+                // Si es un nombre válido, comprueba si existe:
+                if (teamController.existTeamName(nombreEquipo)) {
+                    int equip_id = teamController.getTeamId(nombreEquipo);
+                    if (playerController.changeNameTeamOfPlayer(player.getJugador_id(), equip_id)) {
+                        System.out.println("El jugador ha sido traspasado exitosamente al equipo.");
+                        salir = true;
+                    } else {
+                        System.out.println("Se ha producido un error al traspasar el jugador.");
+                    }
+                } else {
+                    // Si no existe:
+                    System.out.println("El nombre del equipo no existe. Inténtalo de nuevo.");
+                }
+            }
+        }
+        while (!salir);
+    }
 
 
 //    private static void elegirJugadorDeLista(List<Player> players) {
@@ -442,63 +471,7 @@ public class Main {
     }
 
 
-//    private static void traspasarJugador_a_Equipo( boolean nombreJugadorCorrecto) {
-//        String nombreJugador = "";
-//        String nombreEquipo;
-//        int equip_id;
-//
-//        boolean salir = false;
-//
-//        do {
-//            if (!nombreJugadorCorrecto) {
-//                System.out.print("Introduce el nombre del jugador (o escribe 'regresar' para volver al menú): ");
-//                nombreJugador = scan.nextLine();
-//
-//                if (nombreJugador.equalsIgnoreCase("regresar")) {
-//                    return; // Volver al menú principal
-//                }
-//                // Comprobar si el nombre del jugador es válido:
-//                if (isValidPlayerName(nombreJugador)) {
-//                    // Comprobar si existe en la BD:
-//                    if (playerController.existPlayerName(nombreJugador)) {
-//                        nombreJugadorCorrecto = true;
-//                    } else {
-//                        System.out.println("El jugador introducido no existe.");
-//                        continue; // Repetir el bucle si el nombre del jugador no existe
-//                    }
-//                } else {
-//                    System.out.println("Nombre de jugador no válido. Inténtalo de nuevo.");
-//                    continue; // Repetir el bucle si el nombre del jugador es inválido
-//                }
-//            }
-//            if (nombreJugadorStatico!=null){
-//                nombreJugador= nombreJugadorStatico;
-//            }
-//
-//            System.out.print("Introduce el nombre del equipo al que quieres cambiar el jugador: (o escribe 'regresar' para volver al menú): ");
-//            nombreEquipo = scan.nextLine();
-//            if (nombreJugador.equalsIgnoreCase("regresar")) {
-//                return; // Volver al menú principal
-//            }
-//            if (!isValidTeamName(nombreEquipo)) {
-//                System.out.println("El nombre del equipo no es válido. Inténtalo de nuevo.");
-//            } else {
-//                // Si es un nombre válido, comprueba si existe:
-//                if (teamController.existTeamName(nombreEquipo)) {
-//                    equip_id = teamController.getTeamId(nombreEquipo);
-//                    if (playerController.changeNameTeamOfPlayer(nombreJugador, equip_id)) {
-//                        System.out.println("El jugador ha sido traspasado exitosamente al equipo.");
-//                        salir = true;
-//                    } else {
-//                        System.out.println("Se ha producido un error al traspasar el jugador.");
-//                    }
-//                } else {
-//                    // Si no existe:
-//                    System.out.println("El nombre del equipo no existe. Inténtalo de nuevo.");
-//                }
-//            }
-//        } while (!salir);
-//    }
+
 
     private static void retirarJugador() {
         String nombreJugador;
