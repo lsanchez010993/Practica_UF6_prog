@@ -52,7 +52,7 @@ El **DataGenerator** genera:
 ## Insertar nuevo jugador a la BD
 En la clase Player hemos tenido que hacer uso de dos constructores:
 1. El primero para leer los datos ya introducidos en la base de datos y mostrarlos.
-2. El segundos para validar los datos antes de insertarlos en la base de datos.
+2. El segundo para validar los datos antes de insertarlos en la base de datos.
 
 
 
