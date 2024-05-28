@@ -191,7 +191,7 @@ public class Main {
         List<Player> jugadores = null;
 
         do {
-            System.out.print("Introduce el nombre del equipo (o escribe 'regresar' para volver al menú): ");
+            System.out.print("Introduce el nombre del equipo (celtis, bulls, etc) (o escribe 'regresar' para volver al menú): ");
             nombreEquipo = scan.nextLine();
 
             if (nombreEquipo.equalsIgnoreCase("regresar")) {
