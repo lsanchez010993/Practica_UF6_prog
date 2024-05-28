@@ -18,6 +18,7 @@ public class Main {
     static PlayerController playerController = new PlayerController(); // Crear una instancia del controlador
     static PlayerStatsController playerStatsController = new PlayerStatsController(); // Crear una instancia del controlador de estadísticas
 
+
     public static void main(String[] args) {
         mostrarMenuInicial();
     }

@@ -14,6 +14,7 @@ import static vista.Main2.scan;
 public class Validaciones {
 
     public static PlayerController playerController = new PlayerController();
+    public static TeamController teamController = new TeamController();
 
     public static boolean isValidPlayerName(String playerName) {
         if (playerName == null || playerName.trim().isEmpty()) {
@@ -105,7 +106,7 @@ public class Validaciones {
                         posicio = "Guard-Forward";
                         break;
                     default:
-                        System.out.println("Opción no válida. Se asignará la posición por defecto.");
+                        System.out.println("Opción no válida. Se asignará la posición 'Guard' por defecto.");
                         posicio = "Guard";
                         break;
                 }
@@ -124,7 +125,7 @@ public class Validaciones {
     public static void elegirJugadorDeLista(List<Player> players, int ejercicio) {
         System.out.println("Selecciona el jugador en la siguiente lista:");
 
-        Map<Integer, String> teamNames = Main2.teamController.getAllTeamNames(); // Cargar todos los nombres de equipos en un Map
+        Map<Integer, String> teamNames = teamController.getAllTeamNames(); // Cargar todos los nombres de equipos en un Map
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             String teamName = teamNames.getOrDefault(player.getEquip_id(), "Desconocido"); // Obtener el nombre del equipo
