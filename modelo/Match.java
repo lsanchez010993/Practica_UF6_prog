@@ -25,6 +25,13 @@ public class Match {
     public Match(String partitId, String dataPartit, String matx, String resultat, String ciutat, String nomEquip) {
     }
 
+    public Match(int partitId, int equipId, java.sql.Date dataPartit, String resultado) {
+        this.partit_id = partitId;
+        this.equip_id = equipId;
+        this.data_partit = dataPartit;
+        this.resultat = resultado;
+    }
+
 
     // Getters y setters
 
@@ -34,6 +41,10 @@ public class Match {
 
     public int getEquip_id() {
         return equip_id;
+    }
+
+    public Date getFecha() {
+        return data_partit;
     }
 
 

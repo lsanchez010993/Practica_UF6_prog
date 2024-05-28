@@ -103,7 +103,6 @@ public class Main {
                 return; // Volver al menú principal
             }
 
-            // Validación del nombre del jugador
             if (!Validaciones.isValidPlayerName(nombreJugador)) {
                 System.out.println("Nombre de jugador inválido. No debe contener números y no puede estar vacío. Inténtalo de nuevo.");
                 continue; // Repetir el bucle si el nombre del jugador es inválido
@@ -134,89 +133,130 @@ public class Main {
             }
         }
 
-        System.out.print("Introduce el nombre del equipo: ");
-        String nombreEquipo = scan.nextLine();
-
-        if (!teamController.existTeamName(nombreEquipo)) {
-            System.out.println("No se encontró ningún equipo con el nombre " + nombreEquipo);
-            return;
-        }
-
-        int equipoId = teamController.getTeamId(nombreEquipo);
-        List<Match> partidos = matchController.getAllTMatchForTeam(equipoId);
-
+        List<Match> partidos = matchController.getAllTMatchForTeam(jugador.getEquip_id());
         if (partidos.isEmpty()) {
-            System.out.println("No se encontraron partidos para el equipo " + nombreEquipo);
+            System.out.println("No se encontraron partidos para el equipo del jugador.");
             return;
         }
 
-        System.out.println("Partidos jugados por " + nombreEquipo + ":");
+        System.out.println("Partidos jugados por el equipo del jugador:");
         for (int i = 0; i < partidos.size(); i++) {
             Match partido = partidos.get(i);
-            System.out.println((i + 1) + ". " + partido.getResultat());
+            System.out.println((i + 1) + ". " + partido.getResultat() + " (Fecha: " + partido.getData_partit() + ")");
         }
 
-        System.out.print("Elige el número del partido: ");
-        int indicePartido = scan.nextInt() - 1;
-        scan.nextLine(); // Limpiar el búfer
+        int opcionPartido = -1;
+        do {
+            try {
+                System.out.print("Elige el número del partido: ");
+                opcionPartido = Integer.parseInt(scan.nextLine());
 
-        if (indicePartido < 0 || indicePartido >= partidos.size()) {
-            System.out.println("Índice de partido inválido.");
+                if (opcionPartido < 1 || opcionPartido > partidos.size()) {
+                    System.out.println("Opción inválida. Debe ser un número entre 1 y " + partidos.size());
+                    opcionPartido = -1; // Restablecer opción para mantener el bucle
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, introduce un número entero.");
+            }
+        } while (opcionPartido == -1);
+
+        Match partidoSeleccionado = partidos.get(opcionPartido - 1);
+
+        PlayerStats stats = playerStatsController.getPlayerStats(jugador.getJugador_id(), partidoSeleccionado.getPartit_id());
+        if (stats == null) {
+            System.out.println("No se encontraron estadísticas para el jugador en el partido seleccionado.");
             return;
         }
 
-        int partidoId = partidos.get(indicePartido).getPartit_id();
+        System.out.println("Estadísticas actuales del jugador en el partido seleccionado:");
+        System.out.println("Minutos Jugados: " + stats.getMinutsJugats());
+        System.out.println("Puntos: " + stats.getPunts());
+        System.out.println("Tiros Anotados: " + stats.getTirsAnotats());
+        System.out.println("Tiros Tirados: " + stats.getTirsTirats());
+        System.out.println("Triples Anotados: " + stats.getTirsTriplesAnotats());
+        System.out.println("Triples Tirados: " + stats.getTirsTriplesTirats());
+        System.out.println("Tiros Libres Anotados: " + stats.getTirsLliuresAnotats());
+        System.out.println("Tiros Libres Tirados: " + stats.getTirsLliuresTirats());
+        System.out.println("Rebotes Ofensivos: " + stats.getRebotsOfensius());
+        System.out.println("Rebotes Defensius: " + stats.getRebotsDefensius());
+        System.out.println("Asistencias: " + stats.getAssistencies());
+        System.out.println("Robos: " + stats.getRobades());
+        System.out.println("Bloqueos: " + stats.getBloqueigs());
 
-        System.out.print("Minutos Jugados: ");
-        double minutosJugados = scan.nextDouble();
+        try {
+            System.out.print("Minutos Jugados (o presiona Enter para dejar sin cambios): ");
+            String input = scan.nextLine();
+            double minutosJugados = input.isEmpty() ? stats.getMinutsJugats() : Double.parseDouble(input);
 
-        System.out.print("Puntos: ");
-        int puntos = scan.nextInt();
+            System.out.print("Puntos (o presiona Enter para dejar sin cambios): ");
+            input = scan.nextLine();
+            int puntos = input.isEmpty() ? stats.getPunts() : Integer.parseInt(input);
 
-        System.out.print("Tiros Anotados: ");
-        int tirosAnotados = scan.nextInt();
+            System.out.print("Tiros Anotados (o presiona Enter para dejar sin cambios): ");
+            input = scan.nextLine();
+            int tirosAnotados = input.isEmpty() ? stats.getTirsAnotats() : Integer.parseInt(input);
 
-        System.out.print("Tiros Tirados: ");
-        int tirosTirados = scan.nextInt();
+            System.out.print("Tiros Tirados (o presiona Enter para dejar sin cambios): ");
+            input = scan.nextLine();
+            int tirosTirados = input.isEmpty() ? stats.getTirsTirats() : Integer.parseInt(input);
 
-        System.out.print("Triples Anotados: ");
-        int triplesAnotados = scan.nextInt();
+            System.out.print("Triples Anotados (o presiona Enter para dejar sin cambios): ");
+            input = scan.nextLine();
+            int triplesAnotados = input.isEmpty() ? stats.getTirsTriplesAnotats() : Integer.parseInt(input);
 
-        System.out.print("Triples Tirados: ");
-        int triplesTirados = scan.nextInt();
+            System.out.print("Triples Tirados (o presiona Enter para dejar sin cambios): ");
+            input = scan.nextLine();
+            int triplesTirados = input.isEmpty() ? stats.getTirsTriplesTirats() : Integer.parseInt(input);
 
-        System.out.print("Tiros Libres Anotados: ");
-        int tirosLibresAnotados = scan.nextInt();
+            System.out.print("Tiros Libres Anotados (o presiona Enter para dejar sin cambios): ");
+            input = scan.nextLine();
+            int tirosLibresAnotados = input.isEmpty() ? stats.getTirsLliuresAnotats() : Integer.parseInt(input);
 
-        System.out.print("Tiros Libres Tirados: ");
-        int tirosLibresTirados = scan.nextInt();
+            System.out.print("Tiros Libres Tirados (o presiona Enter para dejar sin cambios): ");
+            input = scan.nextLine();
+            int tirosLibresTirados = input.isEmpty() ? stats.getTirsLliuresTirats() : Integer.parseInt(input);
 
-        System.out.print("Rebotes Ofensivos: ");
-        int rebotesOfensivos = scan.nextInt();
+            System.out.print("Rebotes Ofensivos (o presiona Enter para dejar sin cambios): ");
+            input = scan.nextLine();
+            int rebotesOfensivos = input.isEmpty() ? stats.getRebotsOfensius() : Integer.parseInt(input);
 
-        System.out.print("Rebotes Defensivos: ");
-        int rebotesDefensivos = scan.nextInt();
+            System.out.print("Rebotes Defensivos (o presiona Enter para dejar sin cambios): ");
+            input = scan.nextLine();
+            int rebotesDefensivos = input.isEmpty() ? stats.getRebotsDefensius() : Integer.parseInt(input);
 
-        System.out.print("Asistencias: ");
-        int asistencias = scan.nextInt();
+            System.out.print("Asistencias (o presiona Enter para dejar sin cambios): ");
+            input = scan.nextLine();
+            int asistencias = input.isEmpty() ? stats.getAssistencies() : Integer.parseInt(input);
 
-        System.out.print("Robos: ");
-        int robos = scan.nextInt();
+            System.out.print("Robos (o presiona Enter para dejar sin cambios): ");
+            input = scan.nextLine();
+            int robos = input.isEmpty() ? stats.getRobades() : Integer.parseInt(input);
 
-        System.out.print("Bloqueos: ");
-        int bloqueos = scan.nextInt();
+            System.out.print("Bloqueos (o presiona Enter para dejar sin cambios): ");
+            input = scan.nextLine();
+            int bloqueos = input.isEmpty() ? stats.getBloqueigs() : Integer.parseInt(input);
 
-        PlayerStats nuevasEstadisticas = new PlayerStats(
-                jugador.getJugador_id(), partidoId, minutosJugados, puntos, tirosAnotados, tirosTirados,
-                triplesAnotados, triplesTirados, tirosLibresAnotados, tirosLibresTirados, rebotesOfensivos,
-                rebotesDefensivos, asistencias, robos, bloqueos);
+            PlayerStats nuevasEstadisticas = new PlayerStats(
+                    jugador.getJugador_id(), partidoSeleccionado.getPartit_id(), minutosJugados, puntos, tirosAnotados, tirosTirados,
+                    triplesAnotados, triplesTirados, tirosLibresAnotados, tirosLibresTirados, rebotesOfensivos,
+                    rebotesDefensivos, asistencias, robos, bloqueos);
 
-        if (playerStatsController.updatePlayerStats(nuevasEstadisticas)) {
-            System.out.println("Estadísticas actualizadas exitosamente.");
-        } else {
-            System.out.println("Error al actualizar las estadísticas.");
+            if (playerStatsController.updatePlayerStats(nuevasEstadisticas)) {
+                System.out.println("Estadísticas actualizadas exitosamente.");
+            } else {
+                System.out.println("Error al actualizar las estadísticas.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Entrada inválida. Por favor, introduce el tipo de dato correcto.");
+            scan.nextLine(); // Limpiar el búfer
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error genérico.");
+            e.printStackTrace();
         }
     }
+
+
+
 
     public static void insertarNuevoJugador(int id_equip) {
         try {

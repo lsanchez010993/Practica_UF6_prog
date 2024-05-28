@@ -65,3 +65,5 @@ El motivo más importante es que en la historia de NBA se ha cambiado varias vec
   De hecho, en este trabajo mismo hay un ejercicio donde puedes cambiar el nombre de la franquicia. Lo que no cambia es
   el nombre del equipo (Celtics, Lakers, etc). Por lo tanto, no importa si se ha cambiado el nombre de la franquicia.
   Para asegurarnos que el jugador entienda que tiene que poner Celtics hemos puesto un mensaje indicando que tiene que poner Celtics, no Boston Celtics.
+- En el ejercicio 7 lo idea sería poner, además del jugador, en todos los equipos que ha jugado ese jugador y hacerle elegir al usuario
+    que equipo quiere poner. No obstante, como lo hacemos solo en la última temporada, entendemos que no hay traspasos por lo tanto ya coje el equipo automaticamente.
