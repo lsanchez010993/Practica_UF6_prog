@@ -1,10 +1,7 @@
 package vista;
 
 import controlador.*;
-import modelo.DataGenerator;
-import modelo.DataInserter;
-import modelo.Match;
-import modelo.Player;
+import modelo.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -65,7 +62,7 @@ public class Main {
                         // Otra funcionalidad
                         break;
                     case 7:
-                        // Otra funcionalidad
+                        modificarEstadisticasJugador();
                         break;
                     case 8:
                         retirarJugador();
@@ -93,6 +90,132 @@ public class Main {
                 e.printStackTrace();
             }
         } while (opcion != 0);
+    }
+    private static void modificarEstadisticasJugador() {
+        String nombreJugador;
+        List<Player> jugadores = null;
+
+        do {
+            System.out.print("Introduce el nombre del jugador (o escribe 'regresar' para volver al menú): ");
+            nombreJugador = scan.nextLine();
+
+            if (nombreJugador.equalsIgnoreCase("regresar")) {
+                return; // Volver al menú principal
+            }
+
+            // Validación del nombre del jugador
+            if (!Validaciones.isValidPlayerName(nombreJugador)) {
+                System.out.println("Nombre de jugador inválido. No debe contener números y no puede estar vacío. Inténtalo de nuevo.");
+                continue; // Repetir el bucle si el nombre del jugador es inválido
+            }
+
+            String[] nombrePartes = nombreJugador.split(" ");
+            if (nombrePartes.length == 1) {
+                jugadores = playerController.getPlayersByName(nombreJugador);
+            } else if (nombrePartes.length == 2) {
+                jugadores = playerController.getPlayersByFullName(nombrePartes[0], nombrePartes[1]);
+            } else {
+                System.out.println("Por favor, introduce solo el nombre o el nombre y el apellido del jugador.");
+                continue;
+            }
+
+            if (jugadores.isEmpty()) {
+                System.out.println("No se encontraron jugadores con el nombre " + nombreJugador + ". Inténtalo de nuevo.");
+            }
+        } while (jugadores == null || jugadores.isEmpty());
+
+        Player jugador;
+        if (jugadores.size() == 1) {
+            jugador = jugadores.get(0);
+        } else {
+            jugador = Validaciones.elegirJugadorDeLista(jugadores, 7);
+            if (jugador == null) {
+                return; // Usuario eligió regresar
+            }
+        }
+
+        System.out.print("Introduce el nombre del equipo: ");
+        String nombreEquipo = scan.nextLine();
+
+        if (!teamController.existTeamName(nombreEquipo)) {
+            System.out.println("No se encontró ningún equipo con el nombre " + nombreEquipo);
+            return;
+        }
+
+        int equipoId = teamController.getTeamId(nombreEquipo);
+        List<Match> partidos = matchController.getAllTMatchForTeam(equipoId);
+
+        if (partidos.isEmpty()) {
+            System.out.println("No se encontraron partidos para el equipo " + nombreEquipo);
+            return;
+        }
+
+        System.out.println("Partidos jugados por " + nombreEquipo + ":");
+        for (int i = 0; i < partidos.size(); i++) {
+            Match partido = partidos.get(i);
+            System.out.println((i + 1) + ". " + partido.getResultat());
+        }
+
+        System.out.print("Elige el número del partido: ");
+        int indicePartido = scan.nextInt() - 1;
+        scan.nextLine(); // Limpiar el búfer
+
+        if (indicePartido < 0 || indicePartido >= partidos.size()) {
+            System.out.println("Índice de partido inválido.");
+            return;
+        }
+
+        int partidoId = partidos.get(indicePartido).getPartit_id();
+
+        System.out.print("Minutos Jugados: ");
+        double minutosJugados = scan.nextDouble();
+
+        System.out.print("Puntos: ");
+        int puntos = scan.nextInt();
+
+        System.out.print("Tiros Anotados: ");
+        int tirosAnotados = scan.nextInt();
+
+        System.out.print("Tiros Tirados: ");
+        int tirosTirados = scan.nextInt();
+
+        System.out.print("Triples Anotados: ");
+        int triplesAnotados = scan.nextInt();
+
+        System.out.print("Triples Tirados: ");
+        int triplesTirados = scan.nextInt();
+
+        System.out.print("Tiros Libres Anotados: ");
+        int tirosLibresAnotados = scan.nextInt();
+
+        System.out.print("Tiros Libres Tirados: ");
+        int tirosLibresTirados = scan.nextInt();
+
+        System.out.print("Rebotes Ofensivos: ");
+        int rebotesOfensivos = scan.nextInt();
+
+        System.out.print("Rebotes Defensivos: ");
+        int rebotesDefensivos = scan.nextInt();
+
+        System.out.print("Asistencias: ");
+        int asistencias = scan.nextInt();
+
+        System.out.print("Robos: ");
+        int robos = scan.nextInt();
+
+        System.out.print("Bloqueos: ");
+        int bloqueos = scan.nextInt();
+
+        PlayerStats nuevasEstadisticas = new PlayerStats(
+                jugador.getJugador_id(), partidoId, minutosJugados, puntos, tirosAnotados, tirosTirados,
+                triplesAnotados, triplesTirados, tirosLibresAnotados, tirosLibresTirados, rebotesOfensivos,
+                rebotesDefensivos, asistencias, robos, bloqueos);
+
+        if (playerStatsController.updatePlayerStats(nuevasEstadisticas)) {
+            System.out.println("Estadísticas actualizadas exitosamente.");
+        } else {
+            System.out.println("Error al actualizar las estadísticas.");
+        }
     }
 
     public static void insertarNuevoJugador(int id_equip) {
@@ -384,18 +507,6 @@ public class Main {
         System.out.println("Robos: " + String.format("%.2f", medias[11]));
         System.out.println("Bloqueos: " + String.format("%.2f", medias[12]));
     }
-
-//    private static boolean isValidPlayerName(String playerName) {
-//        if (playerName == null || playerName.trim().isEmpty()) {
-//            return false;
-//        }
-//        for (char c : playerName.toCharArray()) {
-//            if (Character.isDigit(c)) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
 
     private static void actualizarNombreEquipo() {
         String nombreEquipoActual;

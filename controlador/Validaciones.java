@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 import static vista.Main2.scan;
 
-
 public class Validaciones {
 
     public static PlayerController playerController = new PlayerController();
@@ -43,7 +42,6 @@ public class Validaciones {
     public static boolean verificarJugador(String nombreJugador, int ejercicio) {
         boolean existe = false;
         List<Player> jugadores;
-        int opcion;
         if (Validaciones.isValidPlayerName(nombreJugador)) {
             // Comprobar si existe en la BD:
             if (playerController.existPlayerName(nombreJugador)) {
@@ -59,14 +57,17 @@ public class Validaciones {
                     Validaciones.elegirJugadorDeLista(jugadores, ejercicio);
                 } else {
                     System.out.println("Por favor, introduce solo el nombre o el nombre y el apellido del jugador.");
-
                 }
-            }else System.out.println("El nombre del jugador introducido no existe");
-        }else System.out.println("El nombre introducido no es valido");
-
+            } else {
+                System.out.println("El nombre del jugador introducido no existe");
+            }
+        } else {
+            System.out.println("El nombre introducido no es valido");
+        }
 
         return existe;
     }
+
     public static String elegirPosicion(Scanner scan) {
         String posicio;
         System.out.println("""
@@ -110,10 +111,7 @@ public class Validaciones {
                         posicio = "Guard";
                         break;
                 }
-
-
                 break;
-
             } catch (NumberFormatException e) {
                 System.out.println("Por favor, ingresa un número válido.");
             }
@@ -122,7 +120,7 @@ public class Validaciones {
         return posicio;
     }
 
-    public static void elegirJugadorDeLista(List<Player> players, int ejercicio) {
+    public static Player elegirJugadorDeLista(List<Player> players, int ejercicio) {
         System.out.println("Selecciona el jugador en la siguiente lista:");
 
         Map<Integer, String> teamNames = teamController.getAllTeamNames(); // Cargar todos los nombres de equipos en un Map
@@ -138,7 +136,7 @@ public class Validaciones {
                 String input = scan.nextLine();
 
                 if (input.equalsIgnoreCase("regresar")) {
-                    return; // Volver al menú principal
+                    return null; // Volver al menú principal
                 }
 
                 opcion = Integer.parseInt(input);
@@ -154,16 +152,14 @@ public class Validaciones {
                         case 4, 5:
                             Main.traspasarJugador_a_Equipo(players.get(opcion - 1));
                             break;
-
+                        case 7:
+                            return players.get(opcion - 1);
                     }
-
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Entrada inválida. Por favor, introduce un número entero.");
             }
         } while (opcion == -1);
+        return null;
     }
 }
-
-
-

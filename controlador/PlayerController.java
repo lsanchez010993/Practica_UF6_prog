@@ -33,18 +33,12 @@ public class PlayerController {
         return playerDAO.findAll();
     }
 
-//    public Player createPlayer(boolean insertarJugador,int jugador_id, String nom, String cognom, String dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
-//        Date fechaNacimiento = parseDate(dataNaixement);
-//        if (fechaNacimiento == null) {
-//            throw new IllegalArgumentException("Invalid dataNaixement format");
-//        }
-//        return new Player(insertarJugador,jugador_id, nom, cognom, fechaNacimiento, alcada, pes, dorsal, posicio, equip_id);
-//    }
-    public boolean insertPlayer(boolean insertarJugador,int jugador_id, String nom, String cognom, String dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id){
+    public boolean insertPlayer(boolean insertarJugador, int jugador_id, String nom, String cognom, String dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
         Date fechaNacimiento = parseDate(dataNaixement);
 
-        return playerDAO.insert(new Player(insertarJugador,jugador_id, nom, cognom, fechaNacimiento, alcada, pes, dorsal, posicio, equip_id));
+        return playerDAO.insert(new Player(insertarJugador, jugador_id, nom, cognom, fechaNacimiento, alcada, pes, dorsal, posicio, equip_id));
     }
+
     private Date parseDate(String dataNaixement) {
         SimpleDateFormat[] formatters = {
                 new SimpleDateFormat("yyyy-MM-dd"),
@@ -61,7 +55,7 @@ public class PlayerController {
         return null; // Si no se pudo analizar, devolver null
     }
 
-    public boolean updatePlayer(int jugador_id, String nom, String cognom, java.util.Date dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
+    public boolean updatePlayer(int jugador_id, String nom, String cognom, Date dataNaixement, String alcada, String pes, String dorsal, String posicio, int equip_id) {
         Player player = new Player(jugador_id, nom, cognom, dataNaixement, alcada, pes, dorsal, posicio, equip_id);
         return playerDAO.update(player);
     }
@@ -86,14 +80,13 @@ public class PlayerController {
         List<String> playerNames = playerDAO.findPlayersNameString();
         return playerNames.contains(namePlayer);
     }
-    public int getIdMax(){
+
+    public int getIdMax() {
         return playerDAO.getIdMax();
     }
 
     public boolean changeNameTeamOfPlayer(int jugador_id, int teamId) {
-
         return playerDAO.updateTeamPlayerForName(jugador_id, teamId);
-
     }
 
     public boolean retirarJugador(int jugador_id) {
@@ -153,8 +146,8 @@ public class PlayerController {
 
         return playerDAO.delete(jugador_id);
     }
+
     public List<Player> getPlayersByFullName(String nombre, String apellido) {
         return playerDAO.findPlayersByFullName(nombre, apellido);
     }
-
 }

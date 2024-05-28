@@ -37,6 +37,9 @@ public class PlayerStatsController {
     public List<PlayerStats> getPlayerStatsByPlayerId(int jugador_id) {
         return playerStatsDAO.getPlayerStatsByPlayerId(jugador_id);
     }
+    public boolean updatePlayerStats(PlayerStats stats) {
+        return playerStatsDAO.update(stats);
+    }
 
     public double[] calcularMediasJugador(int jugador_id) {
         List<PlayerStats> stats = getPlayerStatsByPlayerId(jugador_id);
