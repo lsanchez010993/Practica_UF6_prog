@@ -12,8 +12,6 @@ import java.util.Map;
 public class TeamDAO implements GenericDAO<Team, Integer> {
 
 
-
-
     @Override
     public Team findById(Integer equip_id) {
         String sql = "SELECT * FROM equips WHERE id = ?";
@@ -139,6 +137,7 @@ public class TeamDAO implements GenericDAO<Team, Integer> {
             e.printStackTrace();
         }
     }
+
     public List<String> getAllTeams() {
         List<String> teamNames = new ArrayList<>();
         String sql = "SELECT nom FROM equips";
@@ -154,6 +153,7 @@ public class TeamDAO implements GenericDAO<Team, Integer> {
         }
         return teamNames;
     }
+
     public int getTeamId(String nomEquip) {
         String sql = "SELECT equip_id FROM equips WHERE nom = ?";
         int equipId = -1; // Valor por defecto en caso de que no se encuentre el equipo
@@ -203,9 +203,6 @@ public class TeamDAO implements GenericDAO<Team, Integer> {
         }
         return teamNames;
     }
-
-
-
 
 
 }
