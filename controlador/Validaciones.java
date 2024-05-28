@@ -2,8 +2,9 @@ package controlador;
 
 import modelo.Player;
 import vista.Main;
-import vista.Main2;
 
+import java.io.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -15,6 +16,8 @@ public class Validaciones {
 
     public static PlayerController playerController = new PlayerController();
     public static TeamController teamController = new TeamController();
+    static PlayerStatsController playerStatsController = new PlayerStatsController();
+    static MatchController matchController = new MatchController();
 
     public static boolean isValidPlayerName(String playerName) {
         if (playerName == null || playerName.trim().isEmpty()) {
@@ -121,7 +124,65 @@ public class Validaciones {
 
         return posicio;
     }
+    public static void leerArchivo(String nomArchivo) {
+        String rutaArchivo = "./actualizarDatos/" + nomArchivo;
+        Map<Integer, Float> codiPreuMap = new HashMap<>();
+        FileInputStream inputStream = null;
+        BufferedReader reader = null;
+        try {
+            File file = new File(rutaArchivo);
+            if (file.exists()) {
+                inputStream = new FileInputStream(file);
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                String linea;
+                int contador = 0;
+                while ((linea = reader.readLine()) != null) {
+                    contador++;
+                    String valor = reader.readLine();
+                    if (valor.equals("jugador")){
 
+                        String[] estadisticasJugadores = linea.split(", ");
+                        int[] valorInt = new int[estadisticasJugadores.length];
+                        for (int i = 0; i < estadisticasJugadores.length; i++) {
+                            valorInt[i] = Integer.parseInt(estadisticasJugadores[i]);
+                        }
+                        for (int i = 0; i < estadisticasJugadores.length; i++) {
+                            valorInt[i] = Integer.parseInt(estadisticasJugadores[i]);
+                        }
+                        playerStatsController.updatePlayerStats(
+                                valorInt[0], valorInt[1], valorInt[2], valorInt[3], valorInt[4],
+                                valorInt[5], valorInt[6], valorInt[7], valorInt[8], valorInt[9],
+                                valorInt[10], valorInt[11], valorInt[12], valorInt[13], valorInt[14]
+                        );
+                    }else if (valor.equals("partit")){
+
+                        matchController.updateMatch()
+                    }
+                    if (contador == 1) continue;
+                    String[] estadisticasJugador = linea.split(", ");
+                    //Guardo los datos leidos en un Map donde cada codigo de barras unico tiene un precio.
+                    codiPreuMap.put(Integer.parseInt(estadisticasJugador[0]), Float.parseFloat(estadisticasJugador[1]));
+                }
+            }
+            //Funcion que que compara el codigo de barras de todos los productos introducidos en la lista textil.
+            //Si encuentra una coincidencia, actualiza el precio del producto
+            buscarCodBarrasYActualizarPrecio(codiPreuMap);
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        } finally {
+            // Cierro los objetos de lectura en el bloque finally
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }
     public static void elegirJugadorDeLista(List<Player> players, int ejercicio) {
         System.out.println("Selecciona el jugador en la siguiente lista:");
 

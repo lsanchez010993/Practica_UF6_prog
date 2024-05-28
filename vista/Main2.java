@@ -21,6 +21,16 @@ public class Main2 {
 //       afegirJugador_a_Equip();
         traspasarJugador_a_Equipo();
     }
+    /*
+    Ejercicio 6. Por defecto los datos se guardan en la carpeta actualizarDatos, en un fichero .txt con el mismo nombre.
+     */
+    private static void actualizarDatosPartido() {
+        String nombreArchivo;
+        System.out.println("Introduce la ruta donde se encuentra el archivo con los datos del último partido:");
+        nombreArchivo=scan.nextLine().trim();
+        Validaciones.leerArchivo("actualizarDatos.txt");
+
+    }
 
     /*
     4.- Inserir un nou jugador a un equip.

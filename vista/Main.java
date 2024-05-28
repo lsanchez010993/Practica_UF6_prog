@@ -60,6 +60,7 @@ public class Main {
                         traspasarJugador_a_Equipo();
                         break;
                     case 6:
+                        actualizarDatosPartido();
                         // Otra funcionalidad
                         break;
                     case 7:
@@ -91,6 +92,11 @@ public class Main {
                 e.printStackTrace();
             }
         } while (opcion != 0);
+    }
+
+    private static void actualizarDatosPartido() {
+        System.out.println("Introduce la ruta donde se encuentra el archivo con los datos del último partido:");
+
     }
 
     public static void insertarNuevoJugador(int id_equip) {
