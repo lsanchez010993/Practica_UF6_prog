@@ -19,18 +19,18 @@ public class Main2 {
 
     public static void main(String[] args) {
 //       afegirJugador_a_Equip();
-        traspasarJugador_a_Equipo();
+//        traspasarJugador_a_Equipo();
+//        actualizarDatosPartido();
     }
     /*
     Ejercicio 6. Por defecto los datos se guardan en la carpeta actualizarDatos, en un fichero .txt con el mismo nombre.
      */
-    private static void actualizarDatosPartido() {
-        String nombreArchivo;
-        System.out.println("Introduce la ruta donde se encuentra el archivo con los datos del último partido:");
-        nombreArchivo=scan.nextLine().trim();
-        Validaciones.leerArchivo("actualizarDatos.txt");
-
-    }
+//    private static void actualizarDatosPartido() {
+//
+//        if (Validaciones.leerArchivo("actualizarDatos.txt")){
+//            System.out.println("Registros actualizados correctamente");
+//        }
+//    }
 
     /*
     4.- Inserir un nou jugador a un equip.

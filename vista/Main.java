@@ -59,7 +59,7 @@ public class Main {
                         traspasarJugador_a_Equipo();
                         break;
                     case 6:
-                        // Otra funcionalidad
+                        actualizarDatos();
                         break;
                     case 7:
                         modificarEstadisticasJugador();
@@ -90,6 +90,12 @@ public class Main {
                 e.printStackTrace();
             }
         } while (opcion != 0);
+    }
+    private static void actualizarDatos() {
+
+        if (Validaciones.leerArchivo("actualizarDatos.txt")){
+            System.out.println("Registros actualizados correctamente");
+        }
     }
     private static void modificarEstadisticasJugador() {
         String nombreJugador;

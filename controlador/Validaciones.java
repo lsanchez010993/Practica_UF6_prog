@@ -5,6 +5,8 @@ import vista.Main;
 import vista.Main2;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -74,14 +76,14 @@ public class Validaciones {
     public static String elegirPosicion(Scanner scan) {
         String posicio;
         System.out.println("""
-            1. Guard.
-            2. Forward
-            3. Center
-            4. Forward-Guard
-            5. Center-Forward
-            6. Forward-Center
-            7. Guard-Forward
-            """);
+                1. Guard.
+                2. Forward
+                3. Center
+                4. Forward-Guard
+                5. Center-Forward
+                6. Forward-Center
+                7. Guard-Forward
+                """);
 
         while (true) {
             try {
@@ -165,47 +167,56 @@ public class Validaciones {
         } while (opcion == -1);
         return null;
     }
-    public static void leerArchivo(String nomArchivo) {
+
+    public static boolean leerArchivo(String nomArchivo) {
         String rutaArchivo = "./actualizarDatos/" + nomArchivo;
 
         FileInputStream inputStream = null;
         BufferedReader reader = null;
         try {
             File file = new File(rutaArchivo);
+
             if (file.exists()) {
+
                 inputStream = new FileInputStream(file);
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 String linea;
-
                 while ((linea = reader.readLine()) != null) {
 
-                    String valor = reader.readLine();
-                    if (valor.equals("jugador")){
-
-                        String[] estadisticasJugadores = linea.split(", ");
+                    if (linea.equals("jugador")) {
+                        System.out.println("Actualizando datos de jugadores. Espera");
+                        String valor = reader.readLine();
+                        String[] estadisticasJugadores = valor.split(", ");
                         int[] valorInt = new int[estadisticasJugadores.length];
                         for (int i = 0; i < estadisticasJugadores.length; i++) {
+                            if (i == 2) continue;
                             valorInt[i] = Integer.parseInt(estadisticasJugadores[i]);
                         }
                         for (int i = 0; i < estadisticasJugadores.length; i++) {
+                            if (i == 2) continue;
                             valorInt[i] = Integer.parseInt(estadisticasJugadores[i]);
                         }
                         playerStatsController.updatePlayerStats(
-                                valorInt[0], valorInt[1], valorInt[2], valorInt[3], valorInt[4],
+                                valorInt[0], valorInt[1], Double.parseDouble(estadisticasJugadores[2]), valorInt[3], valorInt[4],
                                 valorInt[5], valorInt[6], valorInt[7], valorInt[8], valorInt[9],
                                 valorInt[10], valorInt[11], valorInt[12], valorInt[13], valorInt[14]
                         );
-                    }else if (valor.equals("partit")){
-                        String[] estadisticasPartido = linea.split(", ");
+                    } else if (linea.equals("partit")) {
+                        System.out.println("Actualizando datos de partidos. Espera");
+                        String valor = reader.readLine();
+                        String[] estadisticasPartido = valor.split(", ");
+                        Date fechaNacimiento = parseDate(estadisticasPartido[2]);
                         matchController.updateMatch(Integer.parseInt(estadisticasPartido[0]),
-                                Integer.parseInt(estadisticasPartido[1]),new Date(estadisticasPartido[2]),
+                                Integer.parseInt(estadisticasPartido[1]), fechaNacimiento,
                                 estadisticasPartido[3], estadisticasPartido[4]);
                     }
 
                 }
-            }
+            } else System.out.println("Archivo no encontrado");
         } catch (IOException e) {
+
             System.out.println("Error al leer el archivo: " + e.getMessage());
+            return false;
         } finally {
             // Cierro los objetos de lectura en el bloque finally
             try {
@@ -219,5 +230,22 @@ public class Validaciones {
                 System.out.println("Error: " + e.getMessage());
             }
         }
+        return true;
+    }
+
+    private static Date parseDate(String dataNaixement) {
+        SimpleDateFormat[] formatters = {
+                new SimpleDateFormat("yyyy-MM-dd"),
+                new SimpleDateFormat("yyyy-M-d")
+        };
+        for (SimpleDateFormat formatter : formatters) {
+            try {
+                formatter.setLenient(false);
+                return formatter.parse(dataNaixement);
+            } catch (ParseException e) {
+                // Ignorar y probar el siguiente formato
+            }
+        }
+        return null; // Si no se pudo analizar, devolver null
     }
 }
