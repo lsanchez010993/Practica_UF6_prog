@@ -126,12 +126,12 @@ public class TeamDAO implements GenericDAO<Team, Integer> {
      */
 
     //9. Canviar nom franquícia d’un equip
-    public void updateTeamNameDAO(String nomActual, String nomNuevo) {
-        String sql = "UPDATE equips SET nom = ? WHERE nom = ?";
+    public void updateTeamNameCityDAO(String nomTeam, String nomCiutat) {
+        String sql = "UPDATE equips SET ciutat = ? WHERE nom = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, nomNuevo); // Nuevo nombre del equipo
-            pstmt.setString(2, nomActual); // Nombre actual del equipo
+            pstmt.setString(1, nomCiutat); // Nuevo nombre del equipo
+            pstmt.setString(2, nomTeam); // Nombre actual del equipo
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

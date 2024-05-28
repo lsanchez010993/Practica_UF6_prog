@@ -30,12 +30,12 @@ public class TeamController {
 
 
 
-    public boolean changeNameTeam(String nameActual, String nameNuevo) {
+    public boolean changeNameTeam(String nameTeam, String nameCity) {
         // listamos los equipos y comprobamos que el equipo exista:
         List<String> teamNames = teamDAO.getAllTeams();
-        if (existTeamName(nameActual)) {
+        if (existTeamName(nameTeam)) {
             // Utilizamos la siguiente función para actualizar
-            teamDAO.updateTeamNameDAO(nameActual, nameNuevo);
+            teamDAO.updateTeamNameCityDAO(nameTeam, nameCity);
             return true; // Actualización exitosa
         } else {
             return false; // El equipo no existe
