@@ -7,8 +7,6 @@ import modelo.Match;
 import modelo.Player;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
 public class Main {
@@ -71,7 +69,7 @@ public class Main {
                         retirarJugador();
                         break;
                     case 9:
-                        actualizarNombreEquipo();
+                        actualizarNombreCiudadEquipo();
                         break;
                     case 10:
                         DataGenerator.generarDatosAleatorios();
@@ -397,9 +395,9 @@ public class Main {
 //        return true;
 //    }
 
-    private static void actualizarNombreEquipo() {
+    private static void actualizarNombreCiudadEquipo() {
         String nombreEquipoActual;
-        String nombreEquipoNuevo;
+        String nombreciudat;
         boolean salir = false;
         do {
             System.out.print("Introduce el nombre del equipo (o escribe 'regresar' para volver al menú): ");
@@ -414,14 +412,14 @@ public class Main {
                 System.out.println("Nombre de equipo inválido. No debe contener números y no puede estar vacío. Inténtalo de nuevo.");
                 continue; // Repetir el bucle si el nombre del equipo es inválido
             }
-            System.out.println("Introduce el nuevo nombre del equipo:");
-            nombreEquipoNuevo = scan.nextLine();
-            if (!nombreEquipoNuevo.isEmpty()) {
-                if (teamController.changeNameTeam(nombreEquipoActual, nombreEquipoNuevo)) {
-                    System.out.println("Nombre del equipo actualizado exitosamente.");
+            System.out.println("Introduce el nombre de la ciudad:");
+            nombreciudat = scan.nextLine();
+            if (!nombreciudat.isEmpty()) {
+                if (teamController.changeNameTeam(nombreEquipoActual, nombreciudat)) {
+                    System.out.println("Nombre de la ciudad actualizado exitosamente.");
                     salir = true;
                 } else {
-                    System.out.println("No se pudo encontrar un equipo con ese nombre. Inténtalo de nuevo.");
+                    System.out.println("No se pudo actualizar el nombre de la ciudad. Inténtalo de nuevo.");
                 }
             }
         } while (!salir);
