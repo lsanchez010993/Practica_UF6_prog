@@ -4,6 +4,8 @@ import modelo.Player;
 import vista.Main;
 import vista.Main2;
 
+import java.io.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,9 +13,10 @@ import java.util.Scanner;
 import static vista.Main2.scan;
 
 public class Validaciones {
-
+    public static PlayerStatsController playerStatsController = new PlayerStatsController();
     public static PlayerController playerController = new PlayerController();
     public static TeamController teamController = new TeamController();
+    public static MatchController matchController = new MatchController();
 
     public static boolean isValidPlayerName(String playerName) {
         if (playerName == null || playerName.trim().isEmpty()) {
@@ -161,5 +164,60 @@ public class Validaciones {
             }
         } while (opcion == -1);
         return null;
+    }
+    public static void leerArchivo(String nomArchivo) {
+        String rutaArchivo = "./actualizarDatos/" + nomArchivo;
+
+        FileInputStream inputStream = null;
+        BufferedReader reader = null;
+        try {
+            File file = new File(rutaArchivo);
+            if (file.exists()) {
+                inputStream = new FileInputStream(file);
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                String linea;
+
+                while ((linea = reader.readLine()) != null) {
+
+                    String valor = reader.readLine();
+                    if (valor.equals("jugador")){
+
+                        String[] estadisticasJugadores = linea.split(", ");
+                        int[] valorInt = new int[estadisticasJugadores.length];
+                        for (int i = 0; i < estadisticasJugadores.length; i++) {
+                            valorInt[i] = Integer.parseInt(estadisticasJugadores[i]);
+                        }
+                        for (int i = 0; i < estadisticasJugadores.length; i++) {
+                            valorInt[i] = Integer.parseInt(estadisticasJugadores[i]);
+                        }
+                        playerStatsController.updatePlayerStats(
+                                valorInt[0], valorInt[1], valorInt[2], valorInt[3], valorInt[4],
+                                valorInt[5], valorInt[6], valorInt[7], valorInt[8], valorInt[9],
+                                valorInt[10], valorInt[11], valorInt[12], valorInt[13], valorInt[14]
+                        );
+                    }else if (valor.equals("partit")){
+                        String[] estadisticasPartido = linea.split(", ");
+                        matchController.updateMatch(Integer.parseInt(estadisticasPartido[0]),
+                                Integer.parseInt(estadisticasPartido[1]),new Date(estadisticasPartido[2]),
+                                estadisticasPartido[3], estadisticasPartido[4]);
+                    }
+
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        } finally {
+            // Cierro los objetos de lectura en el bloque finally
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
     }
 }
