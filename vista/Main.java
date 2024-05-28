@@ -184,57 +184,19 @@ public class Main {
         System.out.println("Bloqueos: " + stats.getBloqueigs());
 
         try {
-            System.out.print("Minutos Jugados (o presiona Enter para dejar sin cambios): ");
-            String input = scan.nextLine();
-            double minutosJugados = input.isEmpty() ? stats.getMinutsJugats() : Double.parseDouble(input);
-
-            System.out.print("Puntos (o presiona Enter para dejar sin cambios): ");
-            input = scan.nextLine();
-            int puntos = input.isEmpty() ? stats.getPunts() : Integer.parseInt(input);
-
-            System.out.print("Tiros Anotados (o presiona Enter para dejar sin cambios): ");
-            input = scan.nextLine();
-            int tirosAnotados = input.isEmpty() ? stats.getTirsAnotats() : Integer.parseInt(input);
-
-            System.out.print("Tiros Tirados (o presiona Enter para dejar sin cambios): ");
-            input = scan.nextLine();
-            int tirosTirados = input.isEmpty() ? stats.getTirsTirats() : Integer.parseInt(input);
-
-            System.out.print("Triples Anotados (o presiona Enter para dejar sin cambios): ");
-            input = scan.nextLine();
-            int triplesAnotados = input.isEmpty() ? stats.getTirsTriplesAnotats() : Integer.parseInt(input);
-
-            System.out.print("Triples Tirados (o presiona Enter para dejar sin cambios): ");
-            input = scan.nextLine();
-            int triplesTirados = input.isEmpty() ? stats.getTirsTriplesTirats() : Integer.parseInt(input);
-
-            System.out.print("Tiros Libres Anotados (o presiona Enter para dejar sin cambios): ");
-            input = scan.nextLine();
-            int tirosLibresAnotados = input.isEmpty() ? stats.getTirsLliuresAnotats() : Integer.parseInt(input);
-
-            System.out.print("Tiros Libres Tirados (o presiona Enter para dejar sin cambios): ");
-            input = scan.nextLine();
-            int tirosLibresTirados = input.isEmpty() ? stats.getTirsLliuresTirats() : Integer.parseInt(input);
-
-            System.out.print("Rebotes Ofensivos (o presiona Enter para dejar sin cambios): ");
-            input = scan.nextLine();
-            int rebotesOfensivos = input.isEmpty() ? stats.getRebotsOfensius() : Integer.parseInt(input);
-
-            System.out.print("Rebotes Defensivos (o presiona Enter para dejar sin cambios): ");
-            input = scan.nextLine();
-            int rebotesDefensivos = input.isEmpty() ? stats.getRebotsDefensius() : Integer.parseInt(input);
-
-            System.out.print("Asistencias (o presiona Enter para dejar sin cambios): ");
-            input = scan.nextLine();
-            int asistencias = input.isEmpty() ? stats.getAssistencies() : Integer.parseInt(input);
-
-            System.out.print("Robos (o presiona Enter para dejar sin cambios): ");
-            input = scan.nextLine();
-            int robos = input.isEmpty() ? stats.getRobades() : Integer.parseInt(input);
-
-            System.out.print("Bloqueos (o presiona Enter para dejar sin cambios): ");
-            input = scan.nextLine();
-            int bloqueos = input.isEmpty() ? stats.getBloqueigs() : Integer.parseInt(input);
+            double minutosJugados = solicitarValorPositivo("Minutos Jugados", stats.getMinutsJugats());
+            int puntos = (int) solicitarValorPositivo("Puntos", stats.getPunts());
+            int tirosAnotados = (int) solicitarValorPositivo("Tiros Anotados", stats.getTirsAnotats());
+            int tirosTirados = (int) solicitarValorPositivo("Tiros Tirados", stats.getTirsTirats());
+            int triplesAnotados = (int) solicitarValorPositivo("Triples Anotados", stats.getTirsTriplesAnotats());
+            int triplesTirados = (int) solicitarValorPositivo("Triples Tirados", stats.getTirsTriplesTirats());
+            int tirosLibresAnotados = (int) solicitarValorPositivo("Tiros Libres Anotados", stats.getTirsLliuresAnotats());
+            int tirosLibresTirados = (int) solicitarValorPositivo("Tiros Libres Tirados", stats.getTirsLliuresTirats());
+            int rebotesOfensivos = (int) solicitarValorPositivo("Rebotes Ofensivos", stats.getRebotsOfensius());
+            int rebotesDefensivos = (int) solicitarValorPositivo("Rebotes Defensivos", stats.getRebotsDefensius());
+            int asistencias = (int) solicitarValorPositivo("Asistencias", stats.getAssistencies());
+            int robos = (int) solicitarValorPositivo("Robos", stats.getRobades());
+            int bloqueos = (int) solicitarValorPositivo("Bloqueos", stats.getBloqueigs());
 
             PlayerStats nuevasEstadisticas = new PlayerStats(
                     jugador.getJugador_id(), partidoSeleccionado.getPartit_id(), minutosJugados, puntos, tirosAnotados, tirosTirados,
@@ -254,6 +216,28 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    private static double solicitarValorPositivo(String mensaje, double valorActual) {
+        double valor;
+        do {
+            try {
+                System.out.print(mensaje + " (o presiona Enter para dejar sin cambios): ");
+                String input = scan.nextLine();
+                if (input.isEmpty()) {
+                    return valorActual;
+                }
+                valor = Double.parseDouble(input);
+                if (valor < 0) {
+                    System.out.println("Por favor, introduce un valor positivo.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, introduce un número.");
+                valor = -1;
+            }
+        } while (valor < 0);
+        return valor;
+    }
+
 
 
 
