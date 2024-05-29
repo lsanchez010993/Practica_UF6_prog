@@ -55,16 +55,15 @@ En la clase Player hemos tenido que hacer uso de dos constructores:
 2. El segundo para validar los datos antes de insertarlos en la base de datos.
 
 ## Actualizar datos desde fichero
-El ejercicio 6 lee los datos guardados en el fichero actualizarDatos. Dicho fichero se encuentra en la carpera actualizarDatos. 
-Los datos del archivo txt deben seguir la siguiente estructura:
-estadistiquesJugador
-Datos de estadistiques de jugador
-partits
-Datos de partits
+El ejercicio 6 lee los datos guardados en el fichero 'actualizarDatos', ubicado dentro de la carpeta 'actualizarDatos' que se encuentra en el directorio base del proyecto. 
+Los datos guardados en el archivo tienen la siguiente estructura: 
+--Linea para indicar tipo de datos.
+--Datos a actualizar.
+
 
 
 ## AVISO: IMPORTANTE
-- En el ejercicio 4, para evitar realizar lecturas innecesarias a la base de datos y con ello el impacto sobre el rendimiento, hemos decidido que sea el usuario el que decida que hacer: Añadir un jugador nuevo a un equipo existente o cambiar de equipo a un jugador existente. 
+- En el ejercicio 4, para evitar lecturas innecesarias a la base de datos, hemos decidido que sea el usuario el que decida que hacer: Añadir un jugador nuevo a un equipo existente o cambiar de equipo a un jugador existente. 
 - El ejercicio número 8, de retirar el jugador, cuando le des que sí tienes que tener en cuenta que tarda unos 5 minutos. Toca tener paciencia.
 - En el ejercicio 1 tienes que poner el nombre del equipo, no el nombre de la franquicia. Es decir, hay que poner Celtics, no Boston Celtics.
 El motivo más importante es que en la historia de NBA se ha cambiado varias veces el nombre de la franquicia.
@@ -72,5 +71,5 @@ El motivo más importante es que en la historia de NBA se ha cambiado varias vec
   De hecho, en este trabajo mismo hay un ejercicio donde puedes cambiar el nombre de la franquicia. Lo que no cambia es
   el nombre del equipo (Celtics, Lakers, etc). Por lo tanto, no importa si se ha cambiado el nombre de la franquicia.
   Para asegurarnos que el jugador entienda que tiene que poner Celtics hemos puesto un mensaje indicando que tiene que poner Celtics, no Boston Celtics.
-- En el ejercicio 7 lo idea sería poner, además del jugador, en todos los equipos que ha jugado ese jugador y hacerle elegir al usuario
+- En el ejercicio 7 lo ideal sería poner, además del jugador, en todos los equipos que ha jugado ese jugador y hacerle elegir al usuario
     que equipo quiere poner. No obstante, como lo hacemos solo en la última temporada, entendemos que no hay traspasos por lo tanto ya coje el equipo automaticamente.

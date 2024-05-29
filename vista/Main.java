@@ -4,8 +4,6 @@ import controlador.*;
 import modelo.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
 public class Main {
@@ -95,6 +93,8 @@ public class Main {
 
         if (Validaciones.leerArchivo("actualizarDatos.txt")){
             System.out.println("Registros actualizados correctamente");
+        }else {
+            System.out.println("No se han podido actualizar todos los datos");
         }
     }
     private static void modificarEstadisticasJugador() {

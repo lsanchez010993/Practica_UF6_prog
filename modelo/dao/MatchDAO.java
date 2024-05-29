@@ -103,11 +103,10 @@ public class MatchDAO implements GenericDAO<Match, Integer> {
     @Override
     public boolean update(Match match) {
         String sqlUpdate = "UPDATE partits SET data_partit = ?, matx = ?, resultat = ? WHERE partit_id = ? AND equip_id = ?";
-        String sqlInsert = "INSERT INTO partits (partit_id, equip_id, data_partit, matx, resultat) VALUES (?, ?, ?, ?, ?)";
+
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmtUpdate = conn.prepareStatement(sqlUpdate);
-             PreparedStatement pstmtInsert = conn.prepareStatement(sqlInsert)) {
+             PreparedStatement pstmtUpdate = conn.prepareStatement(sqlUpdate)){
 
             pstmtUpdate.setDate(1, new java.sql.Date(match.getData_partit().getTime()));
             pstmtUpdate.setString(2, match.getMatx());
@@ -119,13 +118,7 @@ public class MatchDAO implements GenericDAO<Match, Integer> {
             if (affectedRows > 0) {
                 return true;
             }
-            pstmtInsert.setInt(1, match.getPartit_id());
-            pstmtInsert.setInt(2, match.getEquip_id());
-            pstmtInsert.setDate(3, new java.sql.Date(match.getData_partit().getTime()));
-            pstmtInsert.setString(4, match.getMatx());
-            pstmtInsert.setString(5, match.getResultat());
 
-            affectedRows = pstmtInsert.executeUpdate();
             return affectedRows > 0;
 
         } catch (SQLException e) {
