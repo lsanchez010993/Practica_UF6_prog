@@ -1,4 +1,5 @@
 # NBA Proyecto Creado por: Luís Sanchez y Alberto Morcillo
+# Ruta GitHub: https://github.com/lsanchez010993/Practica_UF6_prog.git
 
 ## Estructura de Carpetas
 
