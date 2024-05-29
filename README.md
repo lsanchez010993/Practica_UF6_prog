@@ -54,6 +54,13 @@ En la clase Player hemos tenido que hacer uso de dos constructores:
 1. El primero para leer los datos ya introducidos en la base de datos y mostrarlos.
 2. El segundo para validar los datos antes de insertarlos en la base de datos.
 
+## Actualizar datos desde fichero
+El ejercicio 6 lee los datos guardados en el fichero actualizarDatos. Dicho fichero se encuentra en la carpera actualizarDatos. 
+Los datos del archivo txt deben seguir la siguiente estructura:
+estadistiquesJugador
+Datos de estadistiques de jugador
+partits
+Datos de partits
 
 
 ## AVISO: IMPORTANTE

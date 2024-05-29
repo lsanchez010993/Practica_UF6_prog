@@ -2,7 +2,7 @@ package controlador;
 
 import modelo.Player;
 import vista.Main;
-import vista.Main2;
+
 
 import java.io.*;
 import java.text.ParseException;
@@ -12,14 +12,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import static vista.Main2.scan;
+
 
 public class Validaciones {
     public static PlayerStatsController playerStatsController = new PlayerStatsController();
     public static PlayerController playerController = new PlayerController();
     public static TeamController teamController = new TeamController();
     public static MatchController matchController = new MatchController();
-
+    public static Scanner scan = new Scanner(System.in);
     public static boolean isValidPlayerName(String playerName) {
         if (playerName == null || playerName.trim().isEmpty()) {
             return false;
@@ -183,42 +183,61 @@ public class Validaciones {
                 String linea;
                 while ((linea = reader.readLine()) != null) {
 
-                    if (linea.equals("jugador")) {
+                    if (linea.equals("estadistiquesJugador")) {
                         System.out.println("Actualizando datos de jugadores. Espera");
                         String valor = reader.readLine();
                         String[] estadisticasJugadores = valor.split(", ");
                         int[] valorInt = new int[estadisticasJugadores.length];
                         for (int i = 0; i < estadisticasJugadores.length; i++) {
-                            if (i == 2) continue;
-                            valorInt[i] = Integer.parseInt(estadisticasJugadores[i]);
+                            if (i != 2) {
+                                valorInt[i] = Integer.parseInt(estadisticasJugadores[i]);
+                                if (valorInt[i] < 0) {
+                                    System.out.println("Error: No se permiten valores negativos. Línea: " + valor);
+                                    return false;
+                                }
+                            }
                         }
-                        for (int i = 0; i < estadisticasJugadores.length; i++) {
-                            if (i == 2) continue;
-                            valorInt[i] = Integer.parseInt(estadisticasJugadores[i]);
+                        double minutosJugados = Double.parseDouble(estadisticasJugadores[2]);
+                        if (minutosJugados < 0) {
+                            System.out.println("Error: No se permiten valores negativos. Línea: " + valor);
+                            return false;
                         }
-                        playerStatsController.updatePlayerStats(
-                                valorInt[0], valorInt[1], Double.parseDouble(estadisticasJugadores[2]), valorInt[3], valorInt[4],
+                        boolean actualizado = playerStatsController.updatePlayerStats(
+                                valorInt[0], valorInt[1], minutosJugados, valorInt[3], valorInt[4],
                                 valorInt[5], valorInt[6], valorInt[7], valorInt[8], valorInt[9],
                                 valorInt[10], valorInt[11], valorInt[12], valorInt[13], valorInt[14]
                         );
-                    } else if (linea.equals("partit")) {
+                        if (!actualizado) {
+                            System.out.println("Error al actualizar estadísticas del jugador.");
+
+                        }
+                    } else if (linea.equals("partits")) {
                         System.out.println("Actualizando datos de partidos. Espera");
                         String valor = reader.readLine();
                         String[] estadisticasPartido = valor.split(", ");
-                        Date fechaNacimiento = parseDate(estadisticasPartido[2]);
-                        matchController.updateMatch(Integer.parseInt(estadisticasPartido[0]),
-                                Integer.parseInt(estadisticasPartido[1]), fechaNacimiento,
-                                estadisticasPartido[3], estadisticasPartido[4]);
+                        Date fechaPartido = parseDate(estadisticasPartido[2]);
+                        boolean actualizado = matchController.updateMatch(
+                                Integer.parseInt(estadisticasPartido[0]),
+                                Integer.parseInt(estadisticasPartido[1]),
+                                fechaPartido,
+                                estadisticasPartido[3],
+                                estadisticasPartido[4]
+                        );
+                        if (!actualizado) {
+                            System.out.println("Error al actualizar datos del partido.");
+                            return false;
+                        }
                     }
 
                 }
-            } else System.out.println("Archivo no encontrado");
-        } catch (IOException e) {
-
+            } else {
+                System.out.println("Archivo no encontrado");
+                return false;
+            }
+        } catch (IOException | NumberFormatException e) {
             System.out.println("Error al leer el archivo: " + e.getMessage());
             return false;
         } finally {
-            // Cierro los objetos de lectura en el bloque finally
             try {
                 if (reader != null) {
                     reader.close();

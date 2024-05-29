@@ -102,22 +102,38 @@ public class MatchDAO implements GenericDAO<Match, Integer> {
 
     @Override
     public boolean update(Match match) {
-        String sql = "UPDATE partits SET equip_id = ?, data_partit = ?, matx = ?, resultat = ? WHERE partit_id = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, match.getEquip_id());
-            pstmt.setDate(2, new java.sql.Date(match.getData_partit().getTime()));
-            pstmt.setString(3, match.getMatx());
-            pstmt.setString(4, match.getResultat());
-            pstmt.setInt(5, match.getPartit_id());
+        String sqlUpdate = "UPDATE partits SET data_partit = ?, matx = ?, resultat = ? WHERE partit_id = ? AND equip_id = ?";
+        String sqlInsert = "INSERT INTO partits (partit_id, equip_id, data_partit, matx, resultat) VALUES (?, ?, ?, ?, ?)";
 
-            int affectedRows = pstmt.executeUpdate();
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmtUpdate = conn.prepareStatement(sqlUpdate);
+             PreparedStatement pstmtInsert = conn.prepareStatement(sqlInsert)) {
+
+            pstmtUpdate.setDate(1, new java.sql.Date(match.getData_partit().getTime()));
+            pstmtUpdate.setString(2, match.getMatx());
+            pstmtUpdate.setString(3, match.getResultat());
+            pstmtUpdate.setInt(4, match.getPartit_id());
+            pstmtUpdate.setInt(5, match.getEquip_id());
+
+            int affectedRows = pstmtUpdate.executeUpdate();
+            if (affectedRows > 0) {
+                return true;
+            }
+            pstmtInsert.setInt(1, match.getPartit_id());
+            pstmtInsert.setInt(2, match.getEquip_id());
+            pstmtInsert.setDate(3, new java.sql.Date(match.getData_partit().getTime()));
+            pstmtInsert.setString(4, match.getMatx());
+            pstmtInsert.setString(5, match.getResultat());
+
+            affectedRows = pstmtInsert.executeUpdate();
             return affectedRows > 0;
+
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
+
 
     @Override
     public boolean delete(Integer partit_id) {
