@@ -35,7 +35,9 @@ Las clases se han diseñado de manera modular:
 
 ## ¿Por qué Usamos el HashMap para el Segundo Ejercicio?
 
-Hemos usado el `HashMap` para el segundo ejercicio porque es una estructura de datos que nos permite almacenar datos de una manera más eficiente y rápida. Al realizar una única consulta para obtener todos los nombres de los equipos y almacenarlos en un `Map`, reducimos drásticamente el número de accesos a la base de datos. Esto disminuye la carga en la base de datos y mejora el rendimiento general de la aplicación. Antes de usar el `HashMap`, tardaba 2 o más minutos en cargar los datos.
+Hemos usado el `HashMap` para el segundo ejercicio porque es una estructura de datos que nos permite almacenar datos de una manera más eficiente y rápida. 
+Al realizar una única consulta para obtener todos los nombres de los equipos y almacenarlos en un `Map`, reducimos drásticamente el número de accesos a la base de datos. 
+Esto disminuye la carga en la base de datos y mejora el rendimiento general de la aplicación. Antes de usar el `HashMap`, tardaba 2 o más minutos en cargar los datos.
 
 ## ¿Cómo Obtener los Datos de los Jugadores?
 
